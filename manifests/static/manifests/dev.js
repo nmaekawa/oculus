@@ -50,17 +50,6 @@ $(function() {
   };
 
 
-
-  $( "#print" ).submit(function( event ) {
-    //alert( "Handler for .submit() called." );
-    printPdf(event);
-    event.preventDefault();
-  });
-
-  $( "#pdssubmit" ).click(function() {
-    $( "#print" ).submit();
-  });
-
   Mirador({
     "id": "viewer",
     "layout": l.LAYOUT,
@@ -208,6 +197,15 @@ $(function() {
       }
     }
   };
+
+  $( "#print" ).submit(function(event) {
+    event.preventDefault();
+  });
+
+  $( "#pdssubmit" ).click(function() {
+    event.preventDefault();
+    printPdf(event);
+  });
 
   $(document).on('click', "#cite, #view-in-pds, #search, #print", present_choices);
 });
