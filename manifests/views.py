@@ -11,6 +11,8 @@ import json
 import urllib2
 import requests
 import webclient
+from logging import getLogger
+logger = getLogger(__name__)
 
 # Create your views here.
 
@@ -74,6 +76,7 @@ def view(request, view_type, document_id):
 
         #print source, id
         (success, response, real_id, real_source) = get_manifest(parts["id"], parts["source"], False, host, ams_cookie)
+
         if success:
             title = models.get_manifest_title(real_id, real_source)
             uri = "http://%s/manifests/%s:%s" % (host,real_source,real_id)
@@ -81,7 +84,7 @@ def view(request, view_type, document_id):
             manifests_json.append(json.dumps({ "manifestUri": uri,
                                                "location": "Harvard University",
                                                "title": title}))
-
+    logger.debug(response)
     if len(manifests) > 0:
         view_locals = {'manifests' : manifests,
                        'manifests_json': manifests_json,
