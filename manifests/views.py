@@ -81,10 +81,17 @@ def view(request, view_type, document_id):
             title = models.get_manifest_title(real_id, real_source)
             uri = "http://%s/manifests/%s:%s" % (host,real_source,real_id)
             manifests[uri] = title
-            manifests_json.append(json.dumps({ "manifestUri": uri,
-                                               "location": "Harvard University",
-                                               "title": title}))
-    logger.debug(response)
+            mfdata = { "manifestUri": uri,
+                       "location": "Harvard University",
+                       "title": title}
+            try:
+                if parts.get("seq") and 0 < int(parts["seq"]) < len(response["sequences"][0]["canvases"]):
+                    mfdata["canvasId"] = response["sequences"][0]["canvases"][int(parts["seq"])]["@id"]
+            except(ValueError):
+                pass
+
+            manifests_json.append(json.dumps(mfdata))
+
     if len(manifests) > 0:
         view_locals = {'manifests' : manifests,
                        'manifests_json': manifests_json,
