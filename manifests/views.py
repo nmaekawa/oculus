@@ -81,12 +81,13 @@ def view(request, view_type, document_id):
             title = models.get_manifest_title(real_id, real_source)
             uri = "http://%s/manifests/%s:%s" % (host,real_source,real_id)
             manifests[uri] = title
+            mfjson = json.loads(response)
             mfdata = { "manifestUri": uri,
                        "location": "Harvard University",
                        "title": title}
             try:
-                if parts.get("seq") and 0 < int(parts["seq"]) < len(response["sequences"][0]["canvases"]):
-                    mfdata["canvasId"] = response["sequences"][0]["canvases"][int(parts["seq"])]["@id"]
+                if parts.get("seq") and 0 < int(parts["seq"]) < len(mfjson["sequences"][0]["canvases"]):
+                    mfdata["canvasId"] = mfjson["sequences"][0]["canvases"][int(parts["seq"])]["@id"]
             except(ValueError):
                 pass
 
