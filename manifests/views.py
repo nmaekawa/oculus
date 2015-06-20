@@ -111,7 +111,6 @@ def view(request, view_type, document_id):
         view_locals = {'manifests_data' : manifests_data,
                        'manifests_wobjects': manifests_wobjects,
                        'num_manifests': len(manifests_data),
-                       'loadedUri': manifests_data[0]["uri"],
                        'pds_view_url': PDS_VIEW_URL,
                        'layout_string': layout_string(len(manifests_data)),
                    }
