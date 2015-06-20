@@ -101,7 +101,7 @@ def view(request, view_type, document_id):
             mfjson = json.loads(response)["sequences"][0]["canvases"]
             try:
                 if parts["seq"] and 0 < parts["seq"] < len(mfjson):
-                    mfwobject["canvasID"] = mfjson[parts["seq"]]["@id"]
+                    mfwobject["canvasID"] = mfjson[parts["seq"] - 1]["@id"]
             except(ValueError):
                 pass
 
