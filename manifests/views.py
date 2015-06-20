@@ -37,8 +37,8 @@ def index(request, source=None):
 # view any number of MODS, METS, or HUAM objects
 def view(request, view_type, document_id):
     doc_ids = filter(lambda x:x, document_id.split(';'))
-    manifests = {}
-    manifests_json = []
+    manifests_data = []
+    manifests_wobjects = []
     ams_cookie = None
 
     # Parse ID from URL
@@ -53,6 +53,11 @@ def view(request, view_type, document_id):
         if id_sep:
             m = re.match(r"(\d+)([ibs])?", raw[id_sep+1:])
             (p["seq"], p["view"]) = [x if x else None for x in m.groups()]
+            try:
+                p["seq"] = int(p["seq"])
+            except(ValueError):
+                p["seq"] = None
+
         # TODO: k:v pairs for now, planned structure is "|key=val,..."
         # TODO: validate id! Throw interesting errors!
         return p
@@ -80,26 +85,35 @@ def view(request, view_type, document_id):
         if success:
             title = models.get_manifest_title(real_id, real_source)
             uri = "http://%s/manifests/%s:%s" % (host,real_source,real_id)
-            manifests[uri] = title
-            mfjson = json.loads(response)
+
+            # Data - what gets loaded
             mfdata = { "manifestUri": uri,
                        "location": "Harvard University",
                        "title": title}
+
+            manifests_data.append(json.dumps(mfdata))
+
+            # Window objects - what gets displayed
+            mfwobject = {"loadedManifest": uri,
+                         "viewType": "ImageView" }
+
+            # Load manifest as JSON, get sequence info, use canvasID to page into object
+            mfjson = json.loads(response)["sequences"][0]["canvases"]
             try:
-                if parts.get("seq") and 0 < int(parts["seq"]) < len(mfjson["sequences"][0]["canvases"]):
-                    mfdata["canvasID"] = mfjson["sequences"][0]["canvases"][int(parts["seq"])]["@id"]
+                if parts["seq"] and 0 < parts["seq"] < len(mfjson):
+                    mfwobject["canvasID"] = mfjson[parts["seq"]]["@id"]
             except(ValueError):
                 pass
 
-            manifests_json.append(json.dumps(mfdata))
+            manifests_wobjects.append(json.dumps(mfwobject))
 
-    if len(manifests) > 0:
-        view_locals = {'manifests' : manifests,
-                       'manifests_json': manifests_json,
-                       'num_manifests': len(manifests),
-                       'loadedUri': manifests.keys()[0],
+    if len(manifests_data) > 0:
+        view_locals = {'manifests_data' : manifests_data,
+                       'manifests_wobjects': manifests_wobjects,
+                       'num_manifests': len(manifests_data),
+                       'loadedUri': manifests_data[0]["uri"],
                        'pds_view_url': PDS_VIEW_URL,
-                       'layout_string': layout_string(len(manifests)),
+                       'layout_string': layout_string(len(manifests_data)),
                    }
         # Check if its an experimental/dev Mirador codebase, otherwise use production
         if (view_type == "view-dev"):

@@ -97,14 +97,13 @@
      PDS_SEARCH_URL: "http://pdstest.hul.harvard.edu:9005/pds/find/",
      MIRADOR_DATA: [
        {% autoescape off %}
-       {{ manifests_json|join:"," }}
+       {{ manifests_data|join:"," }}
        {% endautoescape %}
      ],
      MIRADOR_WOBJECTS: [
-       {% for uri, title in manifests.items %}
-       { "loadedManifest": "{{ uri }}",
-         "viewType": "ImageView" },
-       {% endfor %}
+       {% autoescape off %}
+       {{ manifests_wobjects|join:"," }}
+       {% endautoescape %}
      ],
      LAYOUT: "{{ layout_sdiving }}"
    };
