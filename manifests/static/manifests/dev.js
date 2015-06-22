@@ -15,8 +15,7 @@ $(function() {
     var d_id = $("#drs_id").val();
     var url = l.PDS_PRINT_URL + d_id;
     var xmlhttp;
-    var focusType = window.currentFocus,
-        n = window.focusModules[focusType].currentImgIndex + 1;
+    var n = $("#n").val();
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
       xmlhttp=new XMLHttpRequest();
     }
