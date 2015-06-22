@@ -200,11 +200,12 @@ $(function() {
   };
 
   $( document ).ready(function() {
-      $( "#printpds" ).submit(function(event) {
+      $( "form#printpds" ).submit(function(event) {
+         console.log("pds submit form ");
          event.preventDefault();      
        });
 
-      $( "#pdssubmit" ).click(function(e) {
+      $( "input#pdssubmit" ).click(function() {
          event.preventDefault();
          console.log("pds submit form button clicked");
          printPDF(event);
