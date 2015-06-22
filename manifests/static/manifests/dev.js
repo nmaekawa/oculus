@@ -208,18 +208,5 @@ $(function() {
     }
   };
 
-  /*$( document ).ready(function() {
-      $( "form#printpds" ).submit(function(event) {
-         console.log("pds submit form ");
-         event.preventDefault();      
-       });
-
-      $( "input#pdssubmit" ).click(function() {
-         event.preventDefault();
-         console.log("pds submit form button clicked");
-         printPDF(event);
-      })
-   });*/
-
   $(document).on('click', "#cite, #view-in-pds, #search, #print", present_choices);
 });
