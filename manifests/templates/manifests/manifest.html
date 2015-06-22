@@ -5,164 +5,136 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <link rel="stylesheet" type="text/css" href="{% static 'manifests/prod/css/mirador-combined.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'manifests/prod.css' %}">
   <title>Harvard Mirador Viewer</title>
-  <style type="text/css">
-    body { padding: 0; margin: 0; overflow: hidden; font-size: 70%; }
-    #viewer { background: #333 url({% static 'manifests/prod/images/debut_dark.png' %}) left top repeat; width: 100%; height: 100%; position: fixed; }
-    .user-buttons li .fa {
-      color: #888;
-      font-size: 18px;
-      vertical-align: middle;
-    }
-    #harvard-bug {
-      background-image: url({% static 'manifests/prod/images/logos/harvard_header.jpg' %});
-      display: inline-block;
-      color: transparent;
-      text-indent: 9000px;
-      overflow: hidden;
-      height:33px;
-      padding: 0;
-      width: 234px;
-      margin-top: -8px;
-    }
-    #citation-modal p.header {
-      font-size: 115%;
-      font-weight: bold;
-    }
-    #citation-modal span.label {
-      font-weight: bold;
-    }
-    #citation-modal ul {
-      list-style: none inside none;
-    }
-    #citation-modal ul li {
-      margin-bottom: 0.5em;
-    }
-    #citation-modal p.header:after, #cite span.label:after {
-      content: ":";
-    }
-  </style>
 </head>
 <body>
   <div id="viewer"></div>
   <script src="{% static 'manifests/prod/mirador.js' %}"></script>
-  <script type="text/javascript">
-    $(function() {
-      var PDS_VIEW_URL = "{{ pds_view_url }}"
+  {% verbatim %}
+  <script id="citation-tmpl" type="text/x-handlebars-template">
+    <div title="citation">
+      <header>
+        <h3>Resource</h3>
+      </header>
+      <ul>
+        <li><span class="label plink">Persistent Link</span> <a href="{{{resource.urn}}}">{{resource.urn}}</a></li>
+        <li><span class="label desc">Description</span> {{{resource.description}}}</li>
+        <li><span class="label repo">Repository</span> {{{resource.repository}}}</li>
+        <li><span class="label inst">Institution</span> {{{resource.institution}}}</li>
+        <li><span class="label access">Accessed</span> {{{resource.accessed}}}</li>
+      </ul>
 
-      {% verbatim %}
-
-      var citationTmpl = Handlebars.compile([
-        '<div title="citation">',
-          '<p class="header">Resource</p>',
-          '<ul>',
-            '<li><span class="label plink">Persistent Link</span> <a href="{{{resource.urn}}}">{{resource.urn}}</a></li>',
-            '<li><span class="label desc">Description</span> {{resource.description}}</li>',
-            '<li><span class="label repo">Repository</span> {{resource.repository}}</li>',
-            '<li><span class="label inst">Institution</span> {{resource.institution}}</li>',
-            '<li><span class="label access">Accessed</span> {{resource.accessed}}</li>',
-          '</ul>',
-          '<p class="header">Page</p>',
-          '<ul>',
-            '<li><span class="label plink">Persistent Link</span> <a href="{{{resource.urn}}}">{{resource.urn}}</a></li>',
-            '<li><span class="label desc">Description</span> {{resource.description}}</li>',
-            '<li><span class="label page">Page</span> {{page.pagelabel}}</li>',
-            '<li><span class="label repo">Repository</span> {{resource.repository}}</li>',
-            '<li><span class="label inst">Institution</span> {{resource.institution}}</li>',
-            '<li><span class="label access">Accessed</span> {{resource.accessed}}</li>',
-          '</ul>',
-        '</div>'
-      ].join("\n"));
-
-      {% endverbatim %}
-
-      Mirador({
-        "id": "viewer",
-        "layout": "1x1",
-        "saveSession": false,
-        "mainMenuSettings" : {
-          "buttons": { bookmark: false},
-          "userButtons": [
-            {"label": "Help",
-             "iconClass": "fa fa-question-circle",
-             "attributes": { "id": "help", "href": "http://nrs.harvard.edu/urn-3:hul.ois:hlviewerhelp"}},
-            {"label": "View in PDS",
-             "iconClass": "fa fa-external-link",
-             "attributes": { "id": "view-in-pds", "href": "#no-op"}}
-             ],
-    	    "userLogo": {
-            "label": "Harvard Library",
-            "attributes": { "id": "harvard-bug", "href": "http://lib.harvard.edu"}}
-        },
-
-        "data": [
-          {% autoescape off %}
-            {{ manifests_json|join:"," }}
-          {% endautoescape %}
-        ],
-        {% if num_manifests <= 2 and num_manifests > 0 %}
-          "windowObjects":[
-            {% for uri, title in manifests.items %}
-              { "loadedManifest": "{{ uri }}",
-                "viewType": "ImageView" },
-            {% endfor %}
-          ],
-        {% endif %}
-        "defaultWindowSettings": {
-          "annotationLayer": false
-        }
-      });
-
-      $(document).on('click', '#view-in-pds', function (e) {
-        e.preventDefault();
-        var parts = window.location.pathname.split("/");
-        var last_idx = parts.length - 1;
-        var drs_match = parts[last_idx].match(/drs:(\d+)/);
-        var mWindow = Mirador.viewer.workspace.slots[0].window;
-        var focusType = mWindow.currentFocus;
-        var n = mWindow.focusModules[focusType].currentImgIndex + 1;
-
-        if (drs_match && drs_match[1]){
-          window.open(PDS_VIEW_URL + drs_match[1] + "?n=" + n);
-        }
-      });
-
-      $(document).on('click', '#cite', function (e) {
-        e.preventDefault();
-        var parts = window.location.pathname.split("/");
-        var last_idx = parts.length - 1;
-        var drs_match = parts[last_idx].match(/drs:(\d+)/);
-        var mWindow = Mirador.viewer.workspace.slots[0].window;
-        var focusType = mWindow.currentFocus;
-        var n = mWindow.focusModules[focusType].currentImgIndex + 1;
-
-        var $dialog = $('#citation-modal');
-
-        if ($dialog.get().length > 0) {
-          $dialog.dialog('close');
-        }
-        else if (drs_match && drs_match[1]) {
-          $dialog = $('<div id="citation-modal" style="display:none" />')
-          $.getJSON('//pdstest.lib.harvard.edu:9005/pds/cite/' + drs_match[1] + '?callback=?', {'n':n})
-            .done(function (data) {
-              if (data.citation) {
-                $dialog.html(citationTmpl(data.citation));
-                $dialog.appendTo('body');
-                $dialog.dialog({modal: true,
-                                draggable: false,
-                                resizable: false,
-                                width: "90%",
-                                classes: "qtip-bootstrap",
-                                title: "Citation",
-                                close: function (e,ui) {
-                                  $dialog.remove();},
-
-                               }).dialog('open');
-              }
-            });
-        }
-      });
-    });
+      <header>
+        <h3>Page</h3>
+      </header>
+      <ul>
+        <li><span class="label plink">Persistent Link</span> <a href="{{{resource.urn}}}">{{resource.urn}}</a></li>
+        <li><span class="label desc">Description</span> {{{resource.description}}}</li>
+        <li><span class="label page">Page</span> {{{page.pagelabel}}}</li>
+        <li><span class="label repo">Repository</span> {{{resource.repository}}}</li>
+        <li><span class="label inst">Institution</span> {{{resource.institution}}}</li>
+        <li><span class="label access">Accessed</span> {{{resource.accessed}}}</li>
+      </ul>
+    </div>
   </script>
+
+  <script id="search-tmpl" type="text/x-handlebars-template">
+    <div title="search">
+      <form id="search">
+        <input name="searchbox" id="searchbox"  size="80"/>
+      </form>
+
+      <div id="searchresults" style="display:none" />
+    </div>
+  </script>
+
+  <script id="choices-tmpl" type="text/x-handlebars-template">
+    <div title="Choices" class="choices {{ op }}">
+      <header><h2>Displayed Manifests</h2></header>
+      <ul>
+        {{#each choices}}
+        <li><a class="manifest" data-drs-id="{{ drs_id }}" data-n="{{ n }}" href="#no-op">{{ label }}</a></li>
+        {{/each}}
+      </ul>
+    </div>
+  </script>
+
+  <script id="print-tmpl" type="text/x-handlebars-template">
+    <div title="Print" class="print {{ op }}">
+      <p class="header">Print Manifest</p>
+
+
+      <table width="100%" border="0" cellspacing="15">
+        <tr valign="top">
+          <td width="30%">
+            <strong>Convert to PDF</strong> creates a PDF file for the selected pages.
+            You can print the PDF or save it to disk.
+            <p>
+              This service creates PDFs at 10 pages-per-minute.
+              Requests larger than 500 pages can take an hour or more to process.
+              <p>
+                The link to your PDF will remain active for 7 days.
+
+          </td><td>
+            <form name="print" action="/pds/print/732241">
+              <input type="hidden" name="n" value="{{ n }}"/>
+              <input type="hidden" name="id" value="{{ drs_id }}"/>
+              <table width="100%" border="0"  cellpadding="6" cellspacing="0">
+                <tr>
+                  <td align="left">
+                    <div class="textsmallred"><small>Requests for 10 pages or less will be delivered to your browser immediately. For larger requests, please enter an email address and a link to the PDF will be delivered by email.
+                      <p>
+                        <u>Firefox users</u>: To open large PDFs, go to Tools &gt; Options &gt; Applications and set Firefox to open Adobe Documents in Adobe Acrobat (not in "Adobe Acrobat in Firefox").
+
+
+                        <small></div><hr/>
+                  </td></tr>
+                <tr> <td>
+                  <input type="radio" name="printOpt" value="current" checked />Convert current page
+                </td></tr>
+                <tr><td >
+                  <input type="radio" name="printOpt" value="range"  />Convert page sequence
+                  <input type="text" name="start" size="6" onclick="javascript:document.print.printOpt[1].checked=true;" value="" /> to
+                  <input type="text" name="end" size="6" onclick="javascript:document.print.printOpt[1].checked=true;" value=""/>
+                </td></tr>
+                <tr><td >
+                  <input type="radio" name="printOpt" value="all"  />Convert entire document
+                </td></tr>
+                <tr><td>
+                  Email address: <input type="text" name="email" size="32" onclick="" value=""/>
+                </td></tr>
+
+              </table>
+              <br/>
+              <table border="0" width="100%" align="center"><tr align="right"><td>
+                <div>
+                  <input type="submit"  class="buttonhighlightred" value="   Convert   "  onclick="" name="pdssubmit"/>
+                </div></td></tr></table></form></td></tr></table>
+
+
+
+    </div>
+  </script>
+  {% endverbatim %}
+  <script type="text/javascript">
+   window.harvard_md_server = {
+     PDS_VIEW_URL: "{{ pds_view_url }}",
+     PDS_PRINT_URL: "http://pdstest.hul.harvard.edu/pds/printpdf/",
+     PDS_SEARCH_URL: "http://pdstest.hul.harvard.edu/pds/find/",
+     MIRADOR_DATA: [
+       {% autoescape off %}
+       {{ manifests_data|join:"," }}
+       {% endautoescape %}
+     ],
+     MIRADOR_WOBJECTS: [
+       {% autoescape off %}
+       {{ manifests_wobjects|join:"," }}
+       {% endautoescape %}
+     ],
+     LAYOUT: "{{ layout_string }}"
+   };
+  </script>
+  <script type="text/javascript" src="{% static 'manifests/prod.js' %}"></script>
 </body>
 </html>

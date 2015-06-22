@@ -40,6 +40,11 @@ def view(request, view_type, document_id):
     manifests_data = []
     manifests_wobjects = []
     ams_cookie = None
+    view_mapping = {"i": "ImageView",
+                    "t": "ThumbnailsView",
+                    "s": "ScrollView",
+                    "b": "BookView",
+                    None: "ImageView"}
 
     # Parse ID from URL
     def parse_id(raw):
@@ -58,8 +63,9 @@ def view(request, view_type, document_id):
             except(ValueError):
                 p["seq"] = None
         else:
-            p["seq"] = None
+            p["seq"] = p["view"] = None
 
+        p["view"] = view_mapping[p["view"]]
         # TODO: k:v pairs for now, planned structure is "|key=val,..."
         # TODO: validate id! Throw interesting errors!
         return p
@@ -97,7 +103,7 @@ def view(request, view_type, document_id):
 
             # Window objects - what gets displayed
             mfwobject = {"loadedManifest": uri,
-                         "viewType": "ImageView" }
+                         "viewType": parts["view"] }
 
             # Load manifest as JSON, get sequence info, use canvasID to page into object
             mfjson = json.loads(response)["sequences"][0]["canvases"]
