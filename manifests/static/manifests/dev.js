@@ -22,7 +22,7 @@ $(function() {
   var printPDF = function(e){
     e.preventDefault();
     var d_id = $("#drs_id").val();
-    var url = l.PDS_PRINT_URL + d_id;
+    var url = l.PDS_WS_URL + "printpdf/" + d_id;
     var xmlhttp;
     var n = $("#n").val();
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
