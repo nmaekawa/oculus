@@ -57,6 +57,8 @@ def view(request, view_type, document_id):
                 p["seq"] = int(p["seq"])
             except(ValueError):
                 p["seq"] = None
+        else:
+            p["seq"] = None
 
         # TODO: k:v pairs for now, planned structure is "|key=val,..."
         # TODO: validate id! Throw interesting errors!
