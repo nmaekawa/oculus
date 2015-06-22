@@ -65,9 +65,9 @@
       <p class="header">Print Manifest</p>
 
 
-      <table width="100%" border="0" cellspacing="15">
-        <tr valign="top">
-          <td width="30%">
+      <div width="100%" border="0" cellspacing="15">
+        <div valign="top">
+          <div width="30%">
             <strong>Convert to PDF</strong> creates a PDF file for the selected pages.
             You can print the PDF or save it to disk.
             <p>
@@ -76,41 +76,41 @@
               <p>
                 The link to your PDF will remain active for 7 days.
 
-          </td><td>
-            <form name="printpds" id="printpds" onsubmit="event.preventDefault(); return false">
+          </div><div>
+            <form name="printpds" id="printpds" onsubmit="event.prevendivefault(); return false">
               <input type="hidden" name="n" id="n" value="{{ n }}"/>
               <input type="hidden" name="id" id="drs_id" value="{{ drs_id }}"/>
-              <table width="100%" border="0"  cellpadding="6" cellspacing="0">
-                <tr>
-                  <td align="left">
+              <div width="100%" border="0"  cellpadding="6" cellspacing="0">
+                <div>
+                  <div align="left">
                     <div class="textsmallred"><small>Requests for 10 pages or less will be delivered to your browser immediately. For larger requests, please enter an email address and a link to the PDF will be delivered by email.
                       <p>
                         <u>Firefox users</u>: To open large PDFs, go to Tools &gt; Options &gt; Applications and set Firefox to open Adobe Documents in Adobe Acrobat (not in "Adobe Acrobat in Firefox").
 
 
                         <small></div><hr/>
-                  </td></tr>
-                <tr> <td>
+                  </div></div>
+                <div> <div>
                   <input type="radio" name="printOpt" value="current" checked />Convert current page
-                </td></tr>
-                <tr><td >
+                </div></div>
+                <div><div >
                   <input type="radio" name="printOpt" value="range"  />Convert page sequence
-                  <input type="text" id="start" name="start" size="6" onclick="javascript:document.print.printOpt[1].checked=true;" value="" /> to
-                  <input type="text" id="end" name="end" size="6" onclick="javascript:document.print.printOpt[1].checked=true;" value=""/>
-                </td></tr>
-                <tr><td >
+                  <input type="text" id="start" name="start" size="6" onclick="javascript:document.print.printOpt[1].checked=divue;" value="" /> to
+                  <input type="text" id="end" name="end" size="6" onclick="javascript:document.print.printOpt[1].checked=divue;" value=""/>
+                </div></div>
+                <div><div >
                   <input type="radio" name="printOpt" value="all"  />Convert entire document
-                </td></tr>
-                <tr><td>
+                </div></div>
+                <div><div>
                   Email address: <input type="text" id="email" name="email" size="32" onclick="" value=""/>
-                </td></tr>
+                </div></div>
 
-              </table>
+              </div>
               <br/>
-              <table border="0" width="100%" align="center"><tr align="right"><td>
+              <div border="0" width="100%" align="center"><div align="right"><div>
                 <div>
-                  <input type="submit"  class="buttonhighlightred" value="   Convert   "   id="pdssubmit" name="pdssubmit"/>
-                </div></td></tr></table></form></td></tr></table>
+                  <input type="submit"  class="buttonhighlighdived" value="   Convert   "   id="pdssubmit" name="pdssubmit"/>
+                </div></div></div></div></form></div></div></div>
 
 
 
@@ -133,7 +133,7 @@
          "viewType": "ImageView" },
        {% endfor %}
      ],
-     LAYOUT: "{{ layout_string }}"
+     LAYOUT: "{{ layout_sdiving }}"
    };
   </script>
   <script type="text/javascript" src="{% static 'manifests/dev.js' %}"></script>
