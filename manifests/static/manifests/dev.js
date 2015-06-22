@@ -12,7 +12,7 @@ $(function() {
 
   var printPDF = function(e){
     e.preventDefault();
-    /*var d_id = $("#drs_id").val();
+    var d_id = $("#drs_id").val();
     var url = l.PDS_PRINT_URL + d_id;
     var xmlhttp;
     var n = $("#n").val();
@@ -40,7 +40,7 @@ $(function() {
         '&end=' + end + '&email=' + email;
       xmlhttp.open('GET',url,true);
       xmlhttp.send();
-    }*/
+    }
     $('#print-modal').dialog('close');
   };
 
