@@ -198,16 +198,18 @@ $(function() {
     }
   };
 
-  $( "form#printpds" ).submit(function(event) {
-    event.preventDefault();
-    console.log("pds submit form jq called")
-  });
+  $(document).ready(function() { 
+      $( "form#printpds" ).submit(function(event) {
+         event.preventDefault();
+         console.log("pds submit form jq called");
+       });
 
-  $( "input#pdssubmit" ).click(function() {
-    event.preventDefault();
-    console.log("pds submit form button clicked");
-    printPDF(event);
-  });
+      $( "input#pdssubmit" ).click(function() {
+         event.preventDefault();
+         console.log("pds submit form button clicked");
+         printPDF(event);
+      });
+   });
 
   $(document).on('click', "#cite, #view-in-pds, #search, #print", present_choices);
 });
