@@ -199,19 +199,17 @@ $(function() {
     }
   };
 
-  $(document).on('click','#pdssubmit', printPDF);
-
-      /*$( "form#printpds" ).submit(function(event) {
-         event.preventDefault();
-        
+  $( document ).ready(function() {
+      $( "#printpds" ).submit(function(event) {
+         event.preventDefault();      
        });
 
-      $( "input#pdssubmit" ).click(function() {
+      $( "#pdssubmit" ).click(function(e) {
          event.preventDefault();
          console.log("pds submit form button clicked");
          printPDF(event);
-      });*/
-   
+      })
+   });
 
   $(document).on('click', "#cite, #view-in-pds, #search, #print", present_choices);
 });
