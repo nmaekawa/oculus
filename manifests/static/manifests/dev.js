@@ -198,7 +198,7 @@ $(function() {
     }
   };
 
-  $( "#print" ).submit(function(event) {
+  $( "#printpds" ).submit(function(event) {
     event.preventDefault();
   });
 
