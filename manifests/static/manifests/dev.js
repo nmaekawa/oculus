@@ -195,12 +195,12 @@ $(function() {
                         title: "Print Manifest",
                         close: function (e) { $(this).remove()}
                        }).dialog('open');
-        $( "form#printpds" ).submit(function() {
+        $( "form#printpds" ).submit(function(e) {
          console.log("pds submit form ");
-         event.preventDefault();      
+         e.preventDefault();      
         });
         $( "input#pdssubmit" ).click(function() {
-         event.preventDefault();
+         e.preventDefault();
          console.log("pds submit form button clicked");
          printPDF(event);
         });
