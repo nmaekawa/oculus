@@ -77,7 +77,7 @@
                 The link to your PDF will remain active for 7 days.
 
           </div><div>
-            <form name="printpds" id="printpds" onsubmit="event.prevendivefault(); return false">
+            <form name="printpds" id="printpds" onsubmit="event.preventDefault(); return false">
               <input type="hidden" name="n" id="n" value="{{ n }}"/>
               <input type="hidden" name="id" id="drs_id" value="{{ drs_id }}"/>
               <div width="100%" border="0"  cellpadding="6" cellspacing="0">
@@ -95,8 +95,8 @@
                 </div></div>
                 <div><div >
                   <input type="radio" name="printOpt" value="range"  />Convert page sequence
-                  <input type="text" id="start" name="start" size="6" onclick="javascript:document.print.printOpt[1].checked=divue;" value="" /> to
-                  <input type="text" id="end" name="end" size="6" onclick="javascript:document.print.printOpt[1].checked=divue;" value=""/>
+                  <input type="text" id="start" name="start" size="6" onclick="javascript:document.print.printOpt[1].checked=true;" value="" /> to
+                  <input type="text" id="end" name="end" size="6" onclick="javascript:document.print.printOpt[1].checked=true;" value=""/>
                 </div></div>
                 <div><div >
                   <input type="radio" name="printOpt" value="all"  />Convert entire document
@@ -109,7 +109,7 @@
               <br/>
               <div border="0" width="100%" align="center"><div align="right"><div>
                 <div>
-                  <input type="submit"  class="buttonhighlighdived" value="   Convert   "   id="pdssubmit" name="pdssubmit"/>
+                  <input type="submit"  class="buttonhighlightred" value="   Convert   "   id="pdssubmit" name="pdssubmit"/>
                 </div></div></div></div></form></div></div></div>
 
 
