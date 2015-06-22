@@ -120,8 +120,8 @@
   <script type="text/javascript">
    window.harvard_md_server = {
      PDS_VIEW_URL: "{{ pds_view_url }}",
-     PDS_PRINT_URL: "http://pdstest.hul.harvard.edu/pds/printpdf/",
-     PDS_SEARCH_URL: "http://pdstest.hul.harvard.edu/pds/find/",
+     PDS_PRINT_URL: "http://pdstest.hul.harvard.edu:9005/pds/printpdf/",
+     PDS_SEARCH_URL: "http://pdstest.hul.harvard.edu:9005/pds/find/",
      MIRADOR_DATA: [
        {% autoescape off %}
        {{ manifests_json|join:"," }}
