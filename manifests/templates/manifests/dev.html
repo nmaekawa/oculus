@@ -65,11 +65,11 @@
       <h2>Convert to PDF for Printing</h2>
        <div>
         <p>Convert selected pages to PDF so that you can print or save the file to disk.  The service creates PDFs at 10 pages&ndash;per&ndash;minute.  Requests larger than 500 pages can take an hour or more to process.  The link to your PDF will remain active for 7 days.</p>
-        
+
         <p style="color: #A51C30; font-weight: bold;">Requests for 10 pages or less will be delivered to your browser immediately. For larger requests, please enter an email address and a link to the PDF will be delivered by email.</p>
         <p><span style="font-weight: bold;">Firefox users:</span> To open large PDFs, go to Tools &gt; Options &gt; Applications and set Firefox to open Adobe Documents in Adobe Acrobat (not in "Adobe Acrobat in Firefox").</p>
        </div>
-       
+
        <div style="border: 1px #999 solid; background-color: #CCC; line-height: 200%; margin: 10px; padding: 20px;">
          <form name="printpds" id="printpds" onsubmit="event.preventDefault(); return false">
          <input type="hidden" name="n" id="n" value="{{ n }}"/>
@@ -80,14 +80,14 @@
          <input type="text" id="end" name="end" size="6" onclick="javascript:document.print.printOpt[1].checked=true;" value=""/><br />
          <input type="radio" name="printOpt" value="all"  />Convert entire document<br />
          Email address: <input type="text" id="email" name="email" size="50" onclick="" value=""/><br />
-        
+
           <div style="margin-right: 10px; margin-top: 5px;">
             <input type="button"  value="Cancel" onclick="window.close()" name="button" />
             <input type="submit"  value="Convert"   id="pdssubmit" name="pdssubmit"/>
           </div>
          </form>
        </div>
-     </div>  
+     </div>
   </script>
   {% endverbatim %}
   <script type="text/javascript">
@@ -97,14 +97,13 @@
      PDS_SEARCH_URL: "http://pdstest.hul.harvard.edu:9005/pds/find/",
      MIRADOR_DATA: [
        {% autoescape off %}
-       {{ manifests_json|join:"," }}
+       {{ manifests_data|join:"," }}
        {% endautoescape %}
      ],
      MIRADOR_WOBJECTS: [
-       {% for uri, title in manifests.items %}
-       { "loadedManifest": "{{ uri }}",
-         "viewType": "ImageView" },
-       {% endfor %}
+       {% autoescape off %}
+       {{ manifests_wobjects|join:"," }}
+       {% endautoescape %}
      ],
      LAYOUT: "{{ layout_string }}"
    };
