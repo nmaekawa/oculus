@@ -30,15 +30,11 @@ $(function() {
     if (printMode === "current") {
       url = url + '?n=' + n +'&printOpt=single';
       window.open(url,'');
-      $dialog.close();
-
     } else if (printMode === "range") {
       url = url + '&printOpt=range' + '&start=' + start +
         '&end=' + end + '&email=' + email;
       xmlhttp.open('GET',url,true);
       xmlhttp.send();
-      $dialog.close();
-
     } else  { //all
       url = url + '&printOpt=range' + '&start=' + start +
         '&end=' + end + '&email=' + email;
