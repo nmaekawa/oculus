@@ -2,6 +2,15 @@ $(function() {
   // Localize & shorthand django vars
   var l = window.harvard_md_server;
 
+  var dialogBaseOpts = {
+    modal: true,
+    draggable: false,
+    resizable: false,
+    width: "90%",
+    classes: "qtip-bootstrap",
+    close: function (e) { $(this).remove()}
+  };
+
   // Compile Handlebars templates into t
   var t = {};
   $('script[type="text/x-handlebars-template"]').each(function () {
@@ -81,16 +90,16 @@ $(function() {
   var present_choices = function (e) {
     e.preventDefault();
     var op = e.currentTarget.id;
-    var choices = $.map(Mirador.viewer.workspace.windows, function (window, i) {
-      var uri = window.manifest.uri,
+    var choices = $.map(Mirador.viewer.workspace.windows, function (mirWindow, i) {
+      var uri = mirWindow.manifest.uri,
           parts = uri.split("/"),
           last_idx = parts.length - 1,
           drs_match = parts[last_idx].match(/drs:(\d+)/),
           drs_id = drs_match && drs_match[1],
-          focusType = window.currentFocus,
-          n = window.focusModules[focusType].currentImgIndex + 1;
+          focusType = mirWindow.currentFocus,
+          n = mirWindow.focusModules[focusType].currentImgIndex + 1;
       if (drs_match) {
-        return {"label": window.manifest.jsonLd.label, "drs_id": drs_id, "uri": window.manifest.uri, "n": n};
+        return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id, "uri": mirWindow.manifest.uri, "n": n};
       }
       // else omit manifest because we don't know how to cite/view it
     });
@@ -106,14 +115,7 @@ $(function() {
         $dialog = $('<div id="choice-modal" style="display:none" />');
         $dialog.html(t['choices-tmpl']({choices: choices, op: op}));
         $dialog.appendTo('body');
-        $dialog.dialog({modal: true,
-                        draggable: false,
-                        resizable: false,
-                        width: "90%",
-                        classes: "qtip-bootstrap",
-                        title: "Citation",
-                        close: function (e) { $(this).remove()}
-                       }).dialog('open');
+        $dialog.dialog($.extend({title: "Citation"}, dialogBaseOpts)).dialog('open');
         $dialog.find('a').on('click', function (e) {
           e.preventDefault();
           $dialog.dialog('close');
@@ -139,14 +141,9 @@ $(function() {
             if (data.citation) {
               $dialog.html(t['citation-tmpl'](data.citation));
               $dialog.appendTo('body');
-              $dialog.dialog({modal: true,
-                              draggable: false,
-                              resizable: false,
-                              width: "90%",
-                              classes: "qtip-bootstrap",
-                              title: "Citation",
-                              close: function (e) { $(this).remove()}
-                             }).dialog('open');
+              $dialog
+                .dialog($.extend({title: "Citation"}, dialogBaseOpts))
+                .dialog('open');
             } //TODO: Else graceful error display
           });
       }
@@ -160,14 +157,9 @@ $(function() {
       else {
         $dialog = $('<div id="search-modal" style="display:none" />');
         $dialog.html(t['search-tmpl'](content));
-        $dialog.dialog({modal: true,
-                        draggable: false,
-                        resizable: false,
-                        width: "90%",
-                        classes: "qtip-bootstrap",
-                        title: "Search Manifest",
-                        close: function (e) { $(this).remove()}
-                       }).dialog('open');
+        $dialog
+          .dialog($.extend({title: "Search Manifest"}, dialogBaseOpts))
+          .dialog('open');
       }
     },
     "print": function(drs_id, n) {
@@ -181,14 +173,10 @@ $(function() {
       else {
         $dialog = $('<div id="print-modal" style="display:none" />');
         $dialog.html(t['print-tmpl'](content));
-        $dialog.dialog({modal: true,
-                        draggable: false,
-                        resizable: false,
-                        width: "90%",
-                        classes: "qtip-bootstrap",
-                        title: "Print Manifest",
-                        close: function (e) { $(this).remove()}
-                       }).dialog('open');
+        $dialog
+          .dialog($.extend({title: "Print Manifest"}, dialogBaseOpts))
+          .dialog('open');
+
         $( "input#pdssubmit" ).click(function(e) {
          e.preventDefault();
          printPDF(e);
