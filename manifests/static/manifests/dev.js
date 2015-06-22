@@ -22,7 +22,6 @@ $(function() {
     else {// code for IE6, IE5
       xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
     }
-    var $dialog = $('#print-tmpl');
 
     var printMode = $("#printOpt").val();
     var email = $("#email").val();
@@ -45,8 +44,8 @@ $(function() {
         '&end=' + end + '&email=' + email;
       xmlhttp.open('GET',url,true);
       xmlhttp.send();
-      $dialog.close();
     }
+    $('#print-modal').dialog('close');
   };
 
 
