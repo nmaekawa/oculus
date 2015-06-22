@@ -204,6 +204,7 @@ $(function() {
          console.log("pds submit form button clicked");
          printPDF(event);
         });
+      }
     }
   };
 
