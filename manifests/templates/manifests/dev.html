@@ -61,60 +61,30 @@
   </script>
 
   <script id="print-tmpl" type="text/x-handlebars-template">
-    <div title="Print" class="print {{ op }}">
-      <p class="header">Print Manifest</p>
-
-
-      <div width="100%" border="0" cellspacing="15">
-        <div valign="top">
-          <div width="30%">
-            <strong>Convert to PDF</strong> creates a PDF file for the selected pages.
-            You can print the PDF or save it to disk.
-            <p>
-              This service creates PDFs at 10 pages-per-minute.
-              Requests larger than 500 pages can take an hour or more to process.
-              <p>
-                The link to your PDF will remain active for 7 days.
-
-          </div><div>
-            <form name="printpds" id="printpds" onsubmit="event.preventDefault(); return false">
-              <input type="hidden" name="n" id="n" value="{{ n }}"/>
-              <input type="hidden" name="id" id="drs_id" value="{{ drs_id }}"/>
-              <div width="100%" border="0"  cellpadding="6" cellspacing="0">
-                <div>
-                  <div align="left">
-                    <div class="textsmallred"><small>Requests for 10 pages or less will be delivered to your browser immediately. For larger requests, please enter an email address and a link to the PDF will be delivered by email.
-                      <p>
-                        <u>Firefox users</u>: To open large PDFs, go to Tools &gt; Options &gt; Applications and set Firefox to open Adobe Documents in Adobe Acrobat (not in "Adobe Acrobat in Firefox").
-
-
-                        <small></div><hr/>
-                  </div></div>
-                <div> <div>
-                  <input type="radio" name="printOpt" value="current" checked />Convert current page
-                </div></div>
-                <div><div >
-                  <input type="radio" name="printOpt" value="range"  />Convert page sequence
-                  <input type="text" id="start" name="start" size="6" onclick="javascript:document.print.printOpt[1].checked=true;" value="" /> to
-                  <input type="text" id="end" name="end" size="6" onclick="javascript:document.print.printOpt[1].checked=true;" value=""/>
-                </div></div>
-                <div><div >
-                  <input type="radio" name="printOpt" value="all"  />Convert entire document
-                </div></div>
-                <div><div>
-                  Email address: <input type="text" id="email" name="email" size="32" onclick="" value=""/>
-                </div></div>
-
-              </div>
-              <br/>
-              <div border="0" width="100%" align="center"><div align="right"><div>
-                <div>
-                  <input type="submit"  class="buttonhighlightred" value="   Convert   "   id="pdssubmit" name="pdssubmit"/>
-                </div></div></div></div></form></div></div></div>
-
-
-
-    </div>
+     <div title="Print" class="print {{ op }}" style="margin: 10px; padding: 5px;">
+      <h2>Convert to PDF for Printing</h2>
+        <p>Convert selected pages to PDF so that you can print or save the file to disk.  The service creates PDFs at 10 pages&ndash;per&ndash;minute.  Requests larger than 500 pages can take an hour or more to process.  The link to your PDF will remain active for 7 days.</p>
+        <form name="printpds" id="printpds" onsubmit="event.preventDefault(); return false">
+        <input type="hidden" name="n" id="n" value="{{ n }}"/>
+        <input type="hidden" name="id" id="drs_id" value="{{ drs_id }}"/>
+        <p style="color: #A51C30; font-weight: bold;">Requests for 10 pages or less will be delivered to your browser immediately. For larger requests, please enter an email address and a link to the PDF will be delivered by email.</p>
+        <p><span style="font-weight: bold;">Firefox users:</span> To open large PDFs, go to Tools &gt; Options &gt; Applications and set Firefox to open Adobe Documents in Adobe Acrobat (not in "Adobe Acrobat in Firefox").</p>
+       </div>
+       
+       <div style="border: 1px #999 solid; background-color: #CCC; line-height: 200%; margin: 10px; padding: 20px;">
+         <input type="radio" name="printOpt" value="current" checked />Convert current page<br />
+         <input type="radio" name="printOpt" value="range"  />Convert page sequence
+         <input type="text" id="start" name="start" size="6" onclick="javascript:document.print.printOpt[1].checked=true;" value="" /> to
+         <input type="text" id="end" name="end" size="6" onclick="javascript:document.print.printOpt[1].checked=true;" value=""/><br />
+         <input type="radio" name="printOpt" value="all"  />Convert entire document<br />
+         Email address: <input type="text" id="email" name="email" size="50" onclick="" value=""/><br />
+        
+        <div style="margin-right: 10px; margin-top: 5px;">
+          <input type="button"  value="Cancel" onclick="window.close()" name="button" />
+          <input type="submit"  value="Convert"   id="pdssubmit" name="pdssubmit"/>
+         </form>
+       </div>
+     </div></div>
   </script>
   {% endverbatim %}
   <script type="text/javascript">
