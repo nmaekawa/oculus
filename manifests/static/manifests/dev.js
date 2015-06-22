@@ -198,12 +198,12 @@ $(function() {
     }
   };
 
-  $( "#printpds" ).submit(function(event) {
+  $( "form#printpds" ).submit(function(event) {
     event.preventDefault();
     console.log("pds submit form jq called")
   });
 
-  $( "#pdssubmit" ).click(function() {
+  $( "input#pdssubmit" ).click(function() {
     event.preventDefault();
     console.log("pds submit form button clicked");
     printPDF(event);
