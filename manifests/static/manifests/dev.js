@@ -203,7 +203,7 @@ $(function() {
          event.preventDefault();
          console.log("pds submit form button clicked");
          printPDF(event);
-        }
+        });
     }
   };
 
