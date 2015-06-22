@@ -202,7 +202,7 @@ $(function() {
         $( "input#pdssubmit" ).click(function(e) {
          e.preventDefault();
          console.log("pds submit form button clicked");
-         printPDF(event);
+         printPDF(e);
         });
       }
     }
