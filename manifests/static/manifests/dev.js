@@ -10,7 +10,8 @@ $(function() {
 
   //print form
 
-  var printPDF = function(){
+  var printPDF = function(e){
+    e.preventDefault();
     var d_id = $("#drs_id").val();
     var url = l.PDS_PRINT_URL + d_id;
     var xmlhttp;
@@ -198,18 +199,19 @@ $(function() {
     }
   };
 
-  $(document).ready(function() { 
-      $( "form#printpds" ).submit(function(event) {
+  $(document).on('click','#pdssubmit', printPDF);
+
+      /*$( "form#printpds" ).submit(function(event) {
          event.preventDefault();
-         console.log("pds submit form jq called");
+        
        });
 
       $( "input#pdssubmit" ).click(function() {
          event.preventDefault();
          console.log("pds submit form button clicked");
          printPDF(event);
-      });
-   });
+      });*/
+   
 
   $(document).on('click', "#cite, #view-in-pds, #search, #print", present_choices);
 });
