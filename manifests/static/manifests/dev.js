@@ -195,11 +195,19 @@ $(function() {
                         title: "Print Manifest",
                         close: function (e) { $(this).remove()}
                        }).dialog('open');
-      }
+        $( "form#printpds" ).submit(function() {
+         console.log("pds submit form ");
+         event.preventDefault();      
+        });
+        $( "input#pdssubmit" ).click(function() {
+         event.preventDefault();
+         console.log("pds submit form button clicked");
+         printPDF(event);
+        }
     }
   };
 
-  $( document ).ready(function() {
+  /*$( document ).ready(function() {
       $( "form#printpds" ).submit(function(event) {
          console.log("pds submit form ");
          event.preventDefault();      
@@ -210,7 +218,7 @@ $(function() {
          console.log("pds submit form button clicked");
          printPDF(event);
       })
-   });
+   });*/
 
   $(document).on('click', "#cite, #view-in-pds, #search, #print", present_choices);
 });
