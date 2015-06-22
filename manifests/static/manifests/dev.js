@@ -29,21 +29,21 @@ $(function() {
     var start = $("#start").val();
     var end = $("#end").val();
     if (printMode === "current") {
-      u = u + '?n=' + n +'&printOpt=single';
-      window.open(u,'');
+      url = url + '?n=' + n +'&printOpt=single';
+      window.open(url,'');
       $dialog.close();
 
     } else if (printMode === "range") {
-      u = u + '&printOpt=range' + '&start=' + start +
+      url = url + '&printOpt=range' + '&start=' + start +
         '&end=' + end + '&email=' + email;
-      xmlhttp.open('GET',u,true);
+      xmlhttp.open('GET',url,true);
       xmlhttp.send();
       $dialog.close();
 
     } else  { //all
-      u = u + '&printOpt=range' + '&start=' + start +
+      url = url + '&printOpt=range' + '&start=' + start +
         '&end=' + end + '&email=' + email;
-      xmlhttp.open('GET',u,true);
+      xmlhttp.open('GET',url,true);
       xmlhttp.send();
       $dialog.close();
     }
@@ -200,7 +200,6 @@ $(function() {
         });*/
         $( "input#pdssubmit" ).click(function(e) {
          e.preventDefault();
-         console.log("pds submit form button clicked");
          printPDF(e);
         });
       }
