@@ -200,11 +200,13 @@ $(function() {
 
   $( "#printpds" ).submit(function(event) {
     event.preventDefault();
+    console.log("pds submit form jq called")
   });
 
   $( "#pdssubmit" ).click(function() {
     event.preventDefault();
-    printPdf(event);
+    console.log("pds submit form button clicked");
+    printPDF(event);
   });
 
   $(document).on('click', "#cite, #view-in-pds, #search, #print", present_choices);
