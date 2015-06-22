@@ -10,7 +10,7 @@ $(function() {
 
   //print form
 
-  var printPDF = function(btn, event){
+  var printPDF = function(){
     var d_id = $("#drs_id").val();
     var url = l.PDS_PRINT_URL + d_id;
     var xmlhttp;
