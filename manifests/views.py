@@ -56,7 +56,7 @@ def view(request, view_type, document_id):
             id_sep = None
         p["id"] = raw[source_sep+1:id_sep]
         if id_sep:
-            m = re.match(r"(\d+)([ibs])?", raw[id_sep+1:])
+            m = re.match(r"(\d+)([ibst])?", raw[id_sep+1:])
             (p["seq"], p["view"]) = [x if x else None for x in m.groups()]
             try:
                 p["seq"] = int(p["seq"])
