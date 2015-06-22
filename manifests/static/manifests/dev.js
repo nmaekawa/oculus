@@ -23,7 +23,7 @@ $(function() {
       xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
     }
 
-    var printMode = $("#printOpt").val();
+    var printMode = $('input[name=printOpt]:checked', '#printpds').val();
     var email = $("#email").val();
     var start = $("#start").val();
     var end = $("#end").val();
