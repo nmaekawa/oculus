@@ -81,7 +81,7 @@ $(function() {
          "attributes": { "id": "viewtext", "href": "#no-op"}},
         {"label": "Related Links",
          "iconClass": "fa fa-link",
-         "attributes": { "id": "links", "href": "#no-op"}}, 
+         "attributes": { "id": "links", "href": "#no-op"}},
 
       ],
     	"userLogo": {
@@ -188,22 +188,22 @@ $(function() {
           autoBind: false,
           beforeSend: function (xhr) {
              xhr.cache = true;
-             /*fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
+             /*fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() +
              "?Q=" + $("#searchbox").val() + "&F=M";*/
-          } 
-        });  
+          }
+        });
 
         //search hitlist
         $("#hitlist").jqxListBox(
-        { source: dataAdapter, 
-          displayMember: "context", 
-          valueMember: "uri", 
-          width: 600, 
+        { source: dataAdapter,
+          displayMember: "context",
+          valueMember: "uri",
+          width: 600,
           autoHeight: true,
           renderer: function (index, label, value) {
             var cell = "<div style='margin: 5px; float:left;word-wrap: break-word; height: auto; overflow-x: auto;'>"+ label +"<hr size='1'></div>";
             return cell;
-          } 
+          }
 
        });
 
@@ -216,9 +216,9 @@ $(function() {
               // TODO - jump active mirador window to this new seq
               console.log("search: jumping to sequence");
               $("#searchbox").val('');
-              $('#hitlist').jqxListBox('clear'); 
-              $('#hitlist').hide();  
-              $('#search-modal').dialog('close');         
+              $('#hitlist').jqxListBox('clear');
+              $('#hitlist').hide();
+              $('#search-modal').dialog('close');
             }
           }
         });
@@ -227,7 +227,7 @@ $(function() {
         var me = this;
         $("#searchbox").on("keypress", function (event) {
           if(event.which === 13){
-             fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
+             fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() +
                 "?Q=" + $("#searchbox").val();
               if (me.timer) clearTimeout(me.timer);
              me.timer = setTimeout(function () {
@@ -285,9 +285,9 @@ $(function() {
             $dialog.appendTo('body');
             $dialog
                 .dialog($.extend({title: "Related Links"}, dialogBaseOpts))
-                .dialog('open');  
+                .dialog('open');
           }
-        }); //TODO: Else graceful error display    
+        }); //TODO: Else graceful error display
       }
     },
     "viewtext": function (drs_id, n) {
@@ -307,9 +307,9 @@ $(function() {
             $dialog.appendTo('body');
             $dialog
                 .dialog($.extend({title: "View Text"}, dialogBaseOpts))
-                .dialog('open');  
+                .dialog('open');
           }
-        }); //TODO: Else graceful error display    
+        }); //TODO: Else graceful error display
       }
     }
 
