@@ -142,7 +142,7 @@ $(function() {
       }
       else {
         $dialog = $('<div id="citation-modal" style="display:none" />');
-        $.getJSON( l.PDS_VIEW_URL + 'cite/' + drs_id + '?callback=?', {'n':n})
+        $.getJSON( l.PDS_WS_URL + 'cite/' + drs_id + '?callback=?', {'n':n})
           .done(function (data) {
             if (data.citation) {
               $dialog.html(t['citation-tmpl'](data.citation));
@@ -275,7 +275,7 @@ $(function() {
       }
       else {
         $dialog = $('<div id="links-modal" style="display:none" />');
-        $.get( l.PDS_VIEW_URL + 'related/' + drs_id + '?n=' + n, function(xml){
+        $.get( l.PDS_WS_URL + 'related/' + drs_id + '?n=' + n, function(xml){
           var json = $.xml2json(xml);
           alert(json.related);
           if (json.related) {
@@ -296,7 +296,7 @@ $(function() {
       }
       else {
         $dialog = $('<div id="viewtext-modal" style="display:none" />');
-        $.get( l.PDS_VIEW_URL + 'get/' + drs_id + '?n=' + n, function(xml){
+        $.get( l.PDS_WS_URL + 'get/' + drs_id + '?n=' + n, function(xml){
           var json = $.xml2json(xml);
           alert(json.page);
           if (json.page) {
