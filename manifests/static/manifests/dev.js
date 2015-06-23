@@ -170,7 +170,7 @@ $(function() {
             { name: 'uri', map: 'deliveryUri', type: 'string'},
             { name: 'context', map: 'context', type: 'string'},
           ],
-          url: l.PDS_WS_URL + "find/",
+          url: "",//l.PDS_WS_URL + "find/",
           root: "resultSet",
           record: "record"
           //pager
@@ -181,6 +181,7 @@ $(function() {
           beforeSend: function (xhr) {
              xhr.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
              "?Q=" + $("#searchbox").val();
+             this.url = xhr.url;
              console.log("setting search url to " + xhr.url);
           }    
         });  
@@ -201,7 +202,8 @@ $(function() {
               // TODO - jump active mirador window to this new seq
               console.log("search: jumping to sequence");
               $("#searchbox").val('');
-              $('#hitlist').jqListBox('clear');  
+              $('#hitlist').jqListBox('clear');
+              $('#searchresults').hide();   
               $('#hitlist').hide();  
               $('#search-modal').dialog('close');         
             }
@@ -215,13 +217,15 @@ $(function() {
           me.timer = setTimeout(function () {
             dataAdapter.dataBind();
             }, 300);
+          $('#searchresults').show(); 
         });
 
         //handler for clear searchbox form
         $("#clearsearch").on("", function (event) {
           $("#searchbox").val('');
           $('#hitlist').jqListBox('clear');  
-          $('#hitlist').hide(); 
+          $('#hitlist').hide();
+          $('#searchresults').hide(); 
         });
       }
     },
