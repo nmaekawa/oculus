@@ -255,10 +255,10 @@ $(function() {
   $(document).on('click', "#cite, #view-in-pds, #search, #print", present_choices);
 
   //init search grid and data sources
-  $(document).ready(function () {
+  /*$(document).ready(function () {
  
     //data source for jq dataadapter
-   /* var fts_source = {
+    var fts_source = {
        datatype: "xml",
        datafields: [
          { name: 'label', map: 'displayLabel', type: 'string'},
@@ -319,9 +319,9 @@ $(function() {
       $('#hitlist').jqListBox('clear');  
       $('#hitlist').hide(); 
     });
-*/
 
-  });
+
+  });*/
 
 
 });
