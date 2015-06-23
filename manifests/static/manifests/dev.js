@@ -215,9 +215,11 @@ $(function() {
         $("#searchbox").on("keyup", function (event) {
           if (me.timer) clearTimeout(me.timer);
           me.timer = setTimeout(function () {
+            dataAdapter.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
+             "?Q=" + $("#searchbox").val();
             dataAdapter.dataBind();
-            }, 300);
-          $('#searchresults').show(); 
+            $('#searchresults').show(); 
+          }, 300);
         });
 
         //handler for clear searchbox form
