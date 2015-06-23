@@ -183,8 +183,8 @@ $(function() {
              xhr.cache = false;
              fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
              "?Q=" + $("#searchbox").val() + "&F=M";
-             console.log("setting search url to " + fts_source.url);*/
-          }    
+             console.log("setting search url to " + fts_source.url);
+          } */   
         });  
 
         //search hitlist
