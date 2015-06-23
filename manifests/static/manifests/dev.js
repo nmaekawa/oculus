@@ -220,7 +220,8 @@ $(function() {
              me.timer = setTimeout(function () {
                 dataAdapter.dataBind();
              }, 300);
-             $('#hitlist').show(); 
+             $('#hitlist').show();
+             $("#hitlist").jqxListBox('render'); 
              console.log("searching");
          }
         });
