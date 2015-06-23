@@ -188,10 +188,17 @@ $(function() {
 
         //search hitlist
         $("#hitlist").jqxListBox(
-        {source: dataAdapter, 
-         displayMember: "context", 
-         valueMember: "uri", 
-         width: 600, autoHeight: true});
+        { source: dataAdapter, 
+          displayMember: "context", 
+          valueMember: "uri", 
+          width: 600, 
+          autoHeight: true,
+          renderer: function (index, label, value) {
+            var cell = "<div> "+ label +" <hr size='1'></div>";
+            return cell;
+          } 
+
+       });
 
         //handler for select -> move to mirador window
         $("#hitlist").on('select', function (event) {
