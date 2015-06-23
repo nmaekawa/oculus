@@ -221,6 +221,7 @@ $(function() {
                 dataAdapter.dataBind();
              }, 300);
              $('#hitlist').show();
+             $('#hitlist').jqxListBox('refresh');
          }
         });
 
