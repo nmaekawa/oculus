@@ -17,6 +17,7 @@
   <script src="{% static 'jqwidgets/jqxgrid.selection.js' %}"></script>
   <script src="{% static 'jqwidgets/jqxexpander.js' %}"></script>
   <script src="{% static 'jqwidgets/jqxlistbox.js' %}"></script>
+  <script src="{% static 'xml-to-json/jquery.xml2json.js' %}"></script>
   <title>Harvard Mirador Viewer</title>
 </head>
 <body>
@@ -55,8 +56,6 @@
     
         <input type="hidden" name="id" id="search_drs_id" value="{{ drs_id }}"/>
         <input name="searchbox" type="text" id="searchbox" class='jqx-input' placeholder="" size="80"/>
-      
-
      
         <div id="hitlist"></div>
         <div style="margin-top: 10px;">
@@ -105,6 +104,23 @@
        </div>
      </div>
   </script>
+
+  <script id="viewtext-tmpl" type="text/x-handlebars-template">
+     <div title="viewtext">
+     </div>
+  </script>
+
+  <script id="links-tmpl" type="text/x-handlebars-template">
+    <div title="links" class="links {{ op }}">
+     <header><h2>Displayed Manifests</h2></header>
+      <ul>
+        {{#each choices}}
+        <li><a class="manifest" data-drs-id="{{ drs_id }}" data-n="{{ n }}" href="#no-op">{{ label }}</a></li>
+        {{/each}}
+      </ul>
+    </div>
+  </script>
+
   {% endverbatim %}
   <script type="text/javascript">
    window.harvard_md_server = {
