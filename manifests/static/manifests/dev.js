@@ -275,7 +275,7 @@ $(function() {
       }
       else {
         $dialog = $('<div id="links-modal" style="display:none" />');
-        .get( l.PDS_VIEW_URL + 'related/' + drs_id + '?n=' + n, function(xml){
+        $.get( l.PDS_VIEW_URL + 'related/' + drs_id + '?n=' + n, function(xml){
           var json = $.xml2json(xml);
           alert(json.related);
           if (json.related) {
