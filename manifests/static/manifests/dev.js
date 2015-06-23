@@ -347,10 +347,12 @@ $(function() {
 
   $(document).on('click', "#cite, #view-in-pds, #search, #print, #viewtext, #links", present_choices);
 
-  $.subscribe("windowAdded, windowRemoved, currentCanvasIDUpdated", function (e) {
-    console.log(constructUrl());
-  });
-
-
+  var topics = ["windowAdded", "windowRemoved", "currentCanvasIDUpdated"];
+  var len = topics.length;
+  for (var i = 0; i < len;i++) {
+    $.subscribe(topics[i], function (e, data) {
+      console.log(data);
+    });
+  }
 
 });
