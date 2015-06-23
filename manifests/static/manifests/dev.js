@@ -161,6 +161,30 @@ $(function() {
           .dialog($.extend({title: "Search Manifest"}, dialogBaseOpts))
           .dialog('open');
 
+
+        //data source for jq dataadapter
+        var fts_source = {
+          datatype: "xml",
+          datafields: [
+            { name: 'label', map: 'displayLabel', type: 'string'},
+            { name: 'uri', map: 'deliveryUri', type: 'string'},
+            { name: 'context', map: 'context', type: 'string'},
+          ],
+          url: l.PDS_WS_URL + "find/",
+          root: "resultSet",
+          record: "record"
+          //pager
+        };
+
+        //adapter for search form
+        var dataAdapter = new $.jqx.dataAdapter(fts_source, {
+          beforeSend: function (xhr) {
+             xhr.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
+             "?Q=" + $("#searchbox").val();
+             console.log("setting search url to " + xhr.url);
+          }    
+        });  
+
         //search hitlist
         $("#hitlist").jqxListBox(
         {source: dataAdapter, 
@@ -168,11 +192,11 @@ $(function() {
          valueMember: "uri", 
          width: 400, height: 300});
 
-         //handler for select -> move to mirador window
-         $("#hitlist").on('select', function (event) {
-         if (event.args) {
-            var item = event.args.item;
-            if (item) {
+        //handler for select -> move to mirador window
+        $("#hitlist").on('select', function (event) {
+        if (event.args) {
+          var item = event.args.item;
+          if (item) {
               var seq =  item.value;
               // TODO - jump active mirador window to this new seq
               console.log("search: jumping to sequence");
@@ -182,7 +206,7 @@ $(function() {
               $('#search-modal').dialog('close');         
             }
           }
-         });
+        });
 
         //handler for automatic search on keyup event in search box
         var me = this;
@@ -228,7 +252,7 @@ $(function() {
 
   //init search grid and data sources
   $(document).ready(function () {
-
+ /*
     //data source for jq dataadapter
     var fts_source = {
        datatype: "xml",
@@ -252,7 +276,7 @@ $(function() {
        }    
      }
     );
-/*
+
     //search hitlist
     $("#hitlist").jqxListBox(
         {source: dataAdapter, 
