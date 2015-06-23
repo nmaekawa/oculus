@@ -183,7 +183,6 @@ $(function() {
              xhr.cache = true;
              /*fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
              "?Q=" + $("#searchbox").val() + "&F=M";*/
-             console.log("setting search url to " + fts_source.url);
           } 
         });  
 
@@ -192,7 +191,7 @@ $(function() {
         {source: dataAdapter, 
          displayMember: "context", 
          valueMember: "uri", 
-         width: 400, height: 200});
+         width: 600, autoheight: true});
 
         //handler for select -> move to mirador window
         $("#hitlist").on('select', function (event) {
@@ -203,8 +202,8 @@ $(function() {
               // TODO - jump active mirador window to this new seq
               console.log("search: jumping to sequence");
               $("#searchbox").val('');
-              //$('#hitlist').jqxListBox('clear'); 
-              //$('#hitlist').hide();  
+              $('#hitlist').jqxListBox('clear'); 
+              $('#hitlist').hide();  
               $('#search-modal').dialog('close');         
             }
           }
@@ -220,7 +219,7 @@ $(function() {
              me.timer = setTimeout(function () {
                 dataAdapter.dataBind();
              }, 300);
-             //$('#hitlist').show();
+             $('#hitlist').show();
              $('#hitlist').jqxListBox('refresh');
          }
         });
@@ -229,7 +228,7 @@ $(function() {
         $("#clearsearch").on("click", function (event) {
           $("#searchbox").val('');
           $('#hitlist').jqxListBox('clear');
-          //$('#hitlist').hide();
+          $('#hitlist').hide();
         });
       }
     },
