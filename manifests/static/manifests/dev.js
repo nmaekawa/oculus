@@ -163,7 +163,7 @@ $(function() {
 
 
         //data source for jq dataadapter
-        /*var fts_source = {
+        var fts_source = {
           datatype: "xml",
           datafields: [
             { name: 'label', map: 'displayLabel', type: 'string'},
@@ -184,8 +184,8 @@ $(function() {
              this.url = xhr.url;
              console.log("setting search url to " + xhr.url);
           }    
-        });*/  
-
+        });  
+/*
         //search hitlist
         $("#hitlist").jqxListBox(
         {source: dataAdapter, 
@@ -228,7 +228,7 @@ $(function() {
           $('#hitlist').jqListBox('clear');  
           $('#hitlist').hide();
           $('#searchresults').hide(); 
-        });
+        });*/
       }
     },
     "print": function(drs_id, n) {
@@ -260,7 +260,7 @@ $(function() {
   $(document).ready(function () {
  
     //data source for jq dataadapter
-    var fts_source = {
+   /* var fts_source = {
        datatype: "xml",
        datafields: [
          { name: 'label', map: 'displayLabel', type: 'string'},
@@ -282,7 +282,7 @@ $(function() {
        }    
      }
     );
-/*
+
     //search hitlist
     $("#hitlist").jqxListBox(
         {source: dataAdapter, 
