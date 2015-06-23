@@ -213,13 +213,13 @@ $(function() {
         //handler for automatic search on keyup event in search box
         var me = this;
         $("#searchbox").on("keyup", function (event) {
+          dataAdapter.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
+             "?Q=" + $("#searchbox").val();
           if (me.timer) clearTimeout(me.timer);
           me.timer = setTimeout(function () {
-            dataAdapter.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
-             "?Q=" + $("#searchbox").val();
             dataAdapter.dataBind();
-            $('#searchresults').show(); 
           }, 300);
+          $('#searchresults').show(); 
         });
 
         //handler for clear searchbox form
