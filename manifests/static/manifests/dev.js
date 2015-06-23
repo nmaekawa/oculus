@@ -160,6 +160,45 @@ $(function() {
         $dialog
           .dialog($.extend({title: "Search Manifest"}, dialogBaseOpts))
           .dialog('open');
+
+        //search hitlist
+        $("#hitlist").jqxListBox(
+        {source: dataAdapter, 
+         displayMember: "context", 
+         valueMember: "uri", 
+         width: 400, height: 300});
+
+         //handler for select -> move to mirador window
+         $("#hitlist").on('select', function (event) {
+         if (event.args) {
+            var item = event.args.item;
+            if (item) {
+              var seq =  item.value;
+              // TODO - jump active mirador window to this new seq
+              console.log("search: jumping to sequence");
+              $("#searchbox").val('');
+              $('#hitlist').jqListBox('clear');  
+              $('#hitlist').hide();  
+              $('#search-modal').dialog('close');         
+            }
+          }
+         });
+
+        //handler for automatic search on keyup event in search box
+        var me = this;
+        $("#searchbox").on("keyup", function (event) {
+          if (me.timer) clearTimeout(me.timer);
+          me.timer = setTimeout(function () {
+            dataAdapter.dataBind();
+            }, 300);
+        });
+
+        //handler for clear searchbox form
+        $("#clearsearch").on("", function (event) {
+          $("#searchbox").val('');
+          $('#hitlist').jqListBox('clear');  
+          $('#hitlist').hide(); 
+        });
       }
     },
     "print": function(drs_id, n) {
@@ -213,7 +252,7 @@ $(function() {
        }    
      }
     );
-
+/*
     //search hitlist
     $("#hitlist").jqxListBox(
         {source: dataAdapter, 
@@ -252,7 +291,7 @@ $(function() {
       $('#hitlist').jqListBox('clear');  
       $('#hitlist').hide(); 
     });
-
+*/
 
   });
 
