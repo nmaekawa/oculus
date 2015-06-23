@@ -36,6 +36,7 @@ body {
 .ui-dialog-titlebar {
   display: block;
   color: black;
+  font-size: 1.3em;
 }
 #citation-modal span.label {
   font-weight: bold;
