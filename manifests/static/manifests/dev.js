@@ -76,6 +76,12 @@ $(function() {
         {"label": "Print",
          "iconClass": "fa fa-print",
          "attributes": { "id": "print", "href": "#no-op"}},
+        {"label": "View Text",
+         "iconClass": "fa fa-font",
+         "attributes": { "id": "viewtext", "href": "#no-op"}},
+        {"label": "Related Links",
+         "iconClass": "fa fa-link",
+         "attributes": { "id": "links", "href": "#no-op"}}, 
 
       ],
     	"userLogo": {
@@ -136,7 +142,7 @@ $(function() {
       }
       else {
         $dialog = $('<div id="citation-modal" style="display:none" />');
-        $.getJSON('//pdstest.lib.harvard.edu:9005/pds/cite/' + drs_id + '?callback=?', {'n':n})
+        $.getJSON( l.PDS_VIEW_URL + 'cite/' + drs_id + '?callback=?', {'n':n})
           .done(function (data) {
             if (data.citation) {
               $dialog.html(t['citation-tmpl'](data.citation));
@@ -161,7 +167,8 @@ $(function() {
           .dialog($.extend({title: "Search Manifest"}, dialogBaseOpts))
           .dialog('open');
 
-        
+        //init search grid and data sources
+
         //data source for jq dataadapter
         var fts_source = {
           datatype: "xml",
@@ -259,79 +266,55 @@ $(function() {
          printPDF(e);
         });
       }
+    },
+    "links": function (drs_id, n) {
+      var $dialog = $('#links-modal');
+
+      if ($dialog.get().length > 0) {
+        $dialog.dialog('close');
+      }
+      else {
+        $dialog = $('<div id="links-modal" style="display:none" />');
+        .get( l.PDS_VIEW_URL + 'related/' + drs_id + '?n=' + n, function(xml){
+          var json = $.xml2json(xml);
+          alert(json.related);
+          if (json.related) {
+            $dialog.html(t['links-tmpl'](json.page));
+            $dialog.appendTo('body');
+            $dialog
+                .dialog($.extend({title: "Related Links"}, dialogBaseOpts))
+                .dialog('open');  
+          }
+        }); //TODO: Else graceful error display    
+      }
+    },
+    "viewtext": function (drs_id, n) {
+      var $dialog = $('#viewtext-modal');
+
+      if ($dialog.get().length > 0) {
+        $dialog.dialog('close');
+      }
+      else {
+        $dialog = $('<div id="viewtext-modal" style="display:none" />');
+        $.get( l.PDS_VIEW_URL + 'get/' + drs_id + '?n=' + n, function(xml){
+          var json = $.xml2json(xml);
+          alert(json.page);
+          if (json.page) {
+            $dialog.html(t['viewtext-tmpl'](json.page));
+            $dialog.appendTo('body');
+            $dialog
+                .dialog($.extend({title: "View Text"}, dialogBaseOpts))
+                .dialog('open');  
+          }
+        }); //TODO: Else graceful error display    
+      }
     }
+
+
   };
 
   $(document).on('click', "#cite, #view-in-pds, #search, #print", present_choices);
 
-  //init search grid and data sources
-  /*$(document).ready(function () {
- 
-    //data source for jq dataadapter
-    var fts_source = {
-       datatype: "xml",
-       datafields: [
-         { name: 'label', map: 'displayLabel', type: 'string'},
-         { name: 'uri', map: 'deliveryUri', type: 'string'},
-         { name: 'context', map: 'context', type: 'string'},
-       ],
-       url: l.PDS_WS_URL + "find/",
-       root: "resultSet",
-       record: "record"
-       //pager
-    };
-
-    //adapter for search form
-    var dataAdapter = new $.jqx.dataAdapter(fts_source, {
-      beforeSend: function (xhr) {
-        xhr.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
-           "?Q=" + $("#searchbox").val();
-        console.log("setting search url to " + xhr.url);
-       }    
-     }
-    );
-
-    //search hitlist
-    $("#hitlist").jqxListBox(
-        {source: dataAdapter, 
-         displayMember: "context", 
-         valueMember: "uri", 
-         width: 400, height: 300});
-
-    //handler for select -> move to mirador window
-    $("#hitlist").on('select', function (event) {
-      if (event.args) {
-        var item = event.args.item;
-        if (item) {
-          var seq =  item.value;
-          // TODO - jump active mirador window to this new seq
-          console.log("search: jumping to sequence");
-          $("#searchbox").val('');
-          $('#hitlist').jqListBox('clear');  
-          $('#hitlist').hide();  
-          $('#search-modal').dialog('close');         
-        }
-      }
-    });
-
-    //handler for automatic search on keyup event in search box
-    var me = this;
-    $("#searchbox").on("keyup", function (event) {
-       if (me.timer) clearTimeout(me.timer);
-       me.timer = setTimeout(function () {
-          dataAdapter.dataBind();
-       }, 300);
-    });
-
-    //handler for clear searchbox form
-    $("#clearsearch").on("", function (event) {
-      $("#searchbox").val('');
-      $('#hitlist').jqListBox('clear');  
-      $('#hitlist').hide(); 
-    });
-
-
-  });*/
 
 
 });
