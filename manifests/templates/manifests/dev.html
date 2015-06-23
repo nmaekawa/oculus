@@ -6,10 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <link rel="stylesheet" type="text/css" href="{% static 'manifests/dev/css/mirador-combined.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'manifests/dev.css' %}">
-  <title>Harvard Mirador Viewer</title>
-</head>
-<body>
-  <div id="viewer"></div>
   <script src="{% static 'manifests/dev/mirador.js' %}"></script>
   <-- jqwidgets for search and related links -->
   <script src="{% static 'jqwidgets/jqxcore.js' %}"></script>
@@ -21,6 +17,11 @@
   <script src="{% static 'jqwidgets/jqxgrid.selection.js' %}"></script>
   <script src="{% static 'jqwidgets/jqxexpander.js' %}"></script>
   <script src="{% static 'jqwidgets/jqxlistbox.js' %}"></script>
+  <title>Harvard Mirador Viewer</title>
+</head>
+<body>
+  <div id="viewer"></div>
+  
   {% verbatim %}
   <script id="citation-tmpl" type="text/x-handlebars-template">
     <div title="citation">
