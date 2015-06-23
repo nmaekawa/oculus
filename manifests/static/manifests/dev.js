@@ -186,4 +186,75 @@ $(function() {
   };
 
   $(document).on('click', "#cite, #view-in-pds, #search, #print", present_choices);
+
+  //init search grid and data sources
+  $(document).ready(function () {
+
+    //data source for jq dataadapter
+    var fts_source = {
+       datatype: "xml",
+       datafields: {
+         { name: 'label', map: 'displayLabel', type: 'string'},
+         { name: 'uri', map: 'deliveryUri', type: 'string'},
+         { name: 'context', map: 'context', type: 'string'},
+       },
+       url: l.PDS_WS_URL + "find/",
+       root: "resultSet",
+       record: "record"
+       //pager
+    };
+
+    //adapter for search form
+    var dataAdapter = new $.jqx.dataAdapter(fts_source, 
+      beforeSend: function (xhr) {
+        xhr.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
+           "?Q=" + $("#searchbox").val();
+        console.log("setting search url to " + xhr.url);
+      }  
+
+    );
+
+    //search hitlist
+    $("#hitlist").jqxListBox(
+        {source: dataAdapter, 
+         displayMember: "context", 
+         valueMember: "uri", 
+         width: 400, height: 300});
+
+    //handler for select -> move to mirador window
+    $("#hitlist").on('select', function (event) {
+      if (event.args) {
+        var item = event.args.item;
+        if (item) {
+          var seq =  item.value;
+          // TODO - jump active mirador window to this new seq
+          console.log("search: jumping to sequence");
+          $("#searchbox").val('');
+          $('#hitlist').jqListBox('clear');  
+          $('#hitlist').hide();  
+          $('#search-modal').dialog('close');         
+        }
+      }
+    });
+
+    //handler for automatic search on keyup event in search box
+    var me = this;
+    $("#searchbox").on("keyup", function (event) {
+       if (me.timer) clearTimeout(me.timer);
+       me.timer = setTimeout(function () {
+          dataAdapter.dataBind();
+       }, 300);
+    });
+
+    //handler for clear searchbox form
+    $("#clearsearch").on("", function (event) {
+      $("#searchbox").val('');
+      $('#hitlist').jqListBox('clear');  
+      $('#hitlist').hide(); 
+    });
+
+
+  });
+
+
 });
