@@ -93,6 +93,36 @@ $(function() {
     "windowObjects": l.MIRADOR_WOBJECTS
   });
 
+  var ftype_alias = {
+    'ImageView': 'i',
+    'BookView': 'b',
+    'ScrollView': 's',
+    'ThumbnailView': 't'
+  };
+
+  var constructUrl = function () {
+    var object_ids = $.map(Mirador.viewer.workspace.slots, function (slot, i) {
+      var mirWindow = slot.window;
+      if (mirWindow) {
+        var uri = mirWindow.manifest.uri,
+            parts = uri.split("/"),
+            last_idx = parts.length - 1,
+            drs_match = parts[last_idx].match(/drs:(\d+)/),
+            drs_id = drs_match && drs_match[1],
+            focusType = mirWindow.currentFocus,
+            n = mirWindow.focusModules[focusType].currentImgIndex + 1;
+        if (drs_match) {
+          return 'drs:' + drs_id + '|' + n + ftype_alias[focusType]
+        }
+      }
+    });
+    return object_ids.join(";");
+  };
+
+  jQuery.subscribe("currentCanvasIDUpdated", function (e) {
+    console.log(constructUrl());
+  });
+
   var present_choices = function (e) {
     e.preventDefault();
     var op = e.currentTarget.id;
