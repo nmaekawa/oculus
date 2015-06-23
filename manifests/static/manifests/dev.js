@@ -163,7 +163,7 @@ $(function() {
 
 
         //data source for jq dataadapter
-        var fts_source = {
+        /*var fts_source = {
           datatype: "xml",
           datafields: [
             { name: 'label', map: 'displayLabel', type: 'string'},
@@ -184,7 +184,7 @@ $(function() {
              this.url = xhr.url;
              console.log("setting search url to " + xhr.url);
           }    
-        });  
+        });*/  
 
         //search hitlist
         $("#hitlist").jqxListBox(
@@ -258,7 +258,7 @@ $(function() {
 
   //init search grid and data sources
   $(document).ready(function () {
- /*
+ 
     //data source for jq dataadapter
     var fts_source = {
        datatype: "xml",
@@ -282,7 +282,7 @@ $(function() {
        }    
      }
     );
-
+/*
     //search hitlist
     $("#hitlist").jqxListBox(
         {source: dataAdapter, 
