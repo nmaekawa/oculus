@@ -29,6 +29,12 @@ body {
 .choices ul li a {
   cursor: pointer;
 }
+
+.ui-widget-content a {
+  color: blue !important;
+  text-decoration: underline !important;
+}
+
 #citation-modal p.header {
   font-size: 115%;
   font-weight: bold;
