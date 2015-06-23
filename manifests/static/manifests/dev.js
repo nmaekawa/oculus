@@ -203,7 +203,7 @@ $(function() {
               // TODO - jump active mirador window to this new seq
               console.log("search: jumping to sequence");
               $("#searchbox").val('');
-              $('#hitlist').jqListBox('clear'); 
+              $('#hitlist').jqxListBox('clear'); 
               $('#hitlist').hide();  
               $('#search-modal').dialog('close');         
             }
@@ -228,7 +228,7 @@ $(function() {
         //handler for clear searchbox form
         $("#clearsearch").on("click", function (event) {
           $("#searchbox").val('');
-          $('#hitlist').jqListBox('clear');  
+          $('#hitlist').jqxListBox('clear');
           $('#hitlist').hide();
         });
       }
