@@ -180,6 +180,7 @@ $(function() {
         var dataAdapter = new $.jqx.dataAdapter(fts_source, {
           autoBind: false,
           beforeSend: function (xhr) {
+             xhr.cache = false;
              fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
              "?Q=" + $("#searchbox").val() + "&F=M";
              console.log("setting search url to " + fts_source.url);
@@ -191,7 +192,7 @@ $(function() {
         {source: dataAdapter, 
          displayMember: "context", 
          valueMember: "uri", 
-         width: 400, height: 300});
+         width: 400, height: 200});
 
         //handler for select -> move to mirador window
         $("#hitlist").on('select', function (event) {
@@ -211,19 +212,21 @@ $(function() {
 
         //handler for automatic search on keyup event in search box
         var me = this;
-        $("#searchbox").on("keyup", function (event) {
-           dataAdapter.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
-             "?Q=" + $("#searchbox").val();
-           if (me.timer) clearTimeout(me.timer);
-           me.timer = setTimeout(function () {
-             dataAdapter.dataBind();
-           }, 300);
-           $('#hitlist').show(); 
-           console.log("searching");
+        $("#searchbox").on("keypress", function (event) {
+          if(event.which === 13){
+             dataAdapter.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
+                "?Q=" + $("#searchbox").val();
+              if (me.timer) clearTimeout(me.timer);
+             me.timer = setTimeout(function () {
+                dataAdapter.dataBind();
+             }, 300);
+             $('#hitlist').show(); 
+             console.log("searching");
+         }
         });
 
         //handler for clear searchbox form
-        $("#clearsearch").on("", function (event) {
+        $("#clearsearch").on("click", function (event) {
           $("#searchbox").val('');
           $('#hitlist').jqListBox('clear');  
           $('#hitlist').hide();
