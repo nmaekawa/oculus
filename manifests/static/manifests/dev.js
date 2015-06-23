@@ -191,7 +191,7 @@ $(function() {
         {source: dataAdapter, 
          displayMember: "context", 
          valueMember: "uri", 
-         width: 600, autoheight: true});
+         width: 600, autoHeight: true});
 
         //handler for select -> move to mirador window
         $("#hitlist").on('select', function (event) {
