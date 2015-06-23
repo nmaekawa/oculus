@@ -178,9 +178,10 @@ $(function() {
 
         //adapter for search form
         var dataAdapter = new $.jqx.dataAdapter(fts_source, {
+          autoBind: false,
           beforeSend: function (xhr) {
              fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
-             "?Q=" + $("#searchbox").val();
+             "?Q=" + $("#searchbox").val() + "&F=M";
              console.log("setting search url to " + fts_source.url);
           }    
         });  
