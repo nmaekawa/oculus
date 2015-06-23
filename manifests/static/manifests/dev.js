@@ -203,8 +203,8 @@ $(function() {
               // TODO - jump active mirador window to this new seq
               console.log("search: jumping to sequence");
               $("#searchbox").val('');
-              $('#hitlist').jqxListBox('clear'); 
-              $('#hitlist').hide();  
+              //$('#hitlist').jqxListBox('clear'); 
+              //$('#hitlist').hide();  
               $('#search-modal').dialog('close');         
             }
           }
@@ -220,7 +220,7 @@ $(function() {
              me.timer = setTimeout(function () {
                 dataAdapter.dataBind();
              }, 300);
-             $('#hitlist').show();
+             //$('#hitlist').show();
              $('#hitlist').jqxListBox('refresh');
          }
         });
@@ -229,7 +229,7 @@ $(function() {
         $("#clearsearch").on("click", function (event) {
           $("#searchbox").val('');
           $('#hitlist').jqxListBox('clear');
-          $('#hitlist').hide();
+          //$('#hitlist').hide();
         });
       }
     },
