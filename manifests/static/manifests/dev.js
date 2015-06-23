@@ -179,10 +179,9 @@ $(function() {
         //adapter for search form
         var dataAdapter = new $.jqx.dataAdapter(fts_source, {
           beforeSend: function (xhr) {
-             xhr.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
+             fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
              "?Q=" + $("#searchbox").val();
-             this.url = xhr.url;
-             console.log("setting search url to " + xhr.url);
+             console.log("setting search url to " + fts_source.url);
           }    
         });  
 
@@ -218,7 +217,7 @@ $(function() {
            me.timer = setTimeout(function () {
              dataAdapter.dataBind();
            }, 300);
-           $('#hitlist').jqListBox.show(); 
+           $('#hitlist').show(); 
            console.log("searching");
         });
 
