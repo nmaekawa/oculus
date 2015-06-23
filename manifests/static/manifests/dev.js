@@ -193,11 +193,11 @@ $(function() {
     //data source for jq dataadapter
     var fts_source = {
        datatype: "xml",
-       datafields: {
+       datafields: [
          { name: 'label', map: 'displayLabel', type: 'string'},
          { name: 'uri', map: 'deliveryUri', type: 'string'},
          { name: 'context', map: 'context', type: 'string'},
-       },
+       ],
        url: l.PDS_WS_URL + "find/",
        root: "resultSet",
        record: "record"
