@@ -96,8 +96,9 @@ $(function() {
   var present_choices = function (e) {
     e.preventDefault();
     var op = e.currentTarget.id;
-    var choices = $.map(Mirador.viewer.workspace.windows, function (mirWindow, i) {
-      var uri = mirWindow.manifest.uri,
+    var choices = $.map(Mirador.viewer.workspace.slots, function (slot, i) {
+      var mirWindow = slot.window,
+          uri = mirWindow.manifest.uri,
           parts = uri.split("/"),
           last_idx = parts.length - 1,
           drs_match = parts[last_idx].match(/drs:(\d+)/),
