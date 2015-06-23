@@ -172,7 +172,7 @@ $(function() {
           ],
           //url: l.PDS_WS_URL + "find/",
           root: "resultSet",
-          record: "record"
+          record: "result"
           //pager
         };
 
