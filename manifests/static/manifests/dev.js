@@ -205,13 +205,13 @@ $(function() {
     };
 
     //adapter for search form
-    var dataAdapter = new $.jqx.dataAdapter(fts_source, 
+    var dataAdapter = new $.jqx.dataAdapter(fts_source, {
       beforeSend: function (xhr) {
         xhr.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
            "?Q=" + $("#searchbox").val();
         console.log("setting search url to " + xhr.url);
-      }  
-
+       }    
+     }
     );
 
     //search hitlist
