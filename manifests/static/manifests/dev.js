@@ -170,7 +170,7 @@ $(function() {
             { name: 'uri', map: 'deliveryUri', type: 'string'},
             { name: 'context', map: 'context', type: 'string'},
           ],
-          url: "",//l.PDS_WS_URL + "find/",
+          url: l.PDS_WS_URL + "find/",
           root: "resultSet",
           record: "record"
           //pager
@@ -218,7 +218,8 @@ $(function() {
            me.timer = setTimeout(function () {
              dataAdapter.dataBind();
            }, 300);
-           $('#hitlist').show(); 
+           $('#hitlist').jqListBox.show(); 
+           console.log("searching");
         });
 
         //handler for clear searchbox form
