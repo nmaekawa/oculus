@@ -313,7 +313,7 @@ $(function() {
 
   };
 
-  $(document).on('click', "#cite, #view-in-pds, #search, #print", present_choices);
+  $(document).on('click', "#cite, #view-in-pds, #search, #print, #viewtext, #links", present_choices);
 
 
 
