@@ -278,6 +278,7 @@ $(function() {
         $.get( l.PDS_WS_URL + 'related/' + drs_id + '?n=' + n, function(xml){
           var json = $.xml2json(xml);
           if (json.link) {
+            console.log(json.link);
             $dialog.html(t['links-tmpl'](json.link));
             $dialog.appendTo('body');
             $dialog
@@ -298,6 +299,7 @@ $(function() {
         $.get( l.PDS_WS_URL + 'get/' + drs_id + '?n=' + n, function(xml){
           var json = $.xml2json(xml);
           if (json.text) {
+            console.log(json.text);
             $dialog.html(t['viewtext-tmpl'](json.text));
             $dialog.appendTo('body');
             $dialog
