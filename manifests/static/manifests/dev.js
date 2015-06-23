@@ -40,12 +40,12 @@ $(function() {
       url = url + '?n=' + n +'&printOpt=single';
       window.open(url,'');
     } else if (printMode === "range") {
-      url = url + '&printOpt=range' + '&start=' + start +
+      url = url + '?printOpt=range' + '&start=' + start +
         '&end=' + end + '&email=' + email;
       xmlhttp.open('GET',url,true);
       xmlhttp.send();
     } else  { //all
-      url = url + '&printOpt=range' + '&start=' + start +
+      url = url + '?printOpt=range' + '&start=' + start +
         '&end=' + end + '&email=' + email;
       xmlhttp.open('GET',url,true);
       xmlhttp.send();
