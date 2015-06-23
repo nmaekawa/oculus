@@ -161,7 +161,7 @@ $(function() {
           .dialog($.extend({title: "Search Manifest"}, dialogBaseOpts))
           .dialog('open');
 
-        /*
+        
         //data source for jq dataadapter
         var fts_source = {
           datatype: "xml",
@@ -226,7 +226,7 @@ $(function() {
           $("#searchbox").val('');
           $('#hitlist').jqListBox('clear');  
           $('#hitlist').hide();
-        });*/
+        });
       }
     },
     "print": function(drs_id, n) {
