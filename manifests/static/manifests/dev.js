@@ -278,8 +278,9 @@ $(function() {
         $.get( l.PDS_WS_URL + 'related/' + drs_id + '?n=' + n, function(xml){
           var json = $.xml2json(xml);
           if (json.link) {
-            //debug
-            console.log(json.link);
+            // Normalize to array for Handlebars
+            if (!json.link.length) { json.link = [json.link]}
+
             $dialog.html(t['links-tmpl'](json.link));
             $dialog.appendTo('body');
             $dialog
