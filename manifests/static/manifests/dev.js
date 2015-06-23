@@ -119,10 +119,6 @@ $(function() {
     return object_ids.join(";");
   };
 
-  jQuery.subscribe("currentCanvasIDUpdated", function (e) {
-    console.log(constructUrl());
-  });
-
   var present_choices = function (e) {
     e.preventDefault();
     var op = e.currentTarget.id;
@@ -350,6 +346,11 @@ $(function() {
   };
 
   $(document).on('click', "#cite, #view-in-pds, #search, #print, #viewtext, #links", present_choices);
+
+  $.subscribe("currentCanvasIDUpdated", function (e) {
+    console.log("currentCanvasIDUpdated");
+    console.log(constructUrl());
+  });
 
 
 
