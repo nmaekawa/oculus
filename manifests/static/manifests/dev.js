@@ -97,16 +97,18 @@ $(function() {
     e.preventDefault();
     var op = e.currentTarget.id;
     var choices = $.map(Mirador.viewer.workspace.slots, function (slot, i) {
-      var mirWindow = slot.window,
-          uri = mirWindow.manifest.uri,
-          parts = uri.split("/"),
-          last_idx = parts.length - 1,
-          drs_match = parts[last_idx].match(/drs:(\d+)/),
-          drs_id = drs_match && drs_match[1],
-          focusType = mirWindow.currentFocus,
-          n = mirWindow.focusModules[focusType].currentImgIndex + 1;
-      if (drs_match) {
-        return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id, "uri": mirWindow.manifest.uri, "n": n};
+      var mirWindow = slot.window;
+      if (mirWindow) {
+        var uri = mirWindow.manifest.uri,
+            parts = uri.split("/"),
+            last_idx = parts.length - 1,
+            drs_match = parts[last_idx].match(/drs:(\d+)/),
+            drs_id = drs_match && drs_match[1],
+            focusType = mirWindow.currentFocus,
+            n = mirWindow.focusModules[focusType].currentImgIndex + 1;
+        if (drs_match) {
+          return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id, "uri": mirWindow.manifest.uri, "n": n};
+        }
       }
       // else omit manifest because we don't know how to cite/view it
     });
