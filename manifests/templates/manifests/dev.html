@@ -106,16 +106,18 @@
   </script>
 
   <script id="viewtext-tmpl" type="text/x-handlebars-template">
-     <div title="viewtext">
+     <div title="viewtext" class="viewtext {{ op }}">
+        <h2>View Text</h2>
+          <div>{{ text }}</div>
      </div>
   </script>
 
   <script id="links-tmpl" type="text/x-handlebars-template">
     <div title="links" class="links {{ op }}">
-     <header><h2>Displayed Manifests</h2></header>
+     <header><h2>Related Links</h2></header>
       <ul>
-        {{#each choices}}
-        <li><a class="manifest" data-drs-id="{{ drs_id }}" data-n="{{ n }}" href="#no-op">{{ label }}</a></li>
+        {{#each link}}
+        <li>{{ type }} <a class="manifest" href="{{ value }}">{{ identifier }}</li>
         {{/each}}
       </ul>
     </div>
