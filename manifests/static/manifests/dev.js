@@ -303,7 +303,7 @@ $(function() {
           if (json.text) {
             //debug
             console.log(json.text);
-            $dialog.html(t['viewtext-tmpl'](json.text));
+            $dialog.html(t['viewtext-tmpl']({op: "viewtext", text: json.text}));
             $dialog.appendTo('body');
             $dialog
                 .dialog($.extend({title: "View Text"}, dialogBaseOpts))
