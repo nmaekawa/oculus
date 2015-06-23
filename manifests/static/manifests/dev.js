@@ -347,8 +347,7 @@ $(function() {
 
   $(document).on('click', "#cite, #view-in-pds, #search, #print, #viewtext, #links", present_choices);
 
-  $.subscribe("currentCanvasIDUpdated", function (e) {
-    console.log("currentCanvasIDUpdated");
+  $.subscribe("windowAdded, windowRemoved, currentCanvasIDUpdated", function (e) {
     console.log(constructUrl());
   });
 
