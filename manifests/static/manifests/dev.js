@@ -194,7 +194,7 @@ $(function() {
           width: 600, 
           autoHeight: true,
           renderer: function (index, label, value) {
-            var cell = "<div> "+ label +" <hr size='1'></div>";
+            var cell = "<div style='margin: 5px; float:left;word-wrap: break-word; height: auto; overflow-x: auto;'>"+ label +"<hr size='1'></div>";
             return cell;
           } 
 
