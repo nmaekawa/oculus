@@ -179,12 +179,12 @@ $(function() {
         //adapter for search form
         var dataAdapter = new $.jqx.dataAdapter(fts_source, {
           autoBind: false,
-          /*beforeSend: function (xhr) {
+          beforeSend: function (xhr) {
              xhr.cache = false;
              fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
              "?Q=" + $("#searchbox").val() + "&F=M";
              console.log("setting search url to " + fts_source.url);
-          } */   
+          } 
         });  
 
         //search hitlist
@@ -214,8 +214,8 @@ $(function() {
         var me = this;
         $("#searchbox").on("keypress", function (event) {
           if(event.which === 13){
-             dataAdapter.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
-                "?Q=" + $("#searchbox").val();
+             /*dataAdapter.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
+                "?Q=" + $("#searchbox").val();*/
               if (me.timer) clearTimeout(me.timer);
              me.timer = setTimeout(function () {
                 dataAdapter.dataBind();
