@@ -170,7 +170,7 @@ $(function() {
             { name: 'uri', map: 'deliveryUri', type: 'string'},
             { name: 'context', map: 'context', type: 'string'},
           ],
-          url: l.PDS_WS_URL + "find/",
+          //url: l.PDS_WS_URL + "find/",
           root: "resultSet",
           record: "record"
           //pager
@@ -181,8 +181,8 @@ $(function() {
           autoBind: false,
           beforeSend: function (xhr) {
              xhr.cache = true;
-             fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
-             "?Q=" + $("#searchbox").val() + "&F=M";
+             /*fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
+             "?Q=" + $("#searchbox").val() + "&F=M";*/
              console.log("setting search url to " + fts_source.url);
           } 
         });  
@@ -214,8 +214,8 @@ $(function() {
         var me = this;
         $("#searchbox").on("keypress", function (event) {
           if(event.which === 13){
-             /*dataAdapter.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
-                "?Q=" + $("#searchbox").val();*/
+             fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() + 
+                "?Q=" + $("#searchbox").val();
               if (me.timer) clearTimeout(me.timer);
              me.timer = setTimeout(function () {
                 dataAdapter.dataBind();
