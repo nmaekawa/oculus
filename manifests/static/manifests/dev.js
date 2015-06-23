@@ -291,7 +291,7 @@ $(function() {
         $dialog = $('<div id="print-modal" style="display:none" />');
         $dialog.html(t['print-tmpl'](content));
         $dialog
-          .dialog($.extend({title: "Print Manifest"}, dialogBaseOpts))
+          .dialog($.extend({title: "Convert to PDF for Printing"}, dialogBaseOpts))
           .dialog('open');
 
         $( "input#pdssubmit" ).click(function(e) {
