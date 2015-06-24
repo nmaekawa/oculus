@@ -351,7 +351,7 @@ $(function() {
     var State = History.getState(); // Note: We are using History.getState() instead of event.state
   });
 
-  $.subscribe("windowUpdated", function (e, data) {
+  var updateUrl = function (e, data) {
     $.each(Mirador.viewer.workspace.slots, function (i, slot) {
       var mirWindow = slot.window;
       if (mirWindow) {
@@ -361,6 +361,10 @@ $(function() {
         });
       }
     });
-  });
+  }
+
+  $.subscribe("windowUpdated", updateUrl);
+  $.subscribe("windowAdded", updateUrl);
+  $.subscribe("windowRemoved", updateUrl);
 
 });
