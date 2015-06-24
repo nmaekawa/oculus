@@ -351,40 +351,24 @@ $(function() {
     var State = History.getState(); // Note: We are using History.getState() instead of event.state
   });
 
-  var updateUrl = function (e, data) {
-    // Because window doesn't yet exist in case of window added
+  $.subscribe("windowUpdated", function (e, data){
+    History.replaceState({}, "State change", constructUrl());
+  });
+
+  $.subscribe("windowAdded", function (e, data) {
+    console.log("ADDED");
     $.unsubscribe("currentCanvasIDUpdated." + data.id);
     $.subscribe("currentCanvasIDUpdated." + data.id, function (e, cvs_data){
       History.replaceState({}, "State change", constructUrl());
     });
-
-    $.each(Mirador.viewer.workspace.slots, function (i, slot) {
-      var mirWindow = slot.window;
-      if (mirWindow) {
-        $.unsubscribe("currentCanvasIDUpdated." + mirWindow.id);
-        $.subscribe("currentCanvasIDUpdated." + mirWindow.id, function (e, cvs_data) {
-          History.replaceState({}, "State change", constructUrl());
-        });
-      }
-    });
-  }
-
-  $.subscribe("windowUpdated", function (){
-    console.log("UPDATED");
-  });
-  $.subscribe("windowAdded", function () {
-    console.log("ADDED");
-  });
-  $.subscribe("windowRemoved", function () {
-    console.log("REMOVED");
   });
 
-
-  $.subscribe("windowUpdated", updateUrl);
-  $.subscribe("windowAdded", updateUrl);
   $.subscribe("windowRemoved", function (e, data) {
+    console.log("REMOVED");
     $.unsubscribe("currentCanvasIDUpdated." + data.id);
     History.replaceState({}, "State change", constructUrl(data.id));
   });
+
+
 
 });
