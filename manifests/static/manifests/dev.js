@@ -97,7 +97,7 @@ $(function() {
     'ImageView': 'i',
     'BookView': 'b',
     'ScrollView': 's',
-    'ThumbnailView': 't'
+    'ThumbnailsView': 't'
   };
 
   var constructUrl = function (omit_id) {
@@ -353,6 +353,10 @@ $(function() {
 
   $.subscribe("windowUpdated", function (e, data){
     History.replaceState({}, "State change", constructUrl());
+    $.unsubscribe("currentCanvasIDUpdated." + data.id);
+    $.subscribe("currentCanvasIDUpdated." + data.id, function (e, cvs_data){
+      History.replaceState({}, "State change", constructUrl());
+    });
   });
 
   $.subscribe("windowAdded", function (e, data) {
