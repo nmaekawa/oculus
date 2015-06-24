@@ -347,28 +347,20 @@ $(function() {
 
   $(document).on('click', "#cite, #view-in-pds, #search, #print, #viewtext, #links", present_choices);
 
-  $.subscribe("windowUpdated", function (data) {
+  History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
+    var State = History.getState(); // Note: We are using History.getState() instead of event.state
+  });
+
+  $.subscribe("windowUpdated", function (e, data) {
     $.each(Mirador.viewer.workspace.slots, function (i, slot) {
       var mirWindow = slot.window;
       if (mirWindow) {
+        $.unsubscribe("currentCanvadIDUpdated." + mirWindow.id);
         $.subscribe("currentCanvasIDUpdated." + mirWindow.id, function (e, cvs_data) {
-          console.log("Changed ID", constructUrl());
+          History.replaceState({}, "State change", constructUrl());
         });
       }
     });
-  });
-
-  $.subscribe("windowAdded", function (e, data) {
-    console.log("added: " + data.id);
-    $.subscribe("currentCanvasIDUpdated." + data.id, function (e, cvs_data) {
-      console.log(cvs_data);
-      console.log(constructUrl());
-    });
-  });
-
-  $.subscribe("windowRemoved", function (e, data) {
-    console.log("removed: " + data.id);
-    $.unsubscribe("currentCanvasIDUpdated." + data.id);
   });
 
 });
