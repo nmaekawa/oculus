@@ -347,6 +347,17 @@ $(function() {
 
   $(document).on('click', "#cite, #view-in-pds, #search, #print, #viewtext, #links", present_choices);
 
+  $.subscribe("windowUpdated", function (data) {
+    $.each(Mirador.viewer.workspace.slots, function (i, slot) {
+      var mirWindow = slot.window;
+      if (mirWindow) {
+        $.subscribe("currentCanvasIDUpdated." + mirWindow.id, function (e, cvs_data) {
+          console.log("Changed ID", constructUrl());
+        });
+      }
+    });
+  });
+
   $.subscribe("windowAdded", function (e, data) {
     console.log("added: " + data.id);
     $.subscribe("currentCanvasIDUpdated." + data.id, function (e, cvs_data) {
