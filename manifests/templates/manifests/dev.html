@@ -25,7 +25,7 @@
 
   {% verbatim %}
   <script id="citation-tmpl" type="text/x-handlebars-template">
-    <div title="citation">
+    <div class="dialog" title="citation">
       <header>
         <h3>Resource</h3>
       </header>
@@ -52,7 +52,7 @@
   </script>
 
   <script id="search-tmpl" type="text/x-handlebars-template">
-    <div title="search">
+    <div class="dialog" title="search">
 
         <input type="hidden" name="id" id="search_drs_id" value="{{ drs_id }}"/>
         <input name="searchbox" type="text" id="searchbox" class='jqx-input' placeholder="" size="80"/>
@@ -65,7 +65,7 @@
   </script>
 
   <script id="choices-tmpl" type="text/x-handlebars-template">
-    <div title="Choices" class="choices {{ op }}">
+    <div title="Choices" class="choices dialog {{ op }}">
       <header><h3>Displayed Manifests</h3></header>
       <ul>
         {{#each choices}}
@@ -76,7 +76,7 @@
   </script>
 
   <script id="print-tmpl" type="text/x-handlebars-template">
-    <div title="Print"  class="print {{ op }}" style="margin: 10px; padding: 5px;">
+    <div title="Print"  class="print dialog {{ op }}" style="margin: 10px; padding: 5px;">
       <h3>Convert to PDF for Printing</h3>
        <div>
         <p>Convert selected pages to PDF so that you can print or save the file to disk.  The service creates PDFs at 10 pages&ndash;per&ndash;minute.  Requests larger than 500 pages can take an hour or more to process.  The link to your PDF will remain active for 7 days.</p>
@@ -106,14 +106,14 @@
   </script>
 
   <script id="viewtext-tmpl" type="text/x-handlebars-template">
-     <div title="viewtext" class="viewtext {{ op }}">
+     <div title="viewtext" class="viewtext dialog {{ op }}">
         <h3>View Text</h3>
           <div>{{ text }}</div>
      </div>
   </script>
 
   <script id="links-tmpl" type="text/x-handlebars-template">
-    <div title="links" class="links {{ op }}">
+    <div title="links" class="links dialog {{ op }}">
      <header><h3>Related Links</h3></header>
       <ul>
         {{#each links}}

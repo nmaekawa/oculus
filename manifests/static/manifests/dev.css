@@ -30,9 +30,9 @@ body {
   cursor: pointer;
 }
 
-.ui-widget-content a {
-  color: blue !important;
-  text-decoration: underline !important;
+.ui-widget-content .dialog a {
+  color: blue;
+  text-decoration: underline;
 }
 
 #citation-modal p.header {

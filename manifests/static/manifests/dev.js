@@ -347,12 +347,17 @@ $(function() {
 
   $(document).on('click', "#cite, #view-in-pds, #search, #print, #viewtext, #links", present_choices);
 
-  var topics = ["windowAdded", "windowRemoved", "currentCanvasIDUpdated"];
-  var len = topics.length;
-  for (var i = 0; i < len;i++) {
-    $.subscribe(topics[i], function (e, data) {
-      console.log(data);
+  $.subscribe("windowAdded", function (e, data) {
+    console.log("added: " + data.id);
+    $.subscribe("currentCanvasIDUpdated." + data.id, function (e, cvs_data) {
+      console.log(cvs_data);
+      console.log(constructUrl());
     });
-  }
+  });
+
+  $.subscribe("windowRemoved", function (e, data) {
+    console.log("removed: " + data.id);
+    $.unsubscribe("currentCanvasIDUpdated." + data.id);
+  });
 
 });
