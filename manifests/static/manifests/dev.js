@@ -227,7 +227,7 @@ $(function() {
         { source: dataAdapter,
           displayMember: "context",
           valueMember: "uri",
-          width: 600,
+          width: 800,
           height: 200,
           renderer: function (index, label, value) {
             //style="margin: 5px; float:left;word-wrap: break-word; height: auto; overflow-x: auto;"
