@@ -171,7 +171,7 @@ $(function() {
       }
       else {
         $dialog = $('<div id="citation-modal" style="display:none" />');
-        $.getJSON( l.PDS_WS_URL + 'cite/' + drs_id + '?callback=?', {'n':n})
+        $.getJSON( '/proxy/cite/' + drs_id + '?callback=?', {'n':n})
           .done(function (data) {
             if (data.citation) {
               $dialog.html(t['citation-tmpl'](data.citation));
