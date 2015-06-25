@@ -264,18 +264,18 @@ $(function() {
           if (event.args) {
             var item = event.args.item;
             if (item) {
-                var seq = item.value;
-                if (!seq) {
                   var record = dataAdapter.records[item.index];
                   seq = record.uri;
                 }
                 // TODO - jump active mirador window to this new seq
+                var l = record.uri.split("=")[1];
+                console.log("l is " + l);
                 console.log("item is: " + item.label);
                 console.log("item index is: " + item.index);
                 console.log("search: jumping to sequence " + record.uri);
                 clearSearch();
                 $('#search-modal').dialog('close');
-                window.open('',seq);
+                window.open('', record.uri);
             }
           }
         });
