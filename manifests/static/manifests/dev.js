@@ -240,13 +240,13 @@ $(function() {
 
         var showResults = function () {
          if (dataAdapter.records.length > 0) {
-               $('#nohits').hide();
-               $('#hitlist').show();
+               //$('#nohits').hide();
                $('#hitlist').jqxListBox('refresh');
+               $('#hitlist').show();
              } else {
               $('#hitlist').hide();
               $('#hitlist').jqxListBox('clear');
-              $('#nohits').show();
+              //$('#nohits').show();
              }
         };
 
@@ -254,7 +254,7 @@ $(function() {
           $("#searchbox").val('');
           $('#hitlist').jqxListBox('clear');
           $('#hitlist').hide();
-          $('#nohits').hide();
+          //$('#nohits').hide();
         };
 
         //handler for select -> move to mirador window
