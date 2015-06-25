@@ -264,12 +264,13 @@ $(function() {
           if (event.args) {
             var item = event.args.item;
             if (item) {
-                  var record = dataAdapter.records[item.index];
-                  seq = record.uri;
-                }
+                var record = dataAdapter.records[item.index];
+
                 // TODO - jump active mirador window to this new seq
-                var l = record.uri.split("=")[1];
+                var l = record.uri.split("=");
+                var seq = l[1];
                 console.log("l is " + l);
+                console.log("sequence is " + seq);
                 console.log("item is: " + item.label);
                 console.log("item index is: " + item.index);
                 console.log("search: jumping to sequence " + record.uri);
