@@ -280,8 +280,8 @@ $(function() {
               if (me.timer) clearTimeout(me.timer);
               me.timer = setTimeout(function () {
                 dataAdapter.dataBind();
-                showResults();
              }, 300);
+             showResults();
          }
         });
 
@@ -293,8 +293,8 @@ $(function() {
             if (me2.timer) clearTimeout(me2.timer);
               me2.timer = setTimeout(function () {
                   dataAdapter.dataBind();
-                  showResults;
               }, 300);
+              showResults();
          });
 
         //handler for clear searchbox form
