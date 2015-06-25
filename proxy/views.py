@@ -15,8 +15,10 @@ methods_allowed = ["printpdf",
 
 # view for proxy url
 def proxy(request, method, record_id):
-    if 'hulaccess' in request.COOKIES:
-        ams_cookie = request.COOKIES['hulaccess']
     if not method in methods_allowed:
         return HttpResponseForbidden("Method not allowed by proxy")
+
+    if 'hulaccess' in request.COOKIES:
+        ams_cookie = request.COOKIES['hulaccess']
+
     return webclient.get(WEB_SERVICE_URL + "/" + method + "/" + record_id + "?" + request.GET.urlencode())
