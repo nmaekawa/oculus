@@ -243,7 +243,7 @@ $(function() {
 
         $("#hitlist").on('bindingComplete', function (event) {
           if ( dataAdapter.records.length > 0) {
-            $('#hits').text('<b>' + dataAdapter.records.length + "</b> Search Results Found");
+            $('#hits').html("<b>" + dataAdapter.records.length + "</b> Search Results Found");
             $('#nohits').hide();
             $('#hits').show();
             $('#hitlist').show();
