@@ -231,8 +231,8 @@ $(function() {
           height: 200,
           renderer: function (index, label, value) {
             //style="margin: 5px; float:left;word-wrap: break-word; height: auto; overflow-x: auto;"
-            var record = this.source[index];
-            var cell = "<div><i>" + label + "</i><br>" + record['context'] + "</div>";
+            var record = dataAdapter.records[index];
+            var cell = "<div><i>" + label + "</i><br>" + record.context + "</div>";
             return cell;
           }
 
@@ -271,7 +271,7 @@ $(function() {
 
         //handler for search button
         var me2 = this;
-        $("searchbutton").on("click", function (event) {
+        $("#searchbutton").on("click", function (event) {
            fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() +
               "?Q=" + $("#searchbox").val();
             if (me2.timer) clearTimeout(me2.timer);
