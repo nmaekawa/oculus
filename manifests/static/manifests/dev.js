@@ -202,9 +202,9 @@ $(function() {
         var fts_source = {
           datatype: "xml",
           datafields: [
-            { name: 'label', map: 'displayLabel', type: 'string'},
-            { name: 'uri', map: 'deliveryUri', type: 'string'},
-            { name: 'context', map: 'context', type: 'string'},
+            { name: 'label',   map: 'displayLabel', type: 'string'},
+            { name: 'uri',     map: 'deliveryUri',  type: 'string'},
+            { name: 'context', map: 'context',      type: 'string'}
           ],
           root: "resultSet",
           record: "result"
@@ -261,7 +261,7 @@ $(function() {
 
         //handler for select -> move to mirador window
         $("#hitlist").on('select', function (event) {
-        if (event.args) {
+        /*if (event.args) {
           var item = event.args.item;
           if (item) {
               var seq = item.value;
@@ -272,7 +272,13 @@ $(function() {
               $('#search-modal').dialog('close');
               window.open('',seq);
             }
-          }
+          }*/
+          var item = $("#hitlist").jqxListBox('getSelectedItem');
+          console.log("item is: " + item.label);
+          console.log("search: jumping to sequence " + item.value);
+          clearSearch();
+          $('#search-modal').dialog('close');
+          window.open('', item.value);
         });
 
         //handler for automatic search on keyup event in search box
