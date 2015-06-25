@@ -229,7 +229,7 @@ $(function() {
           renderer: function (index, label, value) {
             var record = dataAdapter.records[index];
             if (record != null) {
-                var cell = "<div><i>" + label + "</i><br>" + record.context + "<br>" +  record.uri + "</div>";
+                var cell = "<div><i>" + label + "</i><br>" + record.context + "</div>";
                 return cell;
             }
             return "";
@@ -265,18 +265,12 @@ $(function() {
             var item = event.args.item;
             if (item) {
                 var record = dataAdapter.records[item.index];
-
-                // TODO - jump active mirador window to this new seq
-                var l = record.uri.split("=");
-                var seq = l[1];
-                console.log("l is " + l);
-                console.log("sequence is " + seq);
-                console.log("item is: " + item.label);
-                console.log("item index is: " + item.index);
-                console.log("search: jumping to sequence " + record.uri);
+                var l = (record.uri.split("="))[1];
+                var sequence = l[1];
+                console.log("l: " + l);
                 clearSearch();
                 $('#search-modal').dialog('close');
-                window.open('', record.uri);
+                // TODO - jump active mirador window to this new seq
             }
           }
         });
