@@ -206,7 +206,6 @@ $(function() {
             { name: 'uri', map: 'deliveryUri', type: 'string'},
             { name: 'context', map: 'context', type: 'string'},
           ],
-          //url: l.PDS_WS_URL + "find/",
           root: "resultSet",
           record: "result"
           //pager
@@ -217,8 +216,6 @@ $(function() {
           autoBind: false,
           beforeSend: function (xhr) {
              xhr.cache = true;
-             /*fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() +
-             "?Q=" + $("#searchbox").val() + "&F=M";*/
           }
         });
 
@@ -230,7 +227,6 @@ $(function() {
           width: 800,
           height: 200,
           renderer: function (index, label, value) {
-            //style="margin: 5px; float:left;word-wrap: break-word; height: auto; overflow-x: auto;"
             var record = dataAdapter.records[index];
             if (record != null) {
                 var cell = "<div><i>" + label + "</i><br>" + record.context + "</div>";
@@ -270,9 +266,10 @@ $(function() {
           if (item) {
               var seq =  item.value;
               // TODO - jump active mirador window to this new seq
-              console.log("search: jumping to sequence");
+              console.log("search: jumping to sequence" + seq);
               clearSearch();
               $('#search-modal').dialog('close');
+              window.open('',seq);
             }
           }
         });
