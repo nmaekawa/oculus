@@ -52,7 +52,7 @@ def view(request, view_type, document_id):
         p = {} # p is for parsed!
         source_sep = raw.find(":")
         p["source"] = raw[0:source_sep]
-        id_sep = raw.find("|")
+        id_sep = raw.find("$")
         if id_sep == -1:
             id_sep = None
         p["id"] = raw[source_sep+1:id_sep]
@@ -67,7 +67,7 @@ def view(request, view_type, document_id):
             p["seq"] = p["view"] = None
 
         p["view"] = view_mapping[p["view"]]
-        # TODO: k:v pairs for now, planned structure is "|key=val,..."
+        # TODO: k:v pairs for now, planned structure is "$key=val,..."
         # TODO: validate id! Throw interesting errors!
         return p
 
