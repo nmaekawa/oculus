@@ -355,7 +355,7 @@ $(function() {
       }
       else {
         $dialog = $('<div id="viewtext-modal" style="display:none" />');
-        $.get( 'proxy/get/' + drs_id + '?n=' + n, function(xml){
+        $.get( '/proxy/get/' + drs_id + '?n=' + n, function(xml){
           var json = $.xml2json(xml);
           if (json.text) {
             //debug
