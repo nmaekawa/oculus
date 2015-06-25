@@ -203,7 +203,7 @@ $(function() {
           datatype: "xml",
           datafields: [
             { name: 'label', map: 'displayLabel', type: 'string'},
-            { name: 'uri', map: 'deliveryUri',  type: 'string'},
+            { name: 'uri', map: 'deliveryUri', type: 'string'},
             { name: 'context', map: 'context', type: 'string'}
           ],
           root: "resultSet",
@@ -265,9 +265,14 @@ $(function() {
             var item = event.args.item;
             if (item) {
                 var seq = item.value;
+                if (!seq) {
+                  var record = dataAdapter.records[item.index];
+                  seq = record.uri;
+                }
                 // TODO - jump active mirador window to this new seq
                 console.log("item is: " + item.label);
-                console.log("search: jumping to sequence " + item.uri.value);
+                console.log("item index is: " + item.index);
+                console.log("search: jumping to sequence " + record.uri;
                 clearSearch();
                 $('#search-modal').dialog('close');
                 window.open('',seq);
