@@ -174,6 +174,7 @@ $(function() {
         $.getJSON( l.PDS_WS_URL + 'cite/' + drs_id + '?callback=?', {'n':n})
           .done(function (data) {
             if (data.citation) {
+              console.log(data.citation);
               $dialog.html(t['citation-tmpl'](data.citation));
               $dialog.appendTo('body');
               $dialog
