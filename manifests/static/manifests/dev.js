@@ -202,9 +202,9 @@ $(function() {
         var fts_source = {
           datatype: "xml",
           datafields: [
-            { name: 'label',   map: 'displayLabel', type: 'string'},
-            { name: 'uri',     map: 'deliveryUri',  type: 'string'},
-            { name: 'context', map: 'context',      type: 'string'}
+            { name: 'label', map: 'displayLabel', type: 'string'},
+            { name: 'uri', map: 'deliveryUri',  type: 'string'},
+            { name: 'context', map: 'context', type: 'string'}
           ],
           root: "resultSet",
           record: "result"
@@ -276,6 +276,7 @@ $(function() {
           var item = $("#hitlist").jqxListBox('getSelectedItem');
           console.log("item is: " + item.label);
           console.log("search: jumping to sequence " + item.value);
+          console.log("valueMember is " + $('#hitlist').jqxListBox('valueMember') );
           clearSearch();
           $('#search-modal').dialog('close');
           window.open('', item.value);
