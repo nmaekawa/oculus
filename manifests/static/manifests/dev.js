@@ -272,7 +272,7 @@ $(function() {
                 // TODO - jump active mirador window to this new seq
                 console.log("item is: " + item.label);
                 console.log("item index is: " + item.index);
-                console.log("search: jumping to sequence " + record.uri;
+                console.log("search: jumping to sequence " + record.uri);
                 clearSearch();
                 $('#search-modal').dialog('close');
                 window.open('',seq);
