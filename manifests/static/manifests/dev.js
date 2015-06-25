@@ -227,8 +227,8 @@ $(function() {
         { source: dataAdapter,
           displayMember: "context",
           valueMember: "uri",
-          width: 600,
-          autoHeight: true,
+          width: 800,
+          height: 300,
           renderer: function (index, label, value) {
             var cell = "<div style='margin: 5px; float:left;word-wrap: break-word; height: auto; overflow-x: auto;'>"+ label +"<hr size='1'></div>";
             return cell;
@@ -266,6 +266,19 @@ $(function() {
              $('#hitlist').jqxListBox('refresh');
          }
         });
+
+        //handler for search button
+        var me2 = this;
+        $("searchbutton").on("click", function (event) {
+           fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() +
+              "?Q=" + $("#searchbox").val();
+            if (me2.timer) clearTimeout(me2.timer);
+              me2.timer = setTimeout(function () {
+                  dataAdapter.dataBind();
+              }, 300);
+            $('#hitlist').show();
+            $('#hitlist').jqxListBox('refresh');
+         });
 
         //handler for clear searchbox form
         $("#clearsearch").on("click", function (event) {
