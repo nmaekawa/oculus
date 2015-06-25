@@ -227,10 +227,11 @@ $(function() {
         { source: dataAdapter,
           displayMember: "context",
           valueMember: "uri",
-          width: 800,
-          height: 300,
+          width: 400,
+          height: 200
           renderer: function (index, label, value) {
-            var cell = "<div style='margin: 5px; float:left;word-wrap: break-word; height: auto; overflow-x: auto;'>"+ label +"<hr size='1'></div>";
+            //style="margin: 5px; float:left;word-wrap: break-word; height: auto; overflow-x: auto;"
+            var cell = "<div><i>" + label + "</i><br>" + context + "</div>";
             return cell;
           }
 
