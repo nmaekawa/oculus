@@ -275,11 +275,11 @@ $(function() {
           }*/
           var item = $("#hitlist").jqxListBox('getSelectedItem');
           console.log("item is: " + item.label);
-          console.log("search: jumping to sequence " + item.value);
+          console.log("search: jumping to sequence " + item.uri);
           console.log("valueMember is " + $('#hitlist').jqxListBox('valueMember') );
           clearSearch();
           $('#search-modal').dialog('close');
-          window.open('', item.value);
+          window.open('', item.uri);
         });
 
         //handler for automatic search on keyup event in search box
