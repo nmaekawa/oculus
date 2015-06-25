@@ -231,8 +231,9 @@ $(function() {
           height: 200,
           renderer: function (index, label, value) {
             //style="margin: 5px; float:left;word-wrap: break-word; height: auto; overflow-x: auto;"
-            var record = this.records[index];
-            console.log(this.records);
+            var record = dataAdapter.records[index];
+            console.log(dataAdapter.records);
+            console.log(record);
             var cell = "<i>" + label + "</i><br>" + record.context;
             return cell;
           }
