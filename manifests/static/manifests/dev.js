@@ -238,7 +238,7 @@ $(function() {
 
         });
 
-        var showResults = function (e) {
+        var showResults = function () {
          if (dataAdapter.records.length > 0) {
                $('#nohits').hide();
                $('#hitlist').show();
@@ -250,7 +250,7 @@ $(function() {
              }
         };
 
-        var clearSearch = function (e) {
+        var clearSearch = function () {
           $("#searchbox").val('');
           $('#hitlist').jqxListBox('clear');
           $('#hitlist').hide();
