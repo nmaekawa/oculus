@@ -281,6 +281,8 @@ $(function() {
               if (me.timer) clearTimeout(me.timer);
               me.timer = setTimeout(function () {
                 dataAdapter.dataBind();
+                $('#hitlist').jqxListBox('render');
+                $('#hitlist').jqxListBox('refresh');
                 showResults(dataAdapter.records.length);
              }, 300);
          }
@@ -294,6 +296,8 @@ $(function() {
             if (me2.timer) clearTimeout(me2.timer);
             me2.timer = setTimeout(function () {
                   dataAdapter.dataBind();
+                  $('#hitlist').jqxListBox('render');
+                  $('#hitlist').jqxListBox('refresh');
                   showResults(dataAdapter.records.length);
             }, 300);
          });
