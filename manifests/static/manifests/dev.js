@@ -232,7 +232,7 @@ $(function() {
           renderer: function (index, label, value) {
             //style="margin: 5px; float:left;word-wrap: break-word; height: auto; overflow-x: auto;"
             var rec = dataAdapter.records[index];
-            console.log("search hit: " + rec);
+            console.log("search hit: " + rec.context);
             var cell = "<div><i>" + label + "</i><br>" + rec.context + "</div>";
             return cell;
           }
