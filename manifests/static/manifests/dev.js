@@ -227,7 +227,7 @@ $(function() {
         { source: dataAdapter,
           displayMember: "context",
           valueMember: "uri",
-          width: 400,
+          width: 600,
           height: 200,
           renderer: function (index, label, value) {
             //style="margin: 5px; float:left;word-wrap: break-word; height: auto; overflow-x: auto;"
@@ -264,8 +264,15 @@ $(function() {
              me.timer = setTimeout(function () {
                 dataAdapter.dataBind();
              }, 300);
-             $('#hitlist').show();
-             $('#hitlist').jqxListBox('refresh');
+             if ( dataAdapter.records.length > 0) {
+               $('#nohits').hide();
+               $('#hitlist').show();
+               $('#hitlist').jqxListBox('refresh');
+            } else {
+              $('#hitlist').hide();
+              $('#hitlist').jqxListBox('clear');
+              $('#nohits').show();
+            }
          }
         });
 
@@ -278,8 +285,15 @@ $(function() {
               me2.timer = setTimeout(function () {
                   dataAdapter.dataBind();
               }, 300);
-            $('#hitlist').show();
-            $('#hitlist').jqxListBox('refresh');
+            if ( dataAdapter.records.length > 0) {
+               $('#nohits').hide();
+               $('#hitlist').show();
+               $('#hitlist').jqxListBox('refresh');
+            } else {
+              $('#hitlist').hide();
+              $('#hitlist').jqxListBox('clear');
+              $('#nohits').show();
+            }
          });
 
         //handler for clear searchbox form
@@ -287,6 +301,7 @@ $(function() {
           $("#searchbox").val('');
           $('#hitlist').jqxListBox('clear');
           $('#hitlist').hide();
+          $('#nohits').hide();
         });
       }
     },
