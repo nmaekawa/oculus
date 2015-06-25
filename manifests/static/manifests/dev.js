@@ -265,12 +265,10 @@ $(function() {
             var item = event.args.item;
             if (item) {
                 var record = dataAdapter.records[item.index];
-                var l = (record.uri.split("="))[1];
-                var sequence = l[1];
-                console.log("l: " + l);
+                var sequence = (record.uri.split("="))[1];
                 clearSearch();
                 $('#search-modal').dialog('close');
-                // TODO - jump active mirador window to this new seq
+                // TODO - jump active mirador window to this new sequence
             }
           }
         });
