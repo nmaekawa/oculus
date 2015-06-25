@@ -20,7 +20,6 @@ def proxy(request, method, record_id):
     if not method in methods.keys():
         return HttpResponseForbidden("Method not allowed by proxy")
 
-    if 'hulaccess' in request.COOKIES:
-        ams_cookie = request.COOKIES['hulaccess']
+    ams_cookie = request.COOKIES.get('hulaccess', None)
 
     return HttpResponse(webclient.get(WEB_SERVICE_URL + method + "/" + record_id + "?" + request.GET.urlencode(), ams_cookie), content_type=methods[method])
