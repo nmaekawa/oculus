@@ -241,7 +241,6 @@ $(function() {
         var showResults = function () {
          if (dataAdapter.records.length > 0) {
                $('#nohits').hide();
-               $('#hitlist').jqxListBox('render');
                $('#hitlist').show();
              } else {
               $('#hitlist').hide();
@@ -280,6 +279,7 @@ $(function() {
               if (me.timer) clearTimeout(me.timer);
               me.timer = setTimeout(function () {
                 dataAdapter.dataBind();
+                $('#hitlist').jqxListBox('refresh');
              }, 300);
              showResults();
          }
@@ -293,6 +293,7 @@ $(function() {
             if (me2.timer) clearTimeout(me2.timer);
               me2.timer = setTimeout(function () {
                   dataAdapter.dataBind();
+                  $('#hitlist').jqxListBox('refresh');
               }, 300);
               showResults();
          });
