@@ -231,7 +231,7 @@ $(function() {
           height: 200,
           renderer: function (index, label, value) {
             //style="margin: 5px; float:left;word-wrap: break-word; height: auto; overflow-x: auto;"
-            var cell = "<div><i>" + label + "</i><br>" + context + "</div>";
+            var cell = "<div><i>" + label + "</i><br>" + displayMember + "</div>";
             return cell;
           }
 
