@@ -229,7 +229,7 @@ $(function() {
           renderer: function (index, label, value) {
             var record = dataAdapter.records[index];
             if (record != null) {
-                var cell = "<div><i>" + label + "</i><br>" + record.context + "</div>";
+                var cell = "<div><i>" + label + "</i><br>" + record.context + "<br>" +  record.uri + "</div>";
                 return cell;
             }
             return "";
