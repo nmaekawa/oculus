@@ -17,7 +17,7 @@ methods = {"printpdf": "application/pdf",
 
 # view for proxy url
 def proxy(request, method, record_id):
-    if not method in methods_allowed.keys():
+    if not method in methods.keys():
         return HttpResponseForbidden("Method not allowed by proxy")
 
     if 'hulaccess' in request.COOKIES:
