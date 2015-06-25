@@ -247,7 +247,6 @@ $(function() {
             $('#hitlist').show();
           } else {
             $('#hitlist').hide();
-            $('#hitlist').jqxListBox('clear');
             $('#nohits').show();
           }
         });
