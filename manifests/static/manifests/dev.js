@@ -261,25 +261,18 @@ $(function() {
 
         //handler for select -> move to mirador window
         $("#hitlist").on('select', function (event) {
-        /*if (event.args) {
-          var item = event.args.item;
-          if (item) {
-              var seq = item.value;
-              // TODO - jump active mirador window to this new seq
-              console.log("item is: " + item.label);
-              console.log("search: jumping to sequence " + item.value);
-              clearSearch();
-              $('#search-modal').dialog('close');
-              window.open('',seq);
+          if (event.args) {
+            var item = event.args.item;
+            if (item) {
+                var seq = item.value;
+                // TODO - jump active mirador window to this new seq
+                console.log("item is: " + item.label);
+                console.log("search: jumping to sequence " + item.uri.value);
+                clearSearch();
+                $('#search-modal').dialog('close');
+                window.open('',seq);
             }
-          }*/
-          var item = $("#hitlist").jqxListBox('getSelectedItem');
-          console.log("item is: " + item.label);
-          console.log("search: jumping to sequence " + item.uri);
-          console.log("valueMember is " + $('#hitlist').jqxListBox('valueMember') );
-          clearSearch();
-          $('#search-modal').dialog('close');
-          window.open('', item.uri);
+          }
         });
 
         //handler for automatic search on keyup event in search box
