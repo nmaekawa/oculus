@@ -278,7 +278,7 @@ $(function() {
                 "?Q=" + $("#searchbox").val();
               if (me.timer) clearTimeout(me.timer);
               me.timer = setTimeout(function () {
-                dataAdapter.dataBind();
+                //dataAdapter.dataBind();
                 $('#hitlist').jqxListBox('refresh');
              }, 300);
              showResults();
@@ -292,7 +292,7 @@ $(function() {
               "?Q=" + $("#searchbox").val();
             if (me2.timer) clearTimeout(me2.timer);
               me2.timer = setTimeout(function () {
-                  dataAdapter.dataBind();
+                  //dataAdapter.dataBind();
                   $('#hitlist').jqxListBox('refresh');
               }, 300);
               showResults();
