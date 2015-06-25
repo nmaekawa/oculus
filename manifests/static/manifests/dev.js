@@ -266,7 +266,8 @@ $(function() {
           if (item) {
               var seq =  item.value;
               // TODO - jump active mirador window to this new seq
-              console.log("search: jumping to sequence" + seq);
+              console.log("item is: " + item);
+              console.log("search: jumping to sequence " + seq);
               clearSearch();
               $('#search-modal').dialog('close');
               window.open('',seq);
