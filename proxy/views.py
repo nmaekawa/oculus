@@ -23,4 +23,4 @@ def proxy(request, method, record_id):
     if 'hulaccess' in request.COOKIES:
         ams_cookie = request.COOKIES['hulaccess']
 
-    return HttpResponse(webclient.get(WEB_SERVICE_URL + method + "/" + record_id + "?" + request.GET.urlencode()))
+    return HttpResponse(webclient.get(WEB_SERVICE_URL + method + "/" + record_id + "?" + request.GET.urlencode(), ams_cookie))
