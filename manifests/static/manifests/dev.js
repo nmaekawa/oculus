@@ -238,9 +238,10 @@ $(function() {
 
         });
 
-        var showResults = function () {
-         if (dataAdapter.records.length > 0) {
+        var showResults = function (len) {
+         if ( len > 0) {
                $('#nohits').hide();
+               $('#hitlist').jqxListBox('refresh');
                $('#hitlist').show();
              } else {
               $('#hitlist').hide();
@@ -271,31 +272,29 @@ $(function() {
         });
 
         //handler for automatic search on keyup event in search box
-        var me = this;
+        //var me = this;
         $("#searchbox").on("keypress", function (event) {
           if(event.which === 13){
              fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() +
                 "?Q=" + $("#searchbox").val();
-              if (me.timer) clearTimeout(me.timer);
-              me.timer = setTimeout(function () {
-                //dataAdapter.dataBind();
-                $('#hitlist').jqxListBox('refresh');
-             }, 300);
-             showResults();
+              //if (me.timer) clearTimeout(me.timer);
+              //me.timer = setTimeout(function () {
+                dataAdapter.dataBind();
+                showResults(dataAdapter.records.length);
+             //}, 300);
          }
         });
 
         //handler for search button
-        var me2 = this;
+        //var me2 = this;
         $("#searchbutton").on("click", function (event) {
            fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() +
               "?Q=" + $("#searchbox").val();
-            if (me2.timer) clearTimeout(me2.timer);
-              me2.timer = setTimeout(function () {
-                  //dataAdapter.dataBind();
-                  $('#hitlist').jqxListBox('refresh');
-              }, 300);
-              showResults();
+            //if (me2.timer) clearTimeout(me2.timer);
+            //me2.timer = setTimeout(function () {
+                  dataAdapter.dataBind();
+                  showResults(dataAdapter.records.length);
+            //}, 300);
          });
 
         //handler for clear searchbox form
