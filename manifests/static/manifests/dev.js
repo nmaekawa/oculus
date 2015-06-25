@@ -231,25 +231,27 @@ $(function() {
           height: 200,
           renderer: function (index, label, value) {
             //style="margin: 5px; float:left;word-wrap: break-word; height: auto; overflow-x: auto;"
-            var rec = dataAdapter.records[index];
-            console.log("search hit: " + rec.context);
-            var cell = "<div><i>" + label + "</i><br>" + rec.context + "</div>";
-            return cell;
+            var record = dataAdapter.records[index];
+            if (record != null) {
+                var cell = "<div><i>" + label + "</i><br>" + record.context + "</div>";
+                return cell;
+            }
+            return "";
           }
 
         });
 
-        var showResults = function (len) {
-         if ( len > 0) {
-               $('#nohits').hide();
-               //$('#hitlist').jqxListBox('refresh');
-               $('#hitlist').show();
-             } else {
-              $('#hitlist').hide();
-              $('#hitlist').jqxListBox('clear');
-              $('#nohits').show();
-             }
-        };
+        $("#hitlist").on('bindingComplete', function (event) {
+          if ( dataAdapter.records.length > 0) {
+            $('#nohits').hide();
+            $('#hitlist').show();
+          } else {
+            $('#hitlist').hide();
+            $('#hitlist').jqxListBox('clear');
+            $('#nohits').show();
+          }
+        });
+
 
         var clearSearch = function () {
           $("#searchbox").val('');
@@ -281,9 +283,6 @@ $(function() {
               if (me.timer) clearTimeout(me.timer);
               me.timer = setTimeout(function () {
                 dataAdapter.dataBind();
-                $('#hitlist').jqxListBox('render');
-                $('#hitlist').jqxListBox('refresh');
-                showResults(dataAdapter.records.length);
              }, 300);
          }
         });
@@ -296,9 +295,6 @@ $(function() {
             if (me2.timer) clearTimeout(me2.timer);
             me2.timer = setTimeout(function () {
                   dataAdapter.dataBind();
-                  $('#hitlist').jqxListBox('render');
-                  $('#hitlist').jqxListBox('refresh');
-                  showResults(dataAdapter.records.length);
             }, 300);
          });
 
