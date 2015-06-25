@@ -22,7 +22,7 @@ $(function() {
   var printPDF = function(e){
     e.preventDefault();
     var d_id = $("#drs_id").val();
-    var url = l.PDS_WS_URL + "printpdf/" + d_id;
+    var url = "/proxy/printpdf/" + d_id;
     var xmlhttp;
     var n = $("#n").val();
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -277,7 +277,7 @@ $(function() {
         var me = this;
         $("#searchbox").on("keypress", function (event) {
           if(event.which === 13){
-             fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() +
+             fts_source.url = "/proxy/find/" + $("#search_drs_id").val() +
                 "?Q=" + $("#searchbox").val();
               if (me.timer) clearTimeout(me.timer);
               me.timer = setTimeout(function () {
@@ -289,7 +289,7 @@ $(function() {
         //handler for search button
         var me2 = this;
         $("#searchbutton").on("click", function (event) {
-           fts_source.url = l.PDS_WS_URL + "find/" + $("#search_drs_id").val() +
+           fts_source.url = "/proxy/find/" + $("#search_drs_id").val() +
               "?Q=" + $("#searchbox").val();
             if (me2.timer) clearTimeout(me2.timer);
             me2.timer = setTimeout(function () {
@@ -332,7 +332,7 @@ $(function() {
       }
       else {
         $dialog = $('<div id="links-modal" style="display:none" />');
-        $.get( l.PDS_WS_URL + 'related/' + drs_id + '?n=' + n, function(xml){
+        $.get( '/proxy/related/' + drs_id + '?n=' + n, function(xml){
           var json = $.xml2json(xml);
           if (json.link) {
             // Normalize to array for Handlebars
@@ -355,7 +355,7 @@ $(function() {
       }
       else {
         $dialog = $('<div id="viewtext-modal" style="display:none" />');
-        $.get( l.PDS_WS_URL + 'get/' + drs_id + '?n=' + n, function(xml){
+        $.get( 'proxy/get/' + drs_id + '?n=' + n, function(xml){
           var json = $.xml2json(xml);
           if (json.text) {
             //debug

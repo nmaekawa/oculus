@@ -10,7 +10,9 @@ logger = getLogger(__name__)
 WEB_SERVICE_URL = environ['PDS_WS_URL']
 methods_allowed = ["printpdf",
                    "find",
-                   "get"]
+                   "get",
+                   "related",
+                   "cite"]
 
 
 # view for proxy url
