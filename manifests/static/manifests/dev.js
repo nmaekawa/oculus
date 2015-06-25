@@ -174,7 +174,6 @@ $(function() {
         $.getJSON( l.PDS_WS_URL + 'cite/' + drs_id + '?callback=?', {'n':n})
           .done(function (data) {
             if (data.citation) {
-              console.log(data.citation);
               $dialog.html(t['citation-tmpl'](data.citation));
               $dialog.appendTo('body');
               $dialog
@@ -305,7 +304,6 @@ $(function() {
       }
     },
     "print": function(drs_id, n) {
-      console.log("print" + drs_id);
       var content = { drs_id: drs_id, n: n };
       var $dialog = $('#print-modal');
 
@@ -359,8 +357,6 @@ $(function() {
         $.get( '/proxy/get/' + drs_id + '?n=' + n, function(xml){
           var json = $.xml2json(xml);
           if (json.text) {
-            //debug
-            console.log(json.text);
             $dialog.html(t['viewtext-tmpl']({op: "viewtext", text: json.text}));
             $dialog.appendTo('body');
             $dialog
@@ -389,7 +385,6 @@ $(function() {
   });
 
   $.subscribe("windowAdded", function (e, data) {
-    console.log("ADDED");
     $.unsubscribe("currentCanvasIDUpdated." + data.id);
     $.subscribe("currentCanvasIDUpdated." + data.id, function (e, cvs_data){
       History.replaceState({}, "State change", constructUrl());
@@ -397,7 +392,6 @@ $(function() {
   });
 
   $.subscribe("windowRemoved", function (e, data) {
-    console.log("REMOVED");
     $.unsubscribe("currentCanvasIDUpdated." + data.id);
     History.replaceState({}, "State change", constructUrl(data.id));
   });
