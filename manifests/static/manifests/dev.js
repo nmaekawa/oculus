@@ -264,10 +264,10 @@ $(function() {
         if (event.args) {
           var item = event.args.item;
           if (item) {
-              var seq =  item.value;
+              var seq = item.value;
               // TODO - jump active mirador window to this new seq
-              console.log("item is: " + item);
-              console.log("search: jumping to sequence " + seq);
+              console.log("item is: " + item.label);
+              console.log("search: jumping to sequence " + item.value;
               clearSearch();
               $('#search-modal').dialog('close');
               window.open('',seq);
