@@ -89,7 +89,7 @@ def view(request, view_type, document_id):
                 return HttpResponseRedirect(ams_redirect)
 
         if parts['source'] == 'ext':
-            success = true
+            success = True
             response = webclient.get(urllib2.unquote(parts[id]))
             real_id = parts["id"]
             real_source = parts["source"]
