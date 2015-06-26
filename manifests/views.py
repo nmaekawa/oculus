@@ -90,7 +90,7 @@ def view(request, view_type, document_id):
 
         if parts['source'] == 'ext':
             success = True
-            response = webclient.get("http://" + parts["id"])
+            response = webclient.get("http://" + parts["id"]).read()
             real_id = parts["id"]
             real_source = parts["source"]
         else:
