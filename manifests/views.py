@@ -90,7 +90,7 @@ def view(request, view_type, document_id):
 
         if parts['source'] == 'ext':
             success = True
-            response = webclient.get(request.scheme + parts["id"]).read()
+            response = webclient.get(request.scheme + "://" + parts["id"]).read()
             real_id = parts["id"]
             real_source = parts["source"]
         else:
@@ -100,7 +100,7 @@ def view(request, view_type, document_id):
         if success:
             if parts['source'] == 'ext':
                 location = "Unknown"
-                uri = request.scheme + parts["id"]
+                uri = request.scheme + "://" +  parts["id"]
                 title = "Unknown"
             else:
                 title = models.get_manifest_title(real_id, real_source)
