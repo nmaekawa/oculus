@@ -25,7 +25,7 @@ COOKIE_DOMAIN = environ.get("COOKIE_DOMAIN", ".hul.harvard.edu")
 PDS_VIEW_URL = environ.get("PDS_VIEW_URL", "http://pds.lib.harvard.edu/pds/view/")
 PDS_WS_URL = environ.get("PDS_WS_URL", "http://pds.lib.harvard.edu/pds/")
 
-sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam"}
+sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext":"ext"}
 
 def index(request, source=None):
     source = source if source else "drs"
@@ -93,9 +93,9 @@ def view(request, view_type, document_id):
             response = webclient.get("http://" + parts["id"])
             real_id = parts["id"]
             real_source = parts["source"]
-
-        #print source, id
-        (success, response, real_id, real_source) = get_manifest(parts["id"], parts["source"], False, host, ams_cookie)
+        else:
+            #print source, id
+            (success, response, real_id, real_source) = get_manifest(parts["id"], parts["source"], False, host, ams_cookie)
 
         if success:
             if parts['source'] == 'ext':
