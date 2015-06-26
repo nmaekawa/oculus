@@ -101,6 +101,7 @@ def view(request, view_type, document_id):
             if parts['source'] == 'ext':
                 location = "Unknown"
                 uri = "http://" + parts["id"]
+                title = "Unknown"
             else:
                 title = models.get_manifest_title(real_id, real_source)
                 uri = "http://%s/manifests/%s:%s" % (host,real_source,real_id)
