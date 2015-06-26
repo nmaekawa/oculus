@@ -150,8 +150,14 @@ $(function() {
             drs_id = drs_match && drs_match[1],
             focusType = mirWindow.currentFocus,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
-        if (drs_match && mirWindow.id !== omit_id) {
-          return 'drs:' + drs_id + '$' + n + ftype_alias[focusType]
+        if (mirWindow.id === omit_id) {
+          //pass
+        }
+        else if (drs_match) {
+          return 'drs:' + drs_id + '$' + n + ftype_alias[focusType];
+        }
+        else {
+          return 'ext:' + uri.replace(/^https?:\/\//, '') + '$' + n + ftype_alias[focusType];
         }
       }
     });
