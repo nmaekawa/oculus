@@ -88,16 +88,28 @@ def view(request, view_type, document_id):
             if ams_redirect:
                 return HttpResponseRedirect(ams_redirect)
 
+        if parts['source'] == 'ext':
+            success = true
+            response = webclient.get(urllib2.unquote(parts[id]))
+            real_id = parts["id"]
+            real_source = parts["source"]
+
         #print source, id
         (success, response, real_id, real_source) = get_manifest(parts["id"], parts["source"], False, host, ams_cookie)
 
         if success:
-            title = models.get_manifest_title(real_id, real_source)
-            uri = "http://%s/manifests/%s:%s" % (host,real_source,real_id)
+            if parts['source'] == 'ext':
+                title = urllib2.unquote(uri)
+                location = "Unknown"
+                uri = urllib2.unquote(uri)
+            else:
+                title = models.get_manifest_title(real_id, real_source)
+                uri = "http://%s/manifests/%s:%s" % (host,real_source,real_id)
+                location = "Harvard University"
 
             # Data - what gets loaded
             mfdata = { "manifestUri": uri,
-                       "location": "Harvard University",
+                       "location": location,
                        "title": title}
 
             manifests_data.append(json.dumps(mfdata))
