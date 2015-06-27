@@ -283,7 +283,8 @@ $(function() {
                 $('#search-modal').dialog('close');
                 // TODO - jump active mirador window to this new sequence
                 console.log("old slotID is: " + currSlotID );
-                var currWindow = Mirador.viewer.workspace.slots[currSlotID].window;
+                var currSlot = Mirador.viewer.workspace.slots[currSlotID];
+                var currWindow = currSlot.window;
                 var newCanvasID = currWindow.imagesList[sequence].id;
                 console.log("old canvasID is: " + currWindow.currentCanvasID);
                 console.log("new canvasID is: " + newCanvasID);
