@@ -287,6 +287,9 @@ $(function() {
                 var currWindow = currSlot.window;
                 var newCanvasID = currWindow.imagesList[sequence]['@id'];
                 currWindow.setCurrentCanvasID(newCanvasID);
+                //update panels with current image
+                //if (currWindow.bottomPanel) { currWindow.bottomPanel.updateFocusImages(currWindow.focusImages); }
+                currWindow.updatePanelsAndOverlay();
             }
           }
         });
