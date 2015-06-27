@@ -134,16 +134,16 @@ $(function() {
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
         if (drs_match) {
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
-                  "uri": mirWindow.manifest.uri, "n": n, "slot_index": i};
+                  "uri": mirWindow.manifest.uri, "n": n, "slotID": slot.slotID};
         }
       }
       // else omit manifest because we don't know how to cite/view it
     });
     if (choices.length == 1) {
       if (op === 'search') {
-        operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_index);
+        operations[op](choices[0].drs_id, choices[0].n, choices[0].slotID);
       } else {
-        operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_index);
+        operations[op](choices[0].drs_id, choices[0].n);
       }
     }
     else {
@@ -161,7 +161,7 @@ $(function() {
           $dialog.dialog('close');
           if (op === 'search') {
             operations[op]($(e.currentTarget).data('drs-id'), $(e.currentTarget).data('n'),
-              $(e.currentTarget).data('slot_index'));
+              $(e.currentTarget).data('slotID'));
           } else {
             operations[op]($(e.currentTarget).data('drs-id'), $(e.currentTarget).data('n'));
           }
@@ -193,8 +193,8 @@ $(function() {
           });
       }
     },
-    "search": function(drs_id, n, slot_index) {
-      var content = { drs_id: drs_id, n: n, slot_index: slot_index };
+    "search": function(drs_id, n, slotID) {
+      var content = { drs_id: drs_id, n: n, slotID: slotID };
       var $dialog = $('#search-modal');
       if ($dialog.get().length > 0) {
         $dialog.dialog('close');
@@ -280,12 +280,14 @@ $(function() {
                 clearSearch();
                 $('#search-modal').dialog('close');
                 // TODO - jump active mirador window to this new sequence
-                var slotIdx = $("#search_slot_index").val();
-                slotIdx = 0;
-                console.log("current index is: " + slotIdx);
-                var slots = Mirador.viewer.workspace.slots;
-                var currWindow = Mirador.viewer.workspace.slots[slotIdx].window;
-                currWindow.setCurrentCanvasID(sequence);
+                var slotID = $("#search_slotID").val();
+                console.log("current slotID is: " + slotID);
+                //var slots = Mirador.viewer.workspace.slots;
+                var currWindow = Mirador.viewer.workspace.slots[slotID].window;
+                var newCanvasID = currWindow.imagesList[sequence].id;
+                console.log("old canvasID is: " + currWindow.currentCanvasID);
+                console.log("new canvasID is: " + newCanvasID);
+                currWindow.setCurrentCanvasID(newCanvasID);
             }
           }
         });
