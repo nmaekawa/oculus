@@ -133,7 +133,8 @@ $(function() {
             focusType = mirWindow.currentFocus,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
         if (drs_match) {
-          return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id, "uri": mirWindow.manifest.uri, "n": n};
+          return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
+                  "uri": mirWindow.manifest.uri, "n": n, "slot_index": i};
         }
       }
       // else omit manifest because we don't know how to cite/view it
@@ -154,7 +155,12 @@ $(function() {
         $dialog.find('a').on('click', function (e) {
           e.preventDefault();
           $dialog.dialog('close');
-          operations[op]($(e.currentTarget).data('drs-id'), $(e.currentTarget).data('n'));
+          if (op === 'search') {
+            operations[op]($(e.currentTarget).data('drs-id'), $(e.currentTarget).data('n'),
+              $(e.currentTarget).data('slot_index'));
+          } else {
+            operations[op]($(e.currentTarget).data('drs-id'), $(e.currentTarget).data('n'));
+          }
         });
       }
     }
@@ -183,8 +189,8 @@ $(function() {
           });
       }
     },
-    "search": function(drs_id, n) {
-      var content = { drs_id: drs_id, n: n };
+    "search": function(drs_id, n, slot_index) {
+      var content = { drs_id: drs_id, n: n, slot_index: slot_index };
       var $dialog = $('#search-modal');
       if ($dialog.get().length > 0) {
         $dialog.dialog('close');
@@ -269,6 +275,9 @@ $(function() {
                 clearSearch();
                 $('#search-modal').dialog('close');
                 // TODO - jump active mirador window to this new sequence
+                var slotIdx = $("#slot_index").val();
+                var currWindow = Mirador.viewer.workspace.slots[slotIdx].window;
+                currWindow.setCurrentCanvasID(sequence - 1);
             }
           }
         });
