@@ -56,7 +56,7 @@
     <div class="dialog" title="search">
 
         <input type="hidden" name="id" id="search_drs_id" value="{{ drs_id }}"/>
-        <input type="hidden" name="current_slot_id" id="current_slot_id" value="{{ slotID }}"/>
+        <input type="hidden" name="current_slot_idx" id="current_slot_idx" value="{{ slot_idx }}"/>
         <div id="hints"  style="margin-left: auto; margin-right: auto; text-align: center">
            <i>Hints: Use * as a wildcard. Examples: cat*, oper* and Harv*</i>
         </div>
@@ -80,7 +80,7 @@
       <header><h3>Displayed Manifests</h3></header>
       <ul>
         {{#each choices}}
-        <li><a class="manifest" data-drs-id="{{ drs_id }}" data-n="{{ n }}" data-slotID="{{ slotID }}" href="#no-op">{{ label } }</a></li>
+        <li><a class="manifest" data-drs-id="{{ drs_id }}" data-n="{{ n }}" data-slot-idx="{{ slot_idx }}" href="#no-op">{{ label } }</a></li>
         {{/each}}
       </ul>
     </div>
