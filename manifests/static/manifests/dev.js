@@ -272,13 +272,13 @@ $(function() {
 
         //handler for select -> move to mirador window
         $("#hitlist").on('select', function (event) {
+          var currSlotID = $("#current_slot_id").val();
           if (event.args) {
             var item = event.args.item;
             if (item) {
                 var record = dataAdapter.records[item.index];
                 var sequence = parseInt((record.uri.split("="))[1]);
                 sequence = sequence - 1;
-                var currSlotID = $('#current_slot_id').val();
                 clearSearch();
                 $('#search-modal').dialog('close');
                 // TODO - jump active mirador window to this new sequence
