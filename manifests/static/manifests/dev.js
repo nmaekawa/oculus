@@ -134,7 +134,6 @@ $(function() {
             focusType = mirWindow.currentFocus,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
         if (drs_match) {
-          console.log("current slotID is: " + mirSlotID); //debug
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
                   "uri": mirWindow.manifest.uri, "n": n, "slotID": mirSlotID};
         }
@@ -144,7 +143,6 @@ $(function() {
     if (choices.length == 1) {
       if (op === 'search') {
         operations[op](choices[0].drs_id, choices[0].n, choices[0].slotID);
-        console.log("selecting slotID: " + choices[0].slotID); //debug
       } else {
         operations[op](choices[0].drs_id, choices[0].n);
       }
@@ -197,6 +195,7 @@ $(function() {
       }
     },
     "search": function(drs_id, n, slotID) {
+      console.log("passing slotID: " + slotID);
       var content = { drs_id: drs_id, n: n, slotID: slotID };
       var $dialog = $('#search-modal');
       if ($dialog.get().length > 0) {
