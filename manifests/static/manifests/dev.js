@@ -282,14 +282,13 @@ $(function() {
                 clearSearch();
                 $('#search-modal').dialog('close');
                 // TODO - jump active mirador window to this new sequence
-                console.log("old slot idx is: " + curr_slot_idx );
                 var currSlot = Mirador.viewer.workspace.slots[curr_slot_idx];
                 var currWindow = currSlot.window;
                 var newCanvasID = currWindow.imagesList[sequence]['@id'];
                 currWindow.setCurrentCanvasID(newCanvasID);
                 //update panels with current image
-                //if (currWindow.bottomPanel) { currWindow.bottomPanel.updateFocusImages(currWindow.focusImages); }
-                currWindow.updatePanelsAndOverlay();
+                if (currWindow.bottomPanel) { currWindow.bottomPanel.updateFocusImages(currWindow.focusImages); }
+                //currWindow.updatePanelsAndOverlay();
             }
           }
         });
