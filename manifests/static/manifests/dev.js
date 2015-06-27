@@ -142,7 +142,7 @@ $(function() {
     });
     if (choices.length == 1) {
       if (op === 'search') {
-        operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_idx;
+        operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_idx);
       } else {
         operations[op](choices[0].drs_id, choices[0].n);
       }
