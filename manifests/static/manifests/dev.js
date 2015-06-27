@@ -124,6 +124,7 @@ $(function() {
     var op = e.currentTarget.id;
     var choices = $.map(Mirador.viewer.workspace.slots, function (slot, i) {
       var mirWindow = slot.window;
+      var mirSlotID = slot.slotID;
       if (mirWindow) {
         var uri = mirWindow.manifest.uri,
             parts = uri.split("/"),
@@ -135,7 +136,7 @@ $(function() {
         if (drs_match) {
           console.log("current slotID is: " + slotID); //debug
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
-                  "uri": mirWindow.manifest.uri, "n": n, "slotID": slot.slotID};
+                  "uri": mirWindow.manifest.uri, "n": n, "slotID": mirSlotID};
         }
       }
       // else omit manifest because we don't know how to cite/view it
