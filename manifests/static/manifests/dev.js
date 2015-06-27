@@ -283,10 +283,10 @@ $(function() {
                 clearSearch();
                 $('#search-modal').dialog('close');
                 // TODO - jump active mirador window to this new sequence
-                var slotID = $("#search_slotID").val();
-                console.log("current slotID is: " + slotID);
+                var oldSlotID = $("#search_slotID").val();
+                console.log("old slotID is: " + oldSlotID);
                 //var slots = Mirador.viewer.workspace.slots;
-                var currWindow = Mirador.viewer.workspace.slots[slotID].window;
+                var currWindow = Mirador.viewer.workspace.slots[oldSlotID].window;
                 var newCanvasID = currWindow.imagesList[sequence].id;
                 console.log("old canvasID is: " + currWindow.currentCanvasID);
                 console.log("new canvasID is: " + newCanvasID);
