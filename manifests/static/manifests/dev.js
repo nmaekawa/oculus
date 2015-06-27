@@ -195,7 +195,7 @@ $(function() {
       }
     },
     "search": function(drs_id, n, slotID) {
-      var content = { drs_id: drs_id, n: n, slotID: String(slotID) };
+      var content = { drs_id: drs_id, n: n, slotID: slotID };
       var $dialog = $('#search-modal');
       if ($dialog.get().length > 0) {
         $dialog.dialog('close');
@@ -278,13 +278,12 @@ $(function() {
                 var record = dataAdapter.records[item.index];
                 var sequence = parseInt((record.uri.split("="))[1]);
                 sequence = sequence - 1;
+                var currSlotID = $('#current_slot_id').val();
                 clearSearch();
                 $('#search-modal').dialog('close');
                 // TODO - jump active mirador window to this new sequence
-                var oldSlotID = $("#searchcanvas").val();
-                console.log("old slotID is: " + oldSlotID );
-                //var slots = Mirador.viewer.workspace.slots;
-                var currWindow = Mirador.viewer.workspace.slots[oldSlotID].window;
+                console.log("old slotID is: " + currSlotID );
+                var currWindow = Mirador.viewer.workspace.slots[currSlotID].window;
                 var newCanvasID = currWindow.imagesList[sequence].id;
                 console.log("old canvasID is: " + currWindow.currentCanvasID);
                 console.log("new canvasID is: " + newCanvasID);
