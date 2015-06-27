@@ -58,7 +58,7 @@
         <input type="hidden" name="id" id="search_drs_id" value="{{ drs_id }}"/>
         <div id="hints"  style="margin-left: auto; margin-right: auto; text-align: center">
            <i>Hints: Use * as a wildcard. Examples: cat*, oper* and Harv*</i>
-           <input type="hidden" name="search_slot_index" id="search_slot_index" value="{{ slot_index }}"/>
+           <input type="hidden" name="search_slotID" id="search_slotID" value="{{ slotID }}"/>
         </div>
         <div style="text-align: center">
           <input class='jqx-input' name="searchbox" type="text" id="searchbox" placeholder="" style="width: 800px" />
@@ -80,7 +80,7 @@
       <header><h3>Displayed Manifests</h3></header>
       <ul>
         {{#each choices}}
-        <li><a class="manifest" data-drs-id="{{ drs_id }}" data-n="{{ n }}" data-slot-index="{{ slot_index }}" href="#no-op">{{ label }}</a></li>
+        <li><a class="manifest" data-drs-id="{{ drs_id }}" data-n="{{ n }}" data-slotID="{{ slotID }}" href="#no-op">{{ label } }</a></li>
         {{/each}}
       </ul>
     </div>
