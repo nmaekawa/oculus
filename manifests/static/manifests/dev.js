@@ -279,7 +279,7 @@ $(function() {
                 clearSearch();
                 $('#search-modal').dialog('close');
                 // TODO - jump active mirador window to this new sequence
-                var slotIdx = $("#slot_index").val();
+                var slotIdx = $("#search_slot_index").val();
                 console.log("current index is: " + slotIdx);
                 var currWindow = Mirador.viewer.workspace.slots[slotIdx].window;
                 currWindow.setCurrentCanvasID(sequence - 1);
