@@ -135,14 +135,14 @@ $(function() {
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
         if (drs_match) {
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
-                  "uri": mirWindow.manifest.uri, "n": n, "slotID": mirSlotID};
+                  "uri": mirWindow.manifest.uri, "n": n, "slotID": mirSlotID, "slot_idx": i};
         }
       }
       // else omit manifest because we don't know how to cite/view it
     });
     if (choices.length == 1) {
       if (op === 'search') {
-        operations[op](choices[0].drs_id, choices[0].n, choices[0].slotID);
+        operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_idx;
       } else {
         operations[op](choices[0].drs_id, choices[0].n);
       }
@@ -162,7 +162,7 @@ $(function() {
           $dialog.dialog('close');
           if (op === 'search') {
             operations[op]($(e.currentTarget).data('drs-id'), $(e.currentTarget).data('n'),
-              $(e.currentTarget).data('slotID'));
+              $(e.currentTarget).data('slot_idx'));
           } else {
             operations[op]($(e.currentTarget).data('drs-id'), $(e.currentTarget).data('n'));
           }
@@ -194,8 +194,8 @@ $(function() {
           });
       }
     },
-    "search": function(drs_id, n, slotID) {
-      var content = { drs_id: drs_id, n: n, slotID: slotID };
+    "search": function(drs_id, n, slot_idx) {
+      var content = { drs_id: drs_id, n: n, slot_idx: slot_idx };
       var $dialog = $('#search-modal');
       if ($dialog.get().length > 0) {
         $dialog.dialog('close');
@@ -272,7 +272,7 @@ $(function() {
 
         //handler for select -> move to mirador window
         $("#hitlist").on('select', function (event) {
-          var currSlotID = $("#current_slot_id").val();
+          var curr_slot_idx = $("#current_slot_idx").val();
           if (event.args) {
             var item = event.args.item;
             if (item) {
@@ -282,8 +282,8 @@ $(function() {
                 clearSearch();
                 $('#search-modal').dialog('close');
                 // TODO - jump active mirador window to this new sequence
-                console.log("old slotID is: " + currSlotID );
-                var currSlot = Mirador.viewer.workspace.slots[currSlotID];
+                console.log("old slot idx is: " + curr_slot_idx );
+                var currSlot = Mirador.viewer.workspace.slots[curr_slot_idx];
                 var currWindow = currSlot.window;
                 var newCanvasID = currWindow.imagesList[sequence].id;
                 console.log("old canvasID is: " + currWindow.currentCanvasID);
