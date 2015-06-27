@@ -134,7 +134,7 @@ $(function() {
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
         if (drs_match) {
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
-                  "uri": mirWindow.manifest.uri, "n": n, "slot_index": 0};
+                  "uri": mirWindow.manifest.uri, "n": n, "slot_index": i};
         }
       }
       // else omit manifest because we don't know how to cite/view it
@@ -280,6 +280,7 @@ $(function() {
                 $('#search-modal').dialog('close');
                 // TODO - jump active mirador window to this new sequence
                 var slotIdx = $("#search_slot_index").val();
+                slotIdx = 0;
                 console.log("current index is: " + slotIdx);
                 var currWindow = Mirador.viewer.workspace.slots[slotIdx].window;
                 currWindow.setCurrentCanvasID(sequence - 1);
