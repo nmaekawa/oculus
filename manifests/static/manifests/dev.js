@@ -286,8 +286,6 @@ $(function() {
                 var currSlot = Mirador.viewer.workspace.slots[curr_slot_idx];
                 var currWindow = currSlot.window;
                 var newCanvasID = currWindow.imagesList[sequence]['@id'];
-                console.log("old canvasID is: " + currWindow.currentCanvasID);
-                console.log("new canvasID is: " + newCanvasID);
                 currWindow.setCurrentCanvasID(newCanvasID);
             }
           }
