@@ -143,7 +143,7 @@ $(function() {
       if (op === 'search') {
         operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_index);
       } else {
-        operations[op](choices[0].drs_id, choices[0].n), choices[0].slot_index);
+        operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_index);
       }
     }
     else {
