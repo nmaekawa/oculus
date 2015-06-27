@@ -275,7 +275,8 @@ $(function() {
             var item = event.args.item;
             if (item) {
                 var record = dataAdapter.records[item.index];
-                var sequence = (record.uri.split("="))[1];
+                var sequence = parseInt((record.uri.split("="))[1]);
+                sequence = sequence - 1;
                 clearSearch();
                 $('#search-modal').dialog('close');
                 // TODO - jump active mirador window to this new sequence
@@ -283,7 +284,7 @@ $(function() {
                 slotIdx = 0;
                 console.log("current index is: " + slotIdx);
                 var currWindow = Mirador.viewer.workspace.slots[slotIdx].window;
-                currWindow.setCurrentCanvasID(sequence - 1);
+                currWindow.setCurrentCanvasID(sequence);
             }
           }
         });
