@@ -134,7 +134,7 @@ $(function() {
             focusType = mirWindow.currentFocus,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
         if (drs_match) {
-          console.log("current slotID is: " + slotID); //debug
+          console.log("current slotID is: " + mirSlotID); //debug
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
                   "uri": mirWindow.manifest.uri, "n": n, "slotID": mirSlotID};
         }
