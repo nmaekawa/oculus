@@ -134,7 +134,7 @@ $(function() {
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
         if (drs_match) {
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
-                  "uri": mirWindow.manifest.uri, "n": n, "slot_index": i};
+                  "uri": mirWindow.manifest.uri, "n": n, "slot_index": 0};
         }
       }
       // else omit manifest because we don't know how to cite/view it
