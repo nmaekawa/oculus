@@ -282,7 +282,7 @@ $(function() {
                 clearSearch();
                 $('#search-modal').dialog('close');
                 // TODO - jump active mirador window to this new sequence
-                var oldSlotID = $("#search_slotID").val();
+                var oldSlotID = $("#search_slot_id").val();
                 console.log("old slotID is: " + oldSlotID);
                 //var slots = Mirador.viewer.workspace.slots;
                 var currWindow = Mirador.viewer.workspace.slots[oldSlotID].window;
