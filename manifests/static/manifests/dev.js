@@ -195,7 +195,6 @@ $(function() {
       }
     },
     "search": function(drs_id, n, slotID) {
-      console.log("passing slotID: " + slotID);
       var content = { drs_id: drs_id, n: n, slotID: slotID };
       var $dialog = $('#search-modal');
       if ($dialog.get().length > 0) {
