@@ -283,8 +283,8 @@ $(function() {
                 var slotIdx = $("#search_slot_index").val();
                 slotIdx = 0;
                 console.log("current index is: " + slotIdx);
-                //var currWindow = Mirador.viewer.workspace.slots[slotIdx].window;
-                var currWindow = Mirador.viewer.workspace.focusedSlot.window;
+                var slots = Mirador.viewer.workspace.slots;
+                var currWindow = Mirador.viewer.workspace.slots[slotIdx].window;
                 currWindow.setCurrentCanvasID(sequence);
             }
           }
