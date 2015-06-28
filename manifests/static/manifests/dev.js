@@ -58,10 +58,15 @@ $(function() {
         $('#printerror').html('Please limit your page sequence range to a maximum of 10 pages for instant printing or enter your email address to have your larger selection sent to you.');
         return;
       }
-      url = url + '?printOpt=range' + '&start=' + start +
-        '&end=' + end + '&email=' + email;
-      xmlhttp.open('GET',url,true);
-      xmlhttp.send();
+      if ((end - start) > 10) {
+        url = url + '?printOpt=range' + '&start=' + start +
+          '&end=' + end + '&email=' + email;
+        xmlhttp.open('GET',url,true);
+        xmlhttp.send();
+      } else {
+        url = url + '?printOpt=range' + '&start=' + start + '&end=' + end + '&email=';
+        window.open(url,'');
+      }
     } else  { //all
       if (totalSeq > 10) {
         if (emailValid) {
@@ -267,6 +272,14 @@ $(function() {
           renderer: function (index, label, value) {
             var record = dataAdapter.records[index];
             if (record != null) {
+                var sequence = parseInt((record.uri.split("="))[1]);
+                sequence = sequence - 1;
+                var curr_slot_idx = $("#current_slot_idx").val();
+                var currSlot = Mirador.viewer.workspace.slots[curr_slot_idx];
+                var currWindow = currSlot.window;
+                var thumbIIIF = currWindow.imagesList[sequence].images[0].service['id]'];
+                thumbIIIF = thumbIIIF + "/full/150,/0/native.jpg";
+                console.log('search thumb is: ' + thumbIIIF);
                 var cell = "<div><i>" + label + "</i><br>" + record.context + "</div>";
                 return cell;
             }
