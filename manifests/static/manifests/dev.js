@@ -18,6 +18,10 @@ $(function() {
   });
 
   //print form
+  var validateEmail = function(email) {
+    var re = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return re.test(email);
+   }
 
   var printPDF = function(e){
     e.preventDefault();
@@ -32,23 +36,46 @@ $(function() {
       xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
     }
 
+    var print_slot_idx = $("#print_slot_idx").val();
+    var totalSeq = Mirador.viewer.workspace.slots[print_slot_idx].window.imagesList.length;
+
+
     var printMode = $('input[name=printOpt]:checked', '#printpds').val();
     var email = $("#email").val();
     var start = $("#start").val();
     var end = $("#end").val();
+    var emailValid =  validateEmail(email);
+
+
     if (printMode === "current") {
       url = url + '?n=' + n +'&printOpt=single';
       window.open(url,'');
     } else if (printMode === "range") {
+      if ( start > end ) {
+        $('printerror').html('<b>Invalid Sequence Range.</b>');
+        return;
+      } else if ( ((end - start) > 10)  && (!emailValid) ){
+        $('printerror').html('<b><Please limit your page sequence range to a maximum of 10 pages for instant printing or enter your email address to have your larger selection sent to you./b>');
+        return;
+      }
       url = url + '?printOpt=range' + '&start=' + start +
         '&end=' + end + '&email=' + email;
       xmlhttp.open('GET',url,true);
       xmlhttp.send();
     } else  { //all
-      url = url + '?printOpt=range' + '&start=' + start +
-        '&end=' + end + '&email=' + email;
-      xmlhttp.open('GET',url,true);
-      xmlhttp.send();
+      if (totalSeq > 10) {
+        if (emailValid) {
+          url = url + '?printOpt=all&email=' + email;
+          xmlhttp.open('GET',url,true);
+          xmlhttp.send();
+        } else {
+          $('printerror').html('<b><Invalid email address./b>');
+          return;
+        }
+      } else {
+        url = url + '?printOpt=range&start=1&end=' + totalSeq + '&email=' + email;
+        window.open(url,'');
+      }
     }
     $('#print-modal').dialog('close');
   };
@@ -141,7 +168,7 @@ $(function() {
       // else omit manifest because we don't know how to cite/view it
     });
     if (choices.length == 1) {
-      if (op === 'search') {
+      if ((op === 'search') || (op === 'print')){
         operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_idx);
       } else {
         operations[op](choices[0].drs_id, choices[0].n);
@@ -160,7 +187,7 @@ $(function() {
         $dialog.find('a').on('click', function (e) {
           e.preventDefault();
           $dialog.dialog('close');
-          if (op === 'search') {
+          if ((op === 'search') || (op === 'print')){
             operations[op]($(e.currentTarget).data('drs-id'), $(e.currentTarget).data('n'),
               $(e.currentTarget).data('slot_idx'));
           } else {
@@ -323,8 +350,8 @@ $(function() {
         });
       }
     },
-    "print": function(drs_id, n) {
-      var content = { drs_id: drs_id, n: n };
+    "print": function(drs_id, n, slot_idx) {
+      var content = { drs_id: drs_id, n: n, slot_idx: slot_idx };
       var $dialog = $('#print-modal');
 
       if ($dialog.get().length > 0) {
