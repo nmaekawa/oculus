@@ -277,7 +277,7 @@ $(function() {
                 var curr_slot_idx = $("#current_slot_idx").val();
                 var currSlot = Mirador.viewer.workspace.slots[curr_slot_idx];
                 var currWindow = currSlot.window;
-                var thumbIIIF = currWindow.imagesList[sequence].images[0].service['id]'];
+                var thumbIIIF = currWindow.imagesList[sequence].images[0].resource.service['id]'];
                 thumbIIIF = thumbIIIF + "/full/150,/0/native.jpg";
                 console.log('search thumb is: ' + thumbIIIF);
                 var cell = "<div><i>" + label + "</i><br>" + record.context + "</div>";
