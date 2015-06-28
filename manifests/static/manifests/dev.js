@@ -364,12 +364,16 @@ $(function() {
           .dialog($.extend({title: "Convert to PDF for Printing"}, dialogBaseOpts))
           .dialog('open');
 
-        $( "input#pdssubmit" ).click(function(e) {
+        $('input#pdssubmit').click(function(e) {
          e.preventDefault();
          printPDF(e);
         });
-        $( "input#pdsclose" ).click(function(e) {
-          $dialog.dialog('close');
+        $('input#pdsclose').click(function(e) {
+          $('#email').val('');
+          $('#start').val('');
+          $('#end').val('');
+          $('input[name=printOpt]:checked').prop('checked', false);
+          $('#printOptDefault').prop('checked', 'checked');
         });
       }
     },
