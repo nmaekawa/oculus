@@ -52,11 +52,11 @@ $(function() {
       window.open(url,'');
     } else if (printMode === "range") {
       if ( start > end ) {
-        $('printerror').text('Invalid Sequence Range.');
+        $('printerror').innerText('Invalid Sequence Range.');
         console.log('Invalid Sequence Range.');
         return;
       } else if ( ((end - start) > 10)  && (!emailValid) ){
-        $('printerror').text('Please limit your page sequence range to a maximum of 10 pages for instant printing or enter your email address to have your larger selection sent to you.');
+        $('printerror').innerText('Please limit your page sequence range to a maximum of 10 pages for instant printing or enter your email address to have your larger selection sent to you.');
         console.log('please limit your print range or use a valid email');
         return;
       }
@@ -71,7 +71,7 @@ $(function() {
           xmlhttp.open('GET',url,true);
           xmlhttp.send();
         } else {
-          $('printerror').text('Invalid email address.');
+          $('printerror').innerText('Invalid email address.');
           console.log('Invalid email address');
           return;
         }
