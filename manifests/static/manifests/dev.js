@@ -278,10 +278,9 @@ $(function() {
                 var currSlot = Mirador.viewer.workspace.slots[curr_slot_idx];
                 var currWindow = currSlot.window;
                 var thumbUrl = currWindow.imagesList[sequence].images[0].resource.service['@id'];
-                thumbUrl = thumbUrl + "/full/75,/0/native.jpg";
-                console.log(thumbUrl);
+                thumbUrl = thumbUrl + "/full/150,/0/native.jpg";
                 var cell = "<div style='text-align:left; float:left;'><img src='" + thumbUrl +
-                  "' style='float:left' width='75' /> <i>" + label + "</i><br>" + record.context + "</div>";
+                  "' style='float:left' height='150' /> <i>" + label + "</i><br>" + record.context + "</div>";
                 return cell;
             }
             return "";
