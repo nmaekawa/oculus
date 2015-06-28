@@ -51,7 +51,7 @@ $(function() {
       url = url + '?n=' + n +'&printOpt=single';
       window.open(url,'');
     } else if (printMode === "range") {
-      if ( start > end ) {
+      if ((start > end) || (start === '') || (end ==='')){
         $('#printerror').html('Invalid Sequence Range.');
         return;
       } else if ( ((end - start) > 10)  && (!emailValid) ){
