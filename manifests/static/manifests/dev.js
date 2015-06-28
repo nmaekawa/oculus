@@ -368,6 +368,9 @@ $(function() {
          e.preventDefault();
          printPDF(e);
         });
+        $( "input#pdsclose" ).click(function(e) {
+          $dialog.dialog('close');
+        });
       }
     },
     "links": function (drs_id, n) {
