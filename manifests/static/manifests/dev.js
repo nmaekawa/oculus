@@ -281,7 +281,7 @@ $(function() {
                 thumbUrl = thumbUrl + "/full/75,/0/native.jpg";
                 console.log(thumbUrl);
                 var cell = "<div style='text-align:left; float:left;'><img src='" + thumbUrl +
-                  "' style='float:left'/> <i>" + label + "</i><br>" + record.context + "</div>";
+                  "' style='float:left' width='75' /> <i>" + label + "</i><br>" + record.context + "</div>";
                 return cell;
             }
             return "";
