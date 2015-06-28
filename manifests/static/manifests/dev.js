@@ -368,7 +368,7 @@ $(function() {
          e.preventDefault();
          printPDF(e);
         });
-        $('input#pdsclose').click(function(e) {
+        $('input#pdsclear').click(function(e) {
           $('#email').val('');
           $('#start').val('');
           $('#end').val('');
