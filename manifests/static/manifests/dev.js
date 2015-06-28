@@ -280,7 +280,7 @@ $(function() {
                 var thumbUrl = currWindow.imagesList[sequence].images[0].resource.service['@id'];
                 thumbUrl = thumbUrl + "/full/150,/0/native.jpg";
                 var cell = "<div style='text-align:left; float:left;'><img src='" + thumbUrl +
-                  "' style='float:left' height='150' /> <i>" + label + "</i><br>" + record.context + "</div>";
+                  "' style='float:left' width='80' height='80' hspace='4' /> <i>" + label + "</i><br>" + record.context + "</div>";
                 return cell;
             }
             return "";
