@@ -385,10 +385,10 @@ $(function() {
           .dialog('open');
 
         //set default print range max/min values
-        $('start').val('1');
+        $('#start').val('1');
         var print_slot_idx = $("#print_slot_idx").val();
         var totalSeq = Mirador.viewer.workspace.slots[print_slot_idx].window.imagesList.length;
-        $('end').val(totalSeq);
+        $('#end').val(totalSeq);
 
         $('input#pdssubmit').click(function(e) {
          e.preventDefault();
