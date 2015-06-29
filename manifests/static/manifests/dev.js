@@ -52,10 +52,12 @@ $(function() {
       window.open(url,'');
     } else if (printMode === "range") {
       if ((start > end) || (start === '') || (end ==='')){
-        $('#printerror').html('Invalid Sequence Range.');
+        $('#printmsg').css('color', '#A51C30');
+        $('#printmsg').html('<b>Invalid Sequence Range.</b>');
         return;
       } else if ( ((end - start) > 10)  && (!emailValid) ){
-        $('#printerror').html('Please limit your page sequence range to a maximum of 10 pages for instant printing or enter your email address to have your larger selection sent to you.');
+        $('#printmsg').css('color', '#A51C30');
+        $('#printmsg').html('<b>Please limit your page sequence range to a maximum of 10 pages for instant printing or enter your email address to have your larger selection sent to you.</b>');
         return;
       }
       if ((end - start) > 10) {
@@ -63,6 +65,8 @@ $(function() {
           '&end=' + end + '&email=' + email;
         xmlhttp.open('GET',url,true);
         xmlhttp.send();
+        $('#printmsg').css('color', 'black');
+        $('#printmsg').html('PDF sent to ' + email);
       } else {
         url = url + '?printOpt=range' + '&start=' + start + '&end=' + end + '&email=';
         window.open(url,'');
@@ -73,8 +77,11 @@ $(function() {
           url = url + '?printOpt=all&email=' + email;
           xmlhttp.open('GET',url,true);
           xmlhttp.send();
+          $('#printmsg').css('color', 'black');
+          $('#printmsg').html('PDF sent to ' + email);
         } else {
-          $('#printerror').html('Invalid email address.');;
+          $('#printmsg').css('color', '#A51C30');
+          $('#printmsg').html('<b>Invalid email address</b>');;
           return;
         }
       } else {
@@ -82,7 +89,7 @@ $(function() {
         window.open(url,'');
       }
     }
-    $('#print-modal').dialog('close');
+    //$('#print-modal').dialog('close');
   };
 
 
