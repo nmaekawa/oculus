@@ -398,7 +398,7 @@ $(function() {
           $('#email').val('');
           $('#start').val('1');
           $('#end').val(totalSeq);
-          $('#printmsg').html('');
+          $('#printmsg').html('&nbsp;');
           $('input[name=printOpt]:checked').prop('checked', false);
           $('#printOptDefault').prop('checked', 'checked');
         });
