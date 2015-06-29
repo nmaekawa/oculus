@@ -392,6 +392,7 @@ $(function() {
           $('#email').val('');
           $('#start').val('');
           $('#end').val('');
+          $('#printmsg').html('');
           $('input[name=printOpt]:checked').prop('checked', false);
           $('#printOptDefault').prop('checked', 'checked');
         });
