@@ -384,14 +384,20 @@ $(function() {
           .dialog($.extend({title: "Convert to PDF for Printing"}, dialogBaseOpts))
           .dialog('open');
 
+        //set default print range max/min values
+        $('start').val('1');
+        var print_slot_idx = $("#print_slot_idx").val();
+        var totalSeq = Mirador.viewer.workspace.slots[print_slot_idx].window.imagesList.length;
+        $('end').val(totalSeq);
+
         $('input#pdssubmit').click(function(e) {
          e.preventDefault();
          printPDF(e);
         });
         $('input#pdsclear').click(function(e) {
           $('#email').val('');
-          $('#start').val('');
-          $('#end').val('');
+          $('#start').val('1');
+          $('#end').val(totalSeq);
           $('#printmsg').html('');
           $('input[name=printOpt]:checked').prop('checked', false);
           $('#printOptDefault').prop('checked', 'checked');
