@@ -345,7 +345,7 @@ $(function() {
         $("#searchbox").on("keypress", function (event) {
           if(event.which === 13){
              fts_source.url = "/proxy/find/" + $("#search_drs_id").val() +
-                "?Q=" + $("#searchbox").val();
+                "?Q=" + $("#searchbox").val() + "&P=50";
               if (me.timer) clearTimeout(me.timer);
               me.timer = setTimeout(function () {
                 dataAdapter.dataBind();
