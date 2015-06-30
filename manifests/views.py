@@ -11,6 +11,7 @@ import json
 import urllib2
 import requests
 import webclient
+import base64
 from logging import getLogger
 logger = getLogger(__name__)
 
