@@ -464,11 +464,11 @@ $(function() {
   });
 
   var state_replacer = function (e, cvs_data){
-    History.replaceState({}, "State change", constructUrl());
+    History.replaceState({}, document.title, constructUrl());
   };
 
   $.subscribe("windowUpdated", function (e, data){
-    History.replaceState({}, "State change", constructUrl());
+    History.replaceState({}, document.title, constructUrl());
     $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
   });
@@ -480,7 +480,7 @@ $(function() {
 
   $.subscribe("windowRemoved", function (e, data) {
     $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
-    History.replaceState({}, "State change", constructUrl(data.id));
+    History.replaceState({}, document.title, constructUrl(data.id));
   });
 
 
