@@ -11,6 +11,7 @@ import json
 import urllib2
 import requests
 import webclient
+import base64
 from logging import getLogger
 logger = getLogger(__name__)
 
@@ -25,7 +26,7 @@ COOKIE_DOMAIN = environ.get("COOKIE_DOMAIN", ".hul.harvard.edu")
 PDS_VIEW_URL = environ.get("PDS_VIEW_URL", "http://pds.lib.harvard.edu/pds/view/")
 PDS_WS_URL = environ.get("PDS_WS_URL", "http://pds.lib.harvard.edu/pds/")
 
-sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam"}
+sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext":"ext"}
 
 def index(request, source=None):
     source = source if source else "drs"
@@ -88,16 +89,28 @@ def view(request, view_type, document_id):
             if ams_redirect:
                 return HttpResponseRedirect(ams_redirect)
 
-        #print source, id
-        (success, response, real_id, real_source) = get_manifest(parts["id"], parts["source"], False, host, ams_cookie)
+        if parts['source'] == 'ext':
+            success = True
+            response = webclient.get(base64.urlsafe_b64decode(parts["id"].encode('ascii'))).read()
+            real_id = parts["id"]
+            real_source = parts["source"]
+        else:
+            #print source, id
+            (success, response, real_id, real_source) = get_manifest(parts["id"], parts["source"], False, host, ams_cookie)
 
         if success:
-            title = models.get_manifest_title(real_id, real_source)
-            uri = "http://%s/manifests/%s:%s" % (host,real_source,real_id)
+            if parts['source'] == 'ext':
+                location = "Unknown"
+                uri = base64.urlsafe_b64decode(parts["id"].encode('ascii'))
+                title = "Unknown"
+            else:
+                title = models.get_manifest_title(real_id, real_source)
+                uri = "http://%s/manifests/%s:%s" % (host,real_source,real_id)
+                location = "Harvard University"
 
             # Data - what gets loaded
             mfdata = { "manifestUri": uri,
-                       "location": "Harvard University",
+                       "location": location,
                        "title": title}
 
             manifests_data.append(json.dumps(mfdata))

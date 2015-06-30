@@ -55,12 +55,12 @@ $(function() {
         $('#printmsg').css('color', '#A51C30');
         $('#printmsg').html('<b>Invalid Sequence Range.</b>');
         return;
-      } else if ( ((end - start) > 10)  && (!emailValid) ){
+      } else if ( ((end - start) >= 10)  && (!emailValid) ){
         $('#printmsg').css('color', '#A51C30');
         $('#printmsg').html('<b>Please limit your page sequence range to a maximum of 10 pages for instant printing or enter your email address to have your larger selection sent to you.</b>');
         return;
       }
-      if ((end - start) > 10) {
+      if ((end - start) >= 10) {
         url = url + '?printOpt=range' + '&start=' + start +
           '&end=' + end + '&email=' + email;
         xmlhttp.open('GET',url,true);
@@ -72,7 +72,7 @@ $(function() {
         window.open(url,'');
       }
     } else  { //all
-      if (totalSeq > 10) {
+      if (totalSeq >= 10) {
         if (emailValid) {
           url = url + '?printOpt=all&email=' + email;
           xmlhttp.open('GET',url,true);
@@ -150,8 +150,14 @@ $(function() {
             drs_id = drs_match && drs_match[1],
             focusType = mirWindow.currentFocus,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
-        if (drs_match && mirWindow.id !== omit_id) {
-          return 'drs:' + drs_id + '$' + n + ftype_alias[focusType]
+        if (mirWindow.id === omit_id) {
+          //pass
+        }
+        else if (drs_match) {
+          return 'drs:' + drs_id + '$' + n + ftype_alias[focusType];
+        }
+        else {
+          return "ext:" + Base64.encode(uri).replace(/\+/g, '-').replace(/\//g, '_') + '$' + n + ftype_alias[focusType];
         }
       }
     });
@@ -457,24 +463,24 @@ $(function() {
     var State = History.getState(); // Note: We are using History.getState() instead of event.state
   });
 
+  var state_replacer = function (e, cvs_data){
+    History.replaceState({}, document.title, constructUrl());
+  };
+
   $.subscribe("windowUpdated", function (e, data){
-    History.replaceState({}, "State change", constructUrl());
-    $.unsubscribe("currentCanvasIDUpdated." + data.id);
-    $.subscribe("currentCanvasIDUpdated." + data.id, function (e, cvs_data){
-      History.replaceState({}, "State change", constructUrl());
-    });
+    History.replaceState({}, document.title, constructUrl());
+    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
   });
 
   $.subscribe("windowAdded", function (e, data) {
-    $.unsubscribe("currentCanvasIDUpdated." + data.id);
-    $.subscribe("currentCanvasIDUpdated." + data.id, function (e, cvs_data){
-      History.replaceState({}, "State change", constructUrl());
-    });
+    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
   });
 
   $.subscribe("windowRemoved", function (e, data) {
-    $.unsubscribe("currentCanvasIDUpdated." + data.id);
-    History.replaceState({}, "State change", constructUrl(data.id));
+    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    History.replaceState({}, document.title, constructUrl(data.id));
   });
 
 

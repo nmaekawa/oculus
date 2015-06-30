@@ -8,6 +8,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'manifests/dev.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'jqwidgets/styles/jqx.base.css' %}">
   <script src="{% static 'manifests/dev/mirador.js' %}"></script>
+  <script src="{% static 'base64.min.js' %}"></script>
   <!-- jqwidgets for search and related links -->
   <script src="{% static 'jqwidgets/jqxcore.js' %}"></script>
   <script src="{% static 'jqwidgets/jqxdata.js' %}"></script>
@@ -105,11 +106,11 @@
          <input type="hidden" name="print_slot_idx" id="print_slot_idx" value="{{ slot_idx }}"/>
          <input type="hidden" name="n" id="n" value="{{ n }}"/>
          <input type="hidden" name="id" id="drs_id" value="{{ drs_id }}"/>
-         <input type="radio" name="printOpt" value="current" id="printOptDefault" checked />&nbsp;Convert current page<br />
-         <input type="radio" name="printOpt" value="range"  />&nbsp;Convert page sequence
+         <label for="printOptDefault"><input type="radio" name="printOpt" value="current" id="printOptDefault" checked />&nbsp;Convert current page</label><br />
+         <label for="printOptSequence"><input type="radio" id="printOptSequence" name="printOpt" value="range"  />&nbsp;Convert page sequence</label>
          <input type="text" id="start" name="start" size="6" onclick="javascript:document.printpds.printOpt[1].checked=true;" value="" /> to
          <input type="text" id="end" name="end" size="6" onclick="javascript:document.printpds.printOpt[1].checked=true;" value=""/><br />
-         <input type="radio" name="printOpt" value="all"  />&nbsp;Convert entire document<br />
+         <label for="printOptEntire"><input type="radio" name="printOpt" id="printOptEntire" value="all"  />&nbsp;Convert entire document</label><br />
          Email address: <input type="text" id="email" name="email" size="50" onclick="" value=""/><br />
 
           <div style="margin-right: 10px; margin-top: 5px;">
@@ -133,7 +134,7 @@
      <header><h3>Related Links</h3></header>
       <ul>
         {{#each links}}
-        <li>{{ type }} <a class="manifest" href="{{ value }}">{{ identifier }}</li>
+        <li>{{ type }} <a class="manifest" href="{{ value }}">{{ identifier }}</a></li>
         {{/each}}
       </ul>
     </div>
