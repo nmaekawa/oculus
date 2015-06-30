@@ -157,7 +157,7 @@ $(function() {
           return 'drs:' + drs_id + '$' + n + ftype_alias[focusType];
         }
         else {
-          return uri.replace(/^https?:\/\//, 'ext:').replace(/\//g, "'") + '$' + n + ftype_alias[focusType];
+          return "ext:" + Base64.encode(uri, true) + '$' + n + ftype_alias[focusType];
         }
       }
     });
