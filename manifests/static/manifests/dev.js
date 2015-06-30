@@ -97,7 +97,6 @@ $(function() {
     "id": "viewer",
     "layout": l.LAYOUT,
     "saveSession": false,
-    'logosLocation' : '/static/dev/images/logos/',
     "mainMenuSettings" : {
       "buttons": { bookmark: false},
       "userButtons": [
