@@ -464,23 +464,23 @@ $(function() {
     var State = History.getState(); // Note: We are using History.getState() instead of event.state
   });
 
+  var state_replacer = function (e, cvs_data){
+    History.replaceState({}, "State change", constructUrl());
+  };
+
   $.subscribe("windowUpdated", function (e, data){
     History.replaceState({}, "State change", constructUrl());
-    $.unsubscribe("currentCanvasIDUpdated." + data.id);
-    $.subscribe("currentCanvasIDUpdated." + data.id, function (e, cvs_data){
-      History.replaceState({}, "State change", constructUrl());
-    });
+    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
   });
 
   $.subscribe("windowAdded", function (e, data) {
-    $.unsubscribe("currentCanvasIDUpdated." + data.id);
-    $.subscribe("currentCanvasIDUpdated." + data.id, function (e, cvs_data){
-      History.replaceState({}, "State change", constructUrl());
-    });
+    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
   });
 
   $.subscribe("windowRemoved", function (e, data) {
-    $.unsubscribe("currentCanvasIDUpdated." + data.id);
+    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     History.replaceState({}, "State change", constructUrl(data.id));
   });
 
