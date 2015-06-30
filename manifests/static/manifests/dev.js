@@ -157,7 +157,7 @@ $(function() {
           return 'drs:' + drs_id + '$' + n + ftype_alias[focusType];
         }
         else {
-          return "ext:" + Base64.encode(uri).replace(/+/g, '-').replace(/\//g, '_') + '$' + n + ftype_alias[focusType];
+          return "ext:" + Base64.encode(uri).replace(/\+/g, '-').replace(/\//g, '_') + '$' + n + ftype_alias[focusType];
         }
       }
     });
