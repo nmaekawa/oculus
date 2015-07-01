@@ -12,8 +12,8 @@ $(function() {
   };
 
   //Handlebars comparison handler for related links filtering
-  Handlebars.registerHelper('isLink', function (link) {
-    return link.toLowerCase().indexOf('http');
+  Handlebars.registerHelper('isLink', function (link, options) {
+    return link.toLowerCase().indexOf('http') > -1 ? true : false;
   });
 
   // Compile Handlebars templates into t
