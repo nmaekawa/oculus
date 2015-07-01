@@ -6,17 +6,33 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <link rel="stylesheet" type="text/css" href="{% static 'manifests/prod/css/mirador-combined.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'manifests/prod.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'jqwidgets/styles/jqx.base.css' %}">
+  <script src="{% static 'manifests/prod/mirador.js' %}"></script>
+  <script src="{% static 'base64.min.js' %}"></script>
+  <!-- jqwidgets for search and related links -->
+  <script src="{% static 'jqwidgets/jqxcore.js' %}"></script>
+  <script src="{% static 'jqwidgets/jqxdata.js' %}"></script>
+  <script src="{% static 'jqwidgets/jqxbuttons.js' %}"></script>
+  <script src="{% static 'jqwidgets/jqxscrollbar.js' %}"></script>
+  <script src="{% static 'jqwidgets/jqxmenu.js' %}"></script>
+  <script src="{% static 'jqwidgets/jqxgrid.js' %}"></script>
+  <script src="{% static 'jqwidgets/jqxgrid.selection.js' %}"></script>
+  <script src="{% static 'jqwidgets/jqxexpander.js' %}"></script>
+  <script src="{% static 'jqwidgets/jqxlistbox.js' %}"></script>
+  <script src="{% static 'xml-to-json/jquery.xml2json.js' %}"></script>
   <title>Harvard Mirador Viewer</title>
 </head>
 <body>
   <div id="viewer"></div>
-  <script src="{% static 'manifests/prod/mirador.js' %}"></script>
+
   {% verbatim %}
   <script id="citation-tmpl" type="text/x-handlebars-template">
-    <div title="citation">
+    <div class="dialog" title="citation">
       <header>
         <h3>Resource</h3>
       </header>
+      <p>Please note that a complete citation may require additional information
+      (document date, author name, range of pages/sequence numbers, etc.)</p>
       <ul>
         <li><span class="label plink">Persistent Link</span> <a href="{{{resource.urn}}}">{{resource.urn}}</a></li>
         <li><span class="label desc">Description</span> {{{resource.description}}}</li>
@@ -29,99 +45,105 @@
         <h3>Page</h3>
       </header>
       <ul>
-        <li><span class="label plink">Persistent Link</span> <a href="{{{resource.urn}}}">{{resource.urn}}</a></li>
-        <li><span class="label desc">Description</span> {{{resource.description}}}</li>
+        <li><span class="label plink">Persistent Link</span> <a href="{{{page.urn}}}">{{page.urn}}</a></li>
+        <li><span class="label desc">Description</span> {{{page.description}}}</li>
         <li><span class="label page">Page</span> {{{page.pagelabel}}}</li>
-        <li><span class="label repo">Repository</span> {{{resource.repository}}}</li>
-        <li><span class="label inst">Institution</span> {{{resource.institution}}}</li>
-        <li><span class="label access">Accessed</span> {{{resource.accessed}}}</li>
+        <li><span class="label repo">Repository</span> {{{page.repository}}}</li>
+        <li><span class="label inst">Institution</span> {{{page.institution}}}</li>
+        <li><span class="label access">Accessed</span> {{{page.accessed}}}</li>
       </ul>
     </div>
   </script>
 
   <script id="search-tmpl" type="text/x-handlebars-template">
-    <div title="search">
-      <form id="search">
-        <input name="searchbox" id="searchbox"  size="80"/>
-      </form>
+    <div class="dialog" title="search">
 
-      <div id="searchresults" style="display:none" />
-    </div>
+        <input type="hidden" name="id" id="search_drs_id" value="{{ drs_id }}"/>
+        <input type="hidden" name="current_slot_idx" id="current_slot_idx" value="{{ slot_idx }}"/>
+        <div id="hints"  style="margin-left: auto; margin-right: auto; text-align: center">
+           <i>Hints: Use * as a wildcard. Examples: cat*, oper* and Harv*</i>
+        </div>
+        <div style="text-align: center">
+          <input class='jqx-input' name="searchbox" type="text" id="searchbox" placeholder="" style="width: 800px" />
+        </div>
+        <div id="hits"  style="display:none; margin-left: auto; margin-right: auto; text-align: center"></div>
+        <div id="hitlist" style="display:none; margin-left: auto; margin-right: auto;"></div>
+        <div id="nohits"  style="display:none; margin-left: auto; margin-right: auto; text-align: center">
+            <b>No Search Results Found</b>
+        </div>
+        <div style="float: right;">
+            <input id="clearsearch" type="button" value="Clear" />
+            <input id="searchbutton" type="button" value="Search" />
+        </div>
+
   </script>
 
   <script id="choices-tmpl" type="text/x-handlebars-template">
-    <div title="Choices" class="choices {{ op }}">
-      <header><h2>Displayed Manifests</h2></header>
+    <div title="Choices" class="choices dialog {{ op }}">
+      <header><h3>Displayed Manifests</h3></header>
       <ul>
         {{#each choices}}
-        <li><a class="manifest" data-drs-id="{{ drs_id }}" data-n="{{ n }}" href="#no-op">{{ label }}</a></li>
+        <li><a class="manifest" data-drs-id="{{ drs_id }}" data-n="{{ n }}" data-slot-idx="{{ slot_idx }}" href="#no-op">{{ label } }</a></li>
         {{/each}}
       </ul>
     </div>
   </script>
 
   <script id="print-tmpl" type="text/x-handlebars-template">
-    <div title="Print" class="print {{ op }}">
-      <p class="header">Print Manifest</p>
+    <div title="Print"  class="print dialog {{ op }}" style="margin: 10px; padding: 5px;">
+      <h3>Convert to PDF for Printing</h3>
+       <div>
+        <p>Convert selected pages to PDF so that you can print or save the file to disk.  The service creates PDFs at 10 pages&ndash;per&ndash;minute.  Requests larger than 500 pages can take an hour or more to process.  The link to your PDF will remain active for 7 days.</p>
 
+        <p style="color: #A51C30; font-weight: bold;">Requests for 10 pages or less will be delivered to your browser immediately. For larger requests, please enter an email address and a link to the PDF will be delivered by email.</p>
+        <p><span style="font-weight: bold;">Firefox users:</span> To open large PDFs, go to Tools &gt; Options &gt; Applications and set Firefox to open Adobe Documents in Adobe Acrobat (not in "Adobe Acrobat in Firefox").</p>
+       </div>
 
-      <table width="100%" border="0" cellspacing="15">
-        <tr valign="top">
-          <td width="30%">
-            <strong>Convert to PDF</strong> creates a PDF file for the selected pages.
-            You can print the PDF or save it to disk.
-            <p>
-              This service creates PDFs at 10 pages-per-minute.
-              Requests larger than 500 pages can take an hour or more to process.
-              <p>
-                The link to your PDF will remain active for 7 days.
+       <div id="printmsg" style="text-align: center">&nbsp;</div>
 
-          </td><td>
-            <form name="print" action="/pds/print/732241">
-              <input type="hidden" name="n" value="{{ n }}"/>
-              <input type="hidden" name="id" value="{{ drs_id }}"/>
-              <table width="100%" border="0"  cellpadding="6" cellspacing="0">
-                <tr>
-                  <td align="left">
-                    <div class="textsmallred"><small>Requests for 10 pages or less will be delivered to your browser immediately. For larger requests, please enter an email address and a link to the PDF will be delivered by email.
-                      <p>
-                        <u>Firefox users</u>: To open large PDFs, go to Tools &gt; Options &gt; Applications and set Firefox to open Adobe Documents in Adobe Acrobat (not in "Adobe Acrobat in Firefox").
+       <div style="border: 1px #999 solid; background-color: #CCC; line-height: 200%; margin: 10px; padding: 20px;">
+         <form name="printpds" id="printpds" onsubmit="event.preventDefault(); return false">
+         <input type="hidden" name="print_slot_idx" id="print_slot_idx" value="{{ slot_idx }}"/>
+         <input type="hidden" name="n" id="n" value="{{ n }}"/>
+         <input type="hidden" name="id" id="drs_id" value="{{ drs_id }}"/>
+         <label for="printOptDefault"><input type="radio" name="printOpt" value="current" id="printOptDefault" checked />&nbsp;Convert current page</label><br />
+         <label for="printOptSequence"><input type="radio" id="printOptSequence" name="printOpt" value="range"  />&nbsp;Convert page sequence</label>
+         <input type="text" id="start" name="start" size="6" onclick="javascript:document.printpds.printOpt[1].checked=true;" value="" /> to
+         <input type="text" id="end" name="end" size="6" onclick="javascript:document.printpds.printOpt[1].checked=true;" value=""/><br />
+         <label for="printOptEntire"><input type="radio" name="printOpt" id="printOptEntire" value="all"  />&nbsp;Convert entire document</label><br />
+         Email address: <input type="text" id="email" name="email" size="50" onclick="" value=""/><br />
 
+          <div style="margin-right: 10px; margin-top: 5px;">
+            <input type="button"  value="Clear Form"    id="pdsclear" name="pdsclear" />
+            <input type="submit"  value="Convert"   id="pdssubmit" name="pdssubmit"/>
+          </div>
+         </form>
+       </div>
+     </div>
+  </script>
 
-                        <small></div><hr/>
-                  </td></tr>
-                <tr> <td>
-                  <input type="radio" name="printOpt" value="current" checked />Convert current page
-                </td></tr>
-                <tr><td >
-                  <input type="radio" name="printOpt" value="range"  />Convert page sequence
-                  <input type="text" name="start" size="6" onclick="javascript:document.print.printOpt[1].checked=true;" value="" /> to
-                  <input type="text" name="end" size="6" onclick="javascript:document.print.printOpt[1].checked=true;" value=""/>
-                </td></tr>
-                <tr><td >
-                  <input type="radio" name="printOpt" value="all"  />Convert entire document
-                </td></tr>
-                <tr><td>
-                  Email address: <input type="text" name="email" size="32" onclick="" value=""/>
-                </td></tr>
+  <script id="viewtext-tmpl" type="text/x-handlebars-template">
+     <div title="viewtext" class="viewtext dialog {{ op }}">
+        <h3>View Text</h3>
+          <div>{{ text }}</div>
+     </div>
+  </script>
 
-              </table>
-              <br/>
-              <table border="0" width="100%" align="center"><tr align="right"><td>
-                <div>
-                  <input type="submit"  class="buttonhighlightred" value="   Convert   "  onclick="" name="pdssubmit"/>
-                </div></td></tr></table></form></td></tr></table>
-
-
-
+  <script id="links-tmpl" type="text/x-handlebars-template">
+    <div title="links" class="links dialog {{ op }}">
+     <header><h3>Related Links</h3></header>
+      <ul>
+        {{#each links}}
+        <li>{{{ type }}} {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}}{{{ identifier }}}{{#isLink value}}</a>{{/isLink}}</li>
+        {{/each}}
+      </ul>
     </div>
   </script>
+
   {% endverbatim %}
   <script type="text/javascript">
    window.harvard_md_server = {
      PDS_VIEW_URL: "{{ pds_view_url }}",
-     PDS_PRINT_URL: "http://pdstest.hul.harvard.edu/pds/printpdf/",
-     PDS_SEARCH_URL: "http://pdstest.hul.harvard.edu/pds/find/",
      MIRADOR_DATA: [
        {% autoescape off %}
        {{ manifests_data|join:"," }}
@@ -135,6 +157,7 @@
      LAYOUT: "{{ layout_string }}"
    };
   </script>
+  <script type="text/javascript" src="{% static 'jquery.history.js' %}"></script>
   <script type="text/javascript" src="{% static 'manifests/prod.js' %}"></script>
 </body>
 </html>
