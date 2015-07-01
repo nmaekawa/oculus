@@ -194,7 +194,7 @@ $(function() {
       }
       // else omit manifest because we don't know how to cite/view it
     });
-    if (choices.length == 1) {{
+    if (choices.length == 1) {
       operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_idx);
     }
     else {
