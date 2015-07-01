@@ -258,7 +258,7 @@ $(function() {
         $dialog = $('<div id="search-modal" style="display:none" />');
         $dialog.html(t['search-tmpl'](content));
         $dialog
-          .dialog($.extend(dialogBaseOpts))
+          .dialog($.extend({title: "Search"}, dialogBaseOpts))
           .dialog('open');
 
         //init search grid and data sources
@@ -396,7 +396,7 @@ $(function() {
         $dialog = $('<div id="print-modal" style="display:none" />');
         $dialog.html(t['print-tmpl'](content));
         $dialog
-          .dialog($.extend(dialogBaseOpts))
+          .dialog($.extend({title: "Convert to PDF for Printing"}, dialogBaseOpts))
           .dialog('open');
 
         //set default print range max/min values
@@ -436,7 +436,7 @@ $(function() {
             $dialog.html(t['links-tmpl']({links: json.link, op: "links"}));
             $dialog.appendTo('body');
             $dialog
-                .dialog($.extend(dialogBaseOpts))
+                .dialog($.extend({title: 'Related Links'}, dialogBaseOpts))
                 .dialog('open');
           }
         }); //TODO: Else graceful error display
@@ -456,7 +456,7 @@ $(function() {
             $dialog.html(t['viewtext-tmpl']({op: "viewtext", text: json.text}));
             $dialog.appendTo('body');
             $dialog
-                .dialog($.extend(dialogBaseOpts))
+                .dialog($.extend({title: 'View Text'}, dialogBaseOpts))
                 .dialog('open');
           }
         }); //TODO: Else graceful error display
