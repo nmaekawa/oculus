@@ -194,12 +194,8 @@ $(function() {
       }
       // else omit manifest because we don't know how to cite/view it
     });
-    if (choices.length == 1) {
-      if ((op === 'search') || (op === 'print')){
-        operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_idx);
-      } else {
-        operations[op](choices[0].drs_id, choices[0].n);
-      }
+    if (choices.length == 1) {{
+      operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_idx);
     }
     else {
       var $dialog = $('#choice-modal');
@@ -214,21 +210,17 @@ $(function() {
         $dialog.find('a').on('click', function (e) {
           e.preventDefault();
           $dialog.dialog('close');
-          if ((op === 'search') || (op === 'print')){
-            operations[op]($(e.currentTarget).data('drs-id'), $(e.currentTarget).data('n'),
-              $(e.currentTarget).data('slot_idx'));
-          } else {
-            operations[op]($(e.currentTarget).data('drs-id'), $(e.currentTarget).data('n'));
-          }
+          operations[op]($(e.currentTarget).data('drs-id'), $(e.currentTarget).data('n'),
+            $(e.currentTarget).data('slot_idx'));
         });
       }
     }
   };
   var operations = {
-    "view-in-pds": function (drs_id, n) {
+    "view-in-pds": function (drs_id, n, slot_idx) {
       window.open(l.PDS_VIEW_URL + drs_id + "?n=" + n);
     },
-    "cite": function (drs_id, n) {
+    "cite": function (drs_id, n, slot_idx) {
       var $dialog = $('#citation-modal');
 
       if ($dialog.get().length > 0) {
@@ -419,7 +411,7 @@ $(function() {
         });
       }
     },
-    "links": function (drs_id, n) {
+    "links": function (drs_id, n, slot_idx) {
       var $dialog = $('#links-modal');
 
       if ($dialog.get().length > 0) {
@@ -442,7 +434,7 @@ $(function() {
         }); //TODO: Else graceful error display
       }
     },
-    "viewtext": function (drs_id, n) {
+    "viewtext": function (drs_id, n, slot_idx) {
       var $dialog = $('#viewtext-modal');
 
       if ($dialog.get().length > 0) {
