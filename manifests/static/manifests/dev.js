@@ -11,6 +11,11 @@ $(function() {
     close: function (e) { $(this).remove()}
   };
 
+  //Handlebars comparison handler for related links filtering
+  Handlebars.registerHelper('isLink', function (link) {
+    return link.toLowerCase().indexOf('http');
+  });
+
   // Compile Handlebars templates into t
   var t = {};
   $('script[type="text/x-handlebars-template"]').each(function () {
