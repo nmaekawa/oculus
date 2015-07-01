@@ -211,7 +211,7 @@ $(function() {
           e.preventDefault();
           $dialog.dialog('close');
           operations[op]($(e.currentTarget).data('drs-id'), $(e.currentTarget).data('n'),
-            $(e.currentTarget).data('slot_idx'));
+            $(e.currentTarget).data('slot-idx'));
         });
       }
     }
