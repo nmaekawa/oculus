@@ -134,7 +134,7 @@
      <header><h3>Related Links</h3></header>
       <ul>
         {{#each links}}
-        <li>{{{ type }}} {{#if ./value}}<a class="manifest" href="{{{ value }}}">{{/if}}{{{ identifier }}}{{#if ./value}}</a>{{/if}}</li>
+        <li>{{{ type }}} {{#isLink value }}<a class="manifest" href="{{{ value }}}">{{/isLink}}{{{ identifier }}}{{#isLink value}}</a>{{/isLink}}</li>
         {{/each}}
       </ul>
     </div>
