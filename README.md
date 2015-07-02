@@ -44,3 +44,7 @@ DEBUG=True                                              # Only in development - 
 ELASTICSEARCH_URL=localhost:9200                        # omit for default
 ELASTICSEARCH_INDEX=manifests                           # omit for default
 ```
+
+## Dev Notes
+
+Additional notes of interest to developers located [here](DEV_NOTES.md).
