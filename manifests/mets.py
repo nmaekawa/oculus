@@ -106,7 +106,7 @@ def get_rangeKey(div):
                         else:
                                 return "{0}, p. {1} {2}".format(label, pn, seq_s)
                 elif not label and pn:
-                        return "p. {0} {2}".format(pn, seq_s)
+                        return "p. {0} {1}".format(pn, seq_s)
                 elif label and not pn:
                         return "{0} {1}".format(label, seq_s)
                 else:
