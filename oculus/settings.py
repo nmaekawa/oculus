@@ -45,7 +45,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'manifests',
-    'hx_lti_initializer'
+    #'hx_lti_initializer'
+    'hx-basic-lti'
 )
 
 MIDDLEWARE_CLASSES = (

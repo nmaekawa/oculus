@@ -1,0 +1,70 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<script src="{% static "vendors/mirador/mirador.js" %}"></script>
+<link rel="stylesheet" href="{% static "vendors/mirador/css/mirador-combined.css" %}">
+<style type="text/css">
+    #viewer { width: 100%; height: 100%; }
+  </style>
+  </head>
+  <body>
+<div id="viewer"></div>
+
+<script>
+$(function() {
+      Mirador({
+        "id": "viewer",
+        "mainMenuSettings" : {
+           'show' : false
+        },
+        "buildPath" : "{% static "vendors/mirador/" %}",
+        "layout" : "{{ layout }}",
+        "saveSession" : false,
+        "data": [
+        {% for i in objects %}
+        { "manifestUri": "{{ i }}", "location": "Harvard University"},
+        {% endfor %}
+        ],
+        "windowObjects": [
+        {% for key,value in object_canvas_ids.items %}
+          {
+            "loadedManifest": "{{ key }}",
+            "viewType" : "{{ view_type }}",
+            "canvasID" : "{{ value }}",
+            "annotationLayer" : {{ show_annotations }},
+            "annotationCreation" : {{ show_annotation_creation }},
+            "annotationState" : 'annoOnCreateOff',
+              "sidePanel" : false,
+            "fullScreen" : false,
+            "layoutOptions" : 
+             {
+             "newObject" : true,
+             "close" : false,
+             "slotRight" : false,
+             "slotLeft" : false,
+             "slotAbove" : false,
+             "slotBelow" : false
+             }
+          },
+        {% endfor %}
+        ],
+        "annotationEndpoint": 
+          {
+          "name":"Harvard CATCH Production",
+          "module": "CatchEndpoint",
+          "options": {
+            token: "{{ token }}",
+            // The endpoint of the store on your server.
+            prefix: "https://catchpy.harvardx.harvard.edu/catch/annotator",
+            userid : "{{ user_id }}",
+            username : "{{ username }}",
+            collection_id : "{{ collection }}",
+            context_id : "{{ course }}",
+          }
+        }
+      });
+    });
+</script>
+</body>
+</html>
