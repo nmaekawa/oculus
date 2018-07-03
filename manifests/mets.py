@@ -151,6 +151,12 @@ def main(data, document_id, source, host):
 
 	manifestLabel = dom.xpath('/mets:mets/@LABEL', namespaces=ALLNS)[0]
 	manifestType = dom.xpath('/mets:mets/@TYPE', namespaces=ALLNS)[0]
+	manifestDescription = dom.xpath('/mets:mets/mets:dmdSec/mets:mdWrap/mets:xmlData/mods:mods/mods:physicalDescription/mods:extent/text()', namespaces=ALLNS)
+        manifestMetadata = {}
+	notes = ""
+	for n in dom.xpath('/mets:mets/mets:dmdSec/mets:mdWrap/mets:xmlData/mods:mods/mods:note/text()', namespaces=ALLNS):
+		notes = notes + n + '<br/>'
+	manifestMetadata['Notes'] = notes
 
 	if manifestType in ["PAGEDOBJECT", "PDS DOCUMENT"]:
 		viewingHint = "paged"
@@ -209,6 +215,7 @@ def main(data, document_id, source, host):
 		"@id": manifest_uri,
 		"@type":"sc:Manifest",
 		"label":manifestLabel,
+		"description":manifestDescription,
 		"attribution":attribution,
 		"logo": LOGO,
 		"sequences": [
@@ -224,6 +231,10 @@ def main(data, document_id, source, host):
 
 	if (related != ""):
 		mfjson["related"] = related
+	metadata = []
+	for m in manifestMetadata:
+		metadata.append({"label":m, "value":manifestMetadata[m]})
+	mfjson['metadata'] = metadata
 
 	canvases = []
 	for cvs in canvasInfo:
